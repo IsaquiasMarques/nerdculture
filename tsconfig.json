@@ -5,6 +5,17 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@app-components/*": [ "app/components/*" ],
+      "@home/*": [ "app/pages/home/*" ],
+      "@podnerd/*": [ "app/pages/podnerd/*" ],
+      "@contents/*": [ "app/pages/contents/*" ],
+      "@posts/*": [ "app/pages/posts/*" ],
+      "@post/*": [ "app/pages/post/*" ],
+      "@contact-us/*": [ "app/pages/contact-us/*" ],
+      "@shared/*": [ "app/shared/*" ]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

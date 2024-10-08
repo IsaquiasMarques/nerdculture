@@ -1,0 +1,13 @@
+<div class="hero-container relative h-[579px] xs:h-[750px]">
+    <div class="backdrop-blured-image relative z-[1] w-full h-full">
+        <div class="img w-full h-full">
+            <img [src]="this.backgroundImage()" class="w-full h-full object-cover object-center" alt="">
+        </div>
+        <div
+        [class]="this.backgroundColor()"
+        class="w-full h-full absolute top-0 left-0 backdrop-blur-[74px]"></div>
+    </div>
+    <div class="content-wrapper absolute top-0 left-0 w-full h-full flex justify-center items-center z-[2]">
+        <ng-content></ng-content>
+    </div>
+</div>

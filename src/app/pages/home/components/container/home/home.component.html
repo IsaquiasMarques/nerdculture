@@ -1,4 +1,4 @@
-<div class="page-content-wrapper">
+<div class="page-content-wrapper flex flex-col gap-[1.875rem]">
     <div class="hero-section">
         <app-hero
         [backgroundImage]="'assets/static/images/home/hero-2.jpg'"
@@ -51,5 +51,25 @@
                 </div>
             </div>
         </app-hero>
+    </div>
+    <div class="partners-section">
+        <app-partners [partners]="partners" />
+    </div>
+    <div class="about-us-section">
+        <app-about-us />
+    </div>
+    <div class="team-section">
+        <app-team
+        [members]="this.teamMembers"
+        />
+    </div>
+    <div class="podners-section">
+        <app-podcasts [podcasts]="podcasts" />
+    </div>
+    <div class="latest-posts">
+        <app-latest-posts
+        [posts]="posts"
+        [categories]="categories"
+        />
     </div>
 </div>

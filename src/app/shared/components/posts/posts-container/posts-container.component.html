@@ -1,0 +1,7 @@
+<div class="posts-container flex flex-col gap-y-[30px] justify-center items-center">
+    @for (post of posts(); track $index) {
+        <app-post-template
+        [post]="post"
+        />
+    }
+</div>

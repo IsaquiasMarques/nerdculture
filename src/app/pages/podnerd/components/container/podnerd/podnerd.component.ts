@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Theme, ThemeService } from '@shared/services/theme.service';
 
 @Component({
   selector: 'app-podnerd',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './podnerd.component.css'
 })
 export class PodnerdComponent {
-
+  theme = Theme;
+  private themeService = inject(ThemeService).changeTheme(this.theme.PODNERD);
 }

@@ -1,5 +1,12 @@
 <div class="site-container">
-  <div class="sticky-header w-full fixed top-0 z-[100]">
+  <div
+  class="sticky-header backdrop-blur-[74px] w-full fixed top-0 z-[100]"
+  [ngClass]="{
+    'bg-[#0A0424]/60' : themeService.themePage$() === theme.HOME,
+    'bg-[#0D6594]/60' : themeService.themePage$() === theme.PODNERD,
+    'bg-[white]/60' : themeService.themePage$() === theme.WHITE,
+  }"
+  >
     <app-header />
   </div>
   <div class="content-wrapper">

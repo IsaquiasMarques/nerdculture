@@ -1,0 +1,70 @@
+ @if (this.templateSize() === 'long') {
+     <div class="box w-full xlw-[18.75rem] flex flex-col gap-2">
+         <div class="image">
+             <img [src]="podcast().image" alt="">
+         </div>
+         <div class="tiny-details flex gap-4 justify-start items-center">
+             <div class="episode">
+                 <p class="text-xs xs:text-base font-semibold text-[#0A042A]/80">
+                     Episódio: <span class="font-medium">{{ podcast().episode }}</span>
+                 </p>
+             </div>
+             <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <rect y="0.620605" width="5" height="5" fill="#BBBBBB"/>
+             </svg>
+             <div class="duration">
+                 <p class="text-xs xs:text-base font-semibold text-[#0A042A]/80">
+                     Duração: <span class="font-medium">{{ podcast().duration }}</span>
+                 </p>
+             </div>
+         </div>
+         <div class="main-details flex justify-between items-center">
+             <div class="podcast-title">
+                 <p class="text-secondary font-medium xs:font-semibold text-sm xs:text-lg xs:leading-6 line-clamp-3">
+                     {{ podcast().title }}
+                 </p>
+             </div>
+             <div class="button">
+                 <button class="">
+                     <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <rect y="0.120605" width="44" height="44" rx="22" fill="#14498C"/>
+                         <path d="M29.8407 19.9145C31.6089 20.8761 31.6089 23.3653 29.8407 24.3269L19.164 30.1328C17.4455 31.0674 15.3335 29.8509 15.3335 27.9266V16.3148C15.3335 14.3904 17.4455 13.174 19.164 14.1086L29.8407 19.9145Z" fill="white"/>
+                     </svg>
+                 </button>
+             </div>
+         </div>
+     </div>
+ } @else {
+    <div class="box w-full h-[100px] bg-transparent border border-white/10 rounded-2xl px-5 py-[10px] flex flex-row gap-[10px] justify-start items-center">
+        <div class="play-icon">
+            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="52" height="52" rx="26" fill="white" fill-opacity="0.31"/>
+                <path d="M33.8405 23.7938C35.6087 24.7554 35.6087 27.2446 33.8405 28.2062L23.1638 34.0121C21.4453 34.9467 19.3333 33.7302 19.3333 31.8059V20.1941C19.3333 18.2697 21.4453 17.0533 23.1638 17.9879L33.8405 23.7938Z" fill="#12478D" fill-opacity="0.6"/>
+            </svg>
+        </div>
+        <div class="details">
+            <div class="main-details flex justify-between items-center">
+                <div class="podcast-title">
+                    <p class="text-white font-medium xs:font-semibold text-sm xs:text-base line-clamp-2">
+                        {{ podcast().title }}
+                    </p>
+                </div>
+            </div>
+            <div class="tiny-details flex gap-4 justify-start items-center">
+                <div class="episode">
+                    <p class="text-xs xs:text-base font-semibold text-white/70">
+                        Episódio: <span class="font-medium">{{ podcast().episode }}</span>
+                    </p>
+                </div>
+                <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect y="0.5" width="5" height="5" fill="white" fill-opacity="0.4"/>
+                </svg>
+                <div class="duration">
+                    <p class="text-xs xs:text-base font-semibold text-white/70">
+                        Duração: <span class="font-medium">{{ podcast().duration }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+ }

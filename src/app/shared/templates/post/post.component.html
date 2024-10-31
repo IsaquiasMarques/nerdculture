@@ -1,0 +1,64 @@
+@if (templateSize() == 'long') {
+    <div class="box xs:max-w-[350px] flex flex-col gap-2">
+        <div class="top-content flex flex-col gap-3">
+            <div class="image w-full h-[235px]">
+                <!-- <img [src]="'assets/images/posts/post-1.png'" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação: ' + post().title"> -->
+                <img [src]="post().image.medium" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação'">
+            </div>
+            <div class="tiny-details flex justify-between items-center">
+                <div class="created-at">
+                    <p class="text-sm font-semibold text-[#686868]/75 text-left">
+                        {{ post().created_at | friendlyFormat }}
+                    </p>
+                </div>
+                <div class="categories flex justify-start items-center">
+                    @if (post().categories[0]) {
+                        @let firstCategory = post().categories[0];
+                        <div
+                        class="chip p-[10px] z-[1] text-sm font-semibold w-fit border rounded-full"
+                        [style.color]="firstCategory.color"
+                        [style.borderColor]="firstCategory.color"
+                        >
+                            {{ firstCategory.name }}
+                        </div>
+                    }
+                    @if (post().categories.slice(1).length > 0) {
+                        @let remainingCategories = post().categories.slice(1).length;
+                        <div class="chip p-[10px] bg-white min-w-[42px] h-[42px] -ml-[7px] flex justify-center items-center z-[2] text-sm font-semibold text-secondary border border-secondary rounded-full">
+                            +{{ remainingCategories }}
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="title">
+                <a [routerLink]="['/']" class="font-semibold text-base text-secondary line-clamp-2">
+                    {{ post().title }}
+                </a>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="author">
+                <p class="text-sm text-gray">Por: {{ post().author }}</p>
+            </div>
+        </div>
+    </div>
+} @else {
+    <div class="box flex gap-[10px] w-full">
+        <div class="image min-w-[85px] h-[85px]">
+            <img [src]="post().image.thumbnail" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação'">
+            <!-- <img [src]="'assets/images/posts/post-1.png'" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação: ' + post().title"> -->
+        </div>
+        <div class="description max-w--[190px] flex flex-col justify-between gap-y-[0px]">
+            <div class="title">
+                <h2 class="text-base leading-5 font-semibold text-secondary">
+                    {{ post().title }} 
+                </h2>
+            </div>
+            <div class="created_at">
+                <p class="text-sm font-semibold text-[#686868]/75 text-left">
+                    {{ post().created_at | friendlyFormat }}
+                </p>
+            </div>
+        </div>
+    </div>
+}

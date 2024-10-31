@@ -1,9 +1,12 @@
 import { Component, input } from '@angular/core';
+import { HeroHeightDirective } from './directives/hero-height.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [],
+  hostDirectives: [
+    { directive: HeroHeightDirective, inputs: ['heightInput'] },
+  ],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })

@@ -1,0 +1,96 @@
+<div class="section-content">
+    <div class="limited-container">
+        <div class="header-content flex flex-col gap-y-5">
+            <div class="title" #titleElementRef>
+                <h1 class="text-secondary text-[1.25rem] font-bold text-left">Encontre as pessoas que dão vida à NerdCulture</h1>
+            </div>
+            <div class="description">
+                <p class="text-base text-gray text-left">Dedicada a conectar entusiastas de tecnologia e entretenimento, a nossa equipe organiza eventos ao vivo, modera comunidades online vibrantes e garante que nossos membros tenham acesso a conteúdos exclusivos e experiências envolventes.</p>
+            </div>
+        </div>
+        <!-- DESKTOP -->
+        <!-- <div class="members-container w-full">
+            <div class="members-scroller overflow-x-auto w-full">
+                <div class="scoller-container w-fit px-"></div>
+            </div>
+        </div> -->
+    </div>
+    <!-- MOBILE -->
+    <div class="members-container w-full mt-[30px]">
+        <div class="members-scroller overflow-x-auto w-full">
+            <div
+            [style.paddingLeft.px]="mobileScrollerContainerPaddingX()"
+            [style.paddingRight.px]="mobileScrollerContainerPaddingX()"
+            class="scoller-container w-fit flex gap-4 justify-start items-center">
+
+                @for (member of members(); track $index) {
+                    <div class="box w-[12.313rem] flex flex-col gap-y-[10px] border border-[#E6E6E6] p-4 rounded-[10px]">
+                        <div class="member-image rounded-[5px] overflow-hidden w-full h-[133px]">
+                            <img
+                            class="w-full h-full object-cover object-center"
+                            [src]="member.image"
+                            [alt]="'Imagem de '+ member.name">
+                        </div>
+                        <div class="member-details">
+                            <p class="role w-full line-clamp-1 mb-[5px] text-xs font-medium">{{ member.role }}</p>
+                            <h4 class="text-secondary text-[1.25rem] font-bold line-clamp-2">{{ member.name }}</h4>
+                            <div class="social-medias flex gap-[10px] mt-[10px] justify-start items-center">
+                                @if (member.facebook) {
+                                    <div class="facebook">
+                                        <a href="" target="_blank">
+                                            <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect y="0.620605" width="26" height="26" rx="3" fill="#00BAEE"/>
+                                                <g clip-path="url(#clip0_497_4958)">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.457 21.6206V14.4206H16.6429L17 11.2206H14.457V9.66201C14.457 8.83801 14.4781 8.02061 15.6295 8.02061H16.7958V5.73271C16.7958 5.69831 15.794 5.62061 14.7805 5.62061C12.664 5.62061 11.3387 6.94636 11.3387 9.38076V11.2206H9V14.4206H11.3387V21.6206H14.457Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_497_4958">
+                                                <rect width="16" height="16" fill="white" transform="translate(5 5.62061)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                }
+                                @if (member.instagram) {
+                                    <div class="instagram">
+                                        <a href="" target="_blank">
+                                            <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect y="0.620605" width="26" height="26" rx="3" fill="#00BAEE"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13 17.6206C15.2091 17.6206 17 15.8297 17 13.6206C17 11.4115 15.2091 9.62061 13 9.62061C10.7909 9.62061 9 11.4115 9 13.6206C9 15.8297 10.7909 17.6206 13 17.6206ZM13 16.2873C14.4727 16.2873 15.6667 15.0933 15.6667 13.6206C15.6667 12.1478 14.4727 10.9539 13 10.9539C11.5272 10.9539 10.3333 12.1478 10.3333 13.6206C10.3333 15.0933 11.5272 16.2873 13 16.2873Z" fill="white"/>
+                                                <path d="M17.0002 8.95398C16.632 8.95398 16.3335 9.25246 16.3335 9.62065C16.3335 9.98883 16.632 10.2873 17.0002 10.2873C17.3684 10.2873 17.6668 9.98883 17.6668 9.62065C17.6668 9.25246 17.3684 8.95398 17.0002 8.95398Z" fill="white"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.10248 8.47127C5.6665 9.32692 5.6665 10.447 5.6665 12.6872V14.5539C5.6665 16.7941 5.6665 17.9142 6.10248 18.7698C6.48597 19.5225 7.09789 20.1344 7.85054 20.5179C8.70619 20.9539 9.8263 20.9539 12.0665 20.9539H13.9332C16.1734 20.9539 17.2935 20.9539 18.1491 20.5179C18.9018 20.1344 19.5137 19.5225 19.8972 18.7698C20.3332 17.9142 20.3332 16.7941 20.3332 14.5539V12.6872C20.3332 10.447 20.3332 9.32692 19.8972 8.47127C19.5137 7.71862 18.9018 7.1067 18.1491 6.7232C17.2935 6.28723 16.1734 6.28723 13.9332 6.28723H12.0665C9.8263 6.28723 8.70619 6.28723 7.85054 6.7232C7.09789 7.1067 6.48597 7.71862 6.10248 8.47127ZM13.9332 7.62056H12.0665C10.9244 7.62056 10.148 7.6216 9.54789 7.67063C8.96333 7.71839 8.6644 7.80496 8.45586 7.91121C7.9541 8.16688 7.54615 8.57483 7.29048 9.07659C7.18423 9.28513 7.09766 9.58406 7.0499 10.1686C7.00088 10.7687 6.99984 11.5451 6.99984 12.6872V14.5539C6.99984 15.696 7.00088 16.4724 7.0499 17.0725C7.09766 17.6571 7.18423 17.956 7.29048 18.1646C7.54615 18.6663 7.9541 19.0742 8.45586 19.3299C8.6644 19.4362 8.96333 19.5228 9.54789 19.5705C10.148 19.6195 10.9244 19.6206 12.0665 19.6206H13.9332C15.0753 19.6206 15.8516 19.6195 16.4518 19.5705C17.0364 19.5228 17.3353 19.4362 17.5438 19.3299C18.0456 19.0742 18.4535 18.6663 18.7092 18.1646C18.8154 17.956 18.902 17.6571 18.9498 17.0725C18.9988 16.4724 18.9998 15.696 18.9998 14.5539V12.6872C18.9998 11.5451 18.9988 10.7687 18.9498 10.1686C18.902 9.58406 18.8154 9.28513 18.7092 9.07659C18.4535 8.57483 18.0456 8.16688 17.5438 7.91121C17.3353 7.80496 17.0364 7.71839 16.4518 7.67063C15.8516 7.6216 15.0753 7.62056 13.9332 7.62056Z" fill="white"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                }
+                                @if (member.linkedin) {
+                                    <div class="linkedin">
+                                        <a href="" target="_blank">
+                                            <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect y="0.620605" width="26" height="26" rx="3" fill="#00BAEE"/>
+                                                <g clip-path="url(#clip0_497_4969)">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M21 21.6206H17.8V16.0214C17.8 14.4854 17.1224 13.6284 15.9072 13.6284C14.5848 13.6284 13.8 14.5214 13.8 16.0214V21.6206H10.6V11.2206H13.8V12.3901C13.8 12.3901 14.804 10.6284 17.0664 10.6284C19.3296 10.6284 21 12.0095 21 14.8671V21.6206ZM6.9536 9.55732C5.8744 9.55732 5 8.67577 5 7.58857C5 6.50217 5.8744 5.62061 6.9536 5.62061C8.032 5.62061 8.9064 6.50217 8.9064 7.58857C8.9072 8.67577 8.032 9.55732 6.9536 9.55732ZM5 21.6206H9V11.2206H5V21.6206Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_497_4969">
+                                                <rect width="16" height="16" fill="white" transform="translate(5 5.62061)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                } @empty {
+                    <p class="text-gray">
+                        Sem dados a exibir nesta seção
+                    </p>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

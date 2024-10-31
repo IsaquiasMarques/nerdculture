@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "serve:dev": "ng serve --configuration=development",
+    "serve:prod": "ng serve --configuration=production",
     "serve:ssr:nerdculture": "node dist/nerdculture/server/server.mjs"
   },
   "private": true,

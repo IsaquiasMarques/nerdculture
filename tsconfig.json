@@ -14,7 +14,8 @@
       "@posts/*": [ "app/pages/posts/*" ],
       "@post/*": [ "app/pages/post/*" ],
       "@contact-us/*": [ "app/pages/contact-us/*" ],
-      "@shared/*": [ "app/shared/*" ]
+      "@shared/*": [ "app/shared/*" ],
+      "@core/*": [ "app/core/*" ],
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

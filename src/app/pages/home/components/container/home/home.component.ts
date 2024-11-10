@@ -37,8 +37,7 @@ export class HomeComponent implements OnInit {
   private postFacade = inject(PostFacade);
   private categoryFacade = inject(CategoryFacade);
 
-  theme = Theme;
-  private themeService = inject(ThemeService).changeTheme(this.theme.HOME);
+  private themeService = inject(ThemeService).changeTheme(Theme.HOME);
 
   partners: Partner[] = [];
   teamMembers: TeamMember[] = [];

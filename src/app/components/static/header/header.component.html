@@ -4,11 +4,21 @@
             <img src="assets/static/logo-01.png" alt="" class="">
         </div>
         <div class="menu h-[30px]">
-            <button class="">
+            <button class="md:hidden">
                 <svg width="30" height="30" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 7.92859H25M5 15.4286H25M5 22.9286H25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
+            <div class="nav hidden md:block">
+                <nav class="">
+                    <ul class=" flex gap-6 justify-start items-center">
+                        <li><a [routerLink]="['/']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Nerd Culture</a></li>
+                        <li><a [routerLink]="['/podnerd']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Podnerd</a></li>
+                        <li><a [routerLink]="['/contents']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Conteúdos</a></li>
+                        <li><a [routerLink]="['/contact-us']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Entre em contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>

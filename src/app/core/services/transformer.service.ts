@@ -78,9 +78,9 @@ export class Transformer{
                 content: i.content.rendered,
                 excerpt: i.excerpt.rendered,
                 image: {
-                    full: i.images_size_custom.fullImageSize,
-                    medium: i.images_size_custom.mediumImageSize,
-                    thumbnail: i.images_size_custom.thumbnailImageSize
+                    full: i.images_size_custom.fullImageSize ? i.images_size_custom.fullImageSize : 'assets/static/images/posts/no-image.jpg',
+                    medium: i.images_size_custom.mediumImageSize ? i.images_size_custom.mediumImageSize : 'assets/static/images/posts/no-image.jpg',
+                    thumbnail: i.images_size_custom.thumbnailImageSize ? i.images_size_custom.thumbnailImageSize : 'assets/static/images/posts/no-image.jpg'
                 },
                 created_at: i.date,
                 author: i._embedded.author[FIRST_ITEM].name,

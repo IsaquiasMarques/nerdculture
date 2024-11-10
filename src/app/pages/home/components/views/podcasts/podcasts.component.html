@@ -1,40 +1,43 @@
 <div class="section-content bg-[#F8F8F8]">
     <div class="original-content">
-        <div
-        [style.paddingLeft.px]="originalContentPaddingX()"
-        [style.paddingRight.px]="originalContentPaddingX()"
-        class="section-descriptions py-[1.875rem]"
-        >
-            <div class="details py-[10px]">
-                <div class="section-name">
-                    <h4 class="text-primary text-sm font-semibold text-left">PodNerd</h4>
-                </div>
-                <div class="title my-[10px]">
-                    <h1 class="text-secondary text-[1.25rem] leading-6 font-bold">Desbloqueie novas ideias e perspectivas com os nossos podcasts</h1>
-                </div>
-                <div class="description">
-                    <p class="text-gray text-base text-left">
-                        Mergulhe em análises e discussões sobre gadgets, dispositivos eletrônicos, desenvolvimento de software, inteligência artificial, blockchain, cibersegurança e muito mais.
-                    </p>
-                </div>
-            </div>
-            <div class="statistics py-[10px] flex gap-6 justify-start items-center">
-                <div class="subscribers bg-[#F2B636]/90 rounded-[10px] p-[14px]">
-                    <p class="text-[#1B0880] text-[1.875rem] text-center font-black">+ {{ 1000 | number | replaceCommaByDot }}</p>
-                    <p class="text-white text-center text-base font-semibold">Subscritores</p>
-                </div>
-                <div class="episodes bg-secondary rounded-[10px] p-[14px]">
-                    <p class="text-white text-[1.875rem] text-center font-black">+ {{ 100 | number }}</p>
-                    <p class="text-white text-center text-base font-semibold">Episódios</p>
-                </div>
-            </div>
-        </div>
-        <div class="section-image h-[350px]">
-            <img
-            class="w-full h-full object-cover object-center"
-            src="assets/static/images/home/podnerd-image.png"
-            alt="Imagem da moderadora da Podnerd">
-        </div>
+        <!-- [style.paddingRight.px]="originalContentPaddingX()" -->
+        <!-- [style.paddingLeft.px]="originalContentPaddingX()" -->
+         <div class="limited-container md:flex lg:justify-between">
+             <div
+             class="section-descriptions py-[1.875rem] md:max-w-[350px] xl-1230:max-w-[470px] xl:max-w-[483px]"
+             >
+                 <div class="details py-[10px]">
+                     <div class="section-name">
+                         <h4 class="text-primary text-sm font-semibold text-left">PodNerd</h4>
+                     </div>
+                     <div class="title my-[10px]">
+                         <h1 class="text-secondary text-[1.25rem] lg:text-[1.875rem] lg:leading-9 leading-6 font-bold">Desbloqueie novas ideias e perspectivas com os nossos podcasts</h1>
+                     </div>
+                     <div class="description">
+                         <p class="text-gray text-base text-left">
+                             Mergulhe em análises e discussões sobre gadgets, dispositivos eletrônicos, desenvolvimento de software, inteligência artificial, blockchain, cibersegurança e muito mais.
+                         </p>
+                     </div>
+                 </div>
+                 <div class="statistics py-[10px] flex gap-6 justify-start items-center">
+                     <div class="subscribers bg-[#F2B636]/90 rounded-[10px] p-[14px]">
+                         <p class="text-[#1B0880] text-[1.875rem] text-center font-black">+ {{ 1000 | number | replaceCommaByDot }}</p>
+                         <p class="text-white text-center text-base font-semibold">Subscritores</p>
+                     </div>
+                     <div class="episodes bg-secondary rounded-[10px] p-[14px]">
+                         <p class="text-white text-[1.875rem] text-center font-black">+ {{ 100 | number }}</p>
+                         <p class="text-white text-center text-base font-semibold">Episódios</p>
+                     </div>
+                 </div>
+             </div>
+             <div class="section-image h-[350px] md:h-[429px] lg:h-[501px] xl-1230:h-[512px] md:w-full lg:w-[50%] xl:w-[531px]">
+                 <img
+                 class="w-full h-full object-cover object-center"
+                 src="assets/static/images/home/podnerd-image.png"
+                 alt="Imagem da moderadora da Podnerd">
+             </div>
+
+         </div>
     </div>
 </div>
 

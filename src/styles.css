@@ -54,10 +54,17 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+:root{
+  --max-w: 90%;
+  --max-w-1536: 1536px;
+  --primary-color: #030303;
+}
+
 .limited-container{
   max-width: 95%;
   margin: 0px auto;
 }
+
 @media screen and (min-width: 1280px) {
   .limited-container{
       max-width: 90%;
@@ -65,7 +72,7 @@
 }
 @media screen and (min-width: 1440px) {
   .limited-container{
-      max-width: var(--max-w);
+      max-width: 90%;
   }
 }
 @media screen and (min-width: 1600px) {
@@ -75,9 +82,9 @@
 }
 @media screen and (min-width: 1900px) {
   .limited-container{
-      /* max-width: 1536px; */
-      /* max-width: 1920px; */
-      max-width: 90%;
+      /* max-width: var(--max-w-1536); */
+      max-width: 1280px;
+      /* max-width: 90%; */
   }
 }
 
@@ -91,38 +98,6 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-/* 
-.limited-text
-{
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.limited-text.one-line{
-    line-clamp: 1;
-  -webkit-line-clamp: 1;
-}
-.limited-text.two-lines{
-    line-clamp: 2;
-  -webkit-line-clamp: 2;
-}
-.limited-text.three-lines{
-    line-clamp: 3;
-  -webkit-line-clamp: 3;
-}
-.limited-text.four-lines{
-    line-clamp: 4;
-  -webkit-line-clamp: 4;
-}
-.limited-text.five-lines{
-    line-clamp: 5;
-  -webkit-line-clamp: 5;
-}
-.limited-text.nine-lines{
-    line-clamp: 9;
-  -webkit-line-clamp: 9;
-} */
 
 .appear-softly{
   animation: appearSoftly .5s forwards ease-in-out;

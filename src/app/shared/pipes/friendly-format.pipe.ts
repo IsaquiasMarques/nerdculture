@@ -18,8 +18,12 @@ export class FriendlyFormatPipe implements PipeTransform {
 
     const month = months[date.getMonth()];
 
-    return `${ day }, ${ month } de ${ year }`;
+    return `${ this.addZeroDigit(day) }, ${ month } de ${ year }`;
 
+  }
+
+  addZeroDigit(day: number): string {
+      return day < 10 ? `0${day}` : day.toString();
   }
 
 }

@@ -1,12 +1,16 @@
-<div class="podcasts-container flex flex-col gap-y-[30px] justify-center items-center">
-    @for (podcast of podcasts(); track $index) {
-        <app-podcast-template
-        [podcast]="podcast"
-        />
-    }
+<div class="podcasts-container flex flex-col gap-y-[30px]">
+    <div class="scroller w-full overflow-x-auto">
+        <div class="container w-full md:w-fit xl-1230:w-full flex flex-col gap-y-[30px] md:flex-row md:gap-x-5 justify-center md:justify-start xl-1230:justify-center items-center md:items-stretch">
+            @for (podcast of podcasts(); track $index) {
+                <app-podcast-template
+                [podcast]="podcast"
+                />
+            }
+        </div>
+    </div>
     @if(showButton()){
-        <div class="see-more cta w-full">
-            <a [routerLink]="['/podnerd']" class="flex gap-[10px] justify-center items-center py-4 px-6 bg-primary text-white rounded-full">
+        <div class="see-more cta flex justify-center">
+            <a [routerLink]="['/podnerd']" class="w-full md:w-fit flex gap-[10px] justify-center items-center py-4 px-6 bg-primary text-white rounded-full">
                 Ver todos os episódios
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.5 10.6205H15.5M15.5 10.6205L11.3333 6.45386M15.5 10.6205L11.3333 14.7872" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>

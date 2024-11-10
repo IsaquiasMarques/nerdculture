@@ -1,21 +1,48 @@
-<div class="header-container">
+<div class="header-container relative">
     <div class="limited-container py-4 flex justify-between items-center">
         <div class="logo">
             <img src="assets/static/logo-01.png" alt="" class="">
         </div>
         <div class="menu h-[30px]">
-            <button class="md:hidden">
-                <svg width="30" height="30" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 7.92859H25M5 15.4286H25M5 22.9286H25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <button class="md:hidden" (click)="toggleDropdownMenu()">
+                @if(dropdownMenuOpen()){
+                    <!-- CLOSE DROPDOWN ICON -->
+                    <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.6101 4.3958C21.2033 3.989 20.5437 3.989 20.137 4.3958L12.5386 11.9941L4.94035 4.3958C4.53355 3.989 3.874 3.989 3.46721 4.3958C3.06041 4.80259 3.06041 5.46214 3.46721 5.86893L11.0655 13.4672L3.46723 21.0655C3.06043 21.4723 3.06043 22.1318 3.46723 22.5387C3.87402 22.9455 4.53358 22.9455 4.94037 22.5387L12.5386 14.9404L20.137 22.5387C20.5437 22.9455 21.2033 22.9455 21.6101 22.5387C22.0169 22.1318 22.0169 21.4723 21.6101 21.0656L14.0118 13.4672L21.6101 5.86893C22.0169 5.46214 22.0169 4.80259 21.6101 4.3958Z" fill="white"/>
+                    </svg>
+                } @else {
+                    <!-- OPEN DROPDOWN ICON -->
+                    <svg width="30" height="30" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 7.92859H25M5 15.4286H25M5 22.9286H25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                }
             </button>
-            <div class="nav hidden md:block">
+            <div class="nav-desktop hidden md:block">
                 <nav class="">
                     <ul class=" flex gap-6 justify-start items-center">
-                        <li><a [routerLink]="['/']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Nerd Culture</a></li>
+                        <li><a [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }"  class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Nerd Culture</a></li>
                         <li><a [routerLink]="['/podnerd']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Podnerd</a></li>
                         <li><a [routerLink]="['/contents']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Conteúdos</a></li>
                         <li><a [routerLink]="['/contact-us']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Entre em contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div
+    [ngClass]="{
+        'h-screen py-16': this.dropdownMenuOpen(),
+        'h-0 py-0': !this.dropdownMenuOpen()
+    }"
+    class="dropdown-menu bg-white absolute overflow-hidden duration-[.6s] top-full w-full md:hidden">
+        <div class="limited-container">
+            <div class="nav-items">
+                <nav class="">
+                    <ul class=" flex flex-col gap-10 justify-start items-start">
+                        <li><a [routerLink]="['/']" (click)="closeDropdownMenu()" [routerLinkActiveOptions]="{ exact: true }" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Nerd Culture</a></li>
+                        <li><a [routerLink]="['/podnerd']" (click)="closeDropdownMenu()" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Podnerd</a></li>
+                        <li><a [routerLink]="['/contents']" (click)="closeDropdownMenu()" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Conteúdos</a></li>
+                        <li><a [routerLink]="['/contact-us']" (click)="closeDropdownMenu()" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Entre em contacto</a></li>
                     </ul>
                 </nav>
             </div>

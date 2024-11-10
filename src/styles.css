@@ -57,7 +57,9 @@
 :root{
   --max-w: 90%;
   --max-w-1536: 1536px;
-  --primary-color: #030303;
+  --primary-color: #00BAEE;
+  --secondary-color: #0A042A;
+  --gray: #555555;
 }
 
 .limited-container{

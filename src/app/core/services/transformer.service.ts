@@ -1,3 +1,4 @@
+import { Advertisement } from "@core/models/advertisement.model";
 import { Partner } from "@core/models/partner.model";
 import { Podcast } from "@core/models/podcast.model";
 import { Post, PostCategory } from "@core/models/post.model";
@@ -54,7 +55,22 @@ export class Transformer{
         });
     }
 
-    // static advertisements(incoming: any[]): 
+    static advertisements(incoming: any[]): Advertisement[]{
+        return incoming.flatMap((i: any) => {
+            return {
+                page: i.acf.pagina,
+                contents: (i.acf.advertisements) ? i.acf.advertisements.flatMap((ad: any) => {
+                    return {
+                        advertiser: ad.nome_do_anunciador,
+                        imagePath: ad.imagem_do_anuncio,
+                        redirectTo: ad.link_de_redirecionamento,
+                        position: ad.posicionamento,
+                        visible: ad.visivel
+                    }
+                }) : []
+            }
+        })
+    }
 
     static categories(incoming: any[]): PostCategory[]{
         return incoming.flatMap((i: any) => {

@@ -6,6 +6,8 @@ import { map, Observable, tap } from 'rxjs';
 import { Transformer } from './transformer.service';
 import { Podcast } from '@core/models/podcast.model';
 import { Post, PostCategory } from '@core/models/post.model';
+import { PodcastStatus } from '@core/enums/podcast-status.enum';
+import { Advertisement } from '@core/models/advertisement.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,10 +36,20 @@ export class ApiService {
                     );
   }
 
-  getPodcasts(): Observable<Podcast[]>{
-    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`)
+  getIncomingPodcasts(): Observable<Podcast[]>{
+    return this.http.get<Podcast[]>(` ${ environment.apiUrl }/wp-json/wp/v2/podcasts/futuros`)
                     .pipe(
                       map((incoming: any[]) => Transformer.podcasts(incoming))
+                    );
+  }
+
+  getPodcasts(per_page: number = 1, current_page: number = 1): Observable<Podcast[]>{
+    const ppage = (per_page) ? `&per_page=${ per_page }` : ``;
+    const cpage = (current_page) ? `&page=${ current_page }` : ``;
+    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?${ppage + cpage}&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.podcasts(incoming)),
+                      map((incoming: Podcast[]) => incoming.filter(podcast => (podcast.status === PodcastStatus.PAST) || (podcast.status === PodcastStatus.ON_GOING)))
                     );
   }
 
@@ -64,6 +76,13 @@ export class ApiService {
                     .pipe(
                       map((incoming: any[]) => Transformer.posts(incoming))
                     )
+  }
+
+  getAdvertisements(): Observable<Advertisement[]>{
+    return this.http.get<Advertisement[]>(`${ environment.apiUrl }/wp-json/wp/v2/anuncios?_fields[]=acf`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.advertisements(incoming))
+                    );
   }
 
   getPostsByCategory(category_id: number, per_page: number, current_page: number): Observable<Post[]>{

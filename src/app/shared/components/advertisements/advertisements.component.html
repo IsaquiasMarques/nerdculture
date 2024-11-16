@@ -1,0 +1,46 @@
+<div class="limited-container" #limitedContainerElementRef>
+    <div class="section-container flex flex-col gap-[10px]">
+        @if (label()) {
+            <div class="label">
+                <h5 class="text-gray uppercase text-center text-sm">Publicidades</h5>
+            </div>
+        }
+        <div class="images-container relative">
+            <div class="slider overflow-x-auto w-full" #sliderElementRef>
+                <div class="images w-fit flex justify-center items-center">
+                    @for (advertisement of advertisementsByLevel$(); track $index) {
+                        @if (advertisement.visible) {
+                            <div
+                            [ngClass]="{
+                                'flex-[1_0_auto]': $index === this.activeIndex
+                            }"
+                            class="image appear-softly w-full flex justify-center items-center">
+                                <a
+                                class="w-full h-auto"
+                                target="_blank"
+                                [attr.href]="advertisement.redirectTo.length > 0 ? advertisement.redirectTo : null"
+                                [class.disabled]="!(advertisement.redirectTo.length > 0)"
+                                (click)="advertisement.redirectTo.length > 0 ? null : $event.preventDefault()">
+                                    <img src="{{ advertisement.imagePath }}" class="w-full" [alt]="'Anúncio de: ' + advertisement.advertiser">
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            @if (dashControllers()) {
+                <div class="dash-controllers bg-white rounded-full w-full lg:w-fit mt-3 lg:mt-0 lg:absolute lg:bottom-4 lg:right-4 flex gap-[5px] p-[5px] justify-center lg:justify-start items-center">
+                    @for (dash of advertisementsByLevel$(); track $index) {
+                        <div class="dash bg-[#CFCFCF] cursor-pointer duration-[.6s] rounded-full w-[10px] h-[5px]"
+                        [ngClass]="{
+                            '!w-5 !bg-[#14498C]': this.activeIndex === $index
+                        }"
+                        (click)="this.slideTo($index)"
+                        ></div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

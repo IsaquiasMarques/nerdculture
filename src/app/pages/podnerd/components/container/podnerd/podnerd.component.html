@@ -80,7 +80,7 @@
                     </div>
                     <div class="highlighted-podcasts hidden lg:block rounded-3xl p-3 w-[402px] bg-white/10 border border-[#3675F2]/30">
                         <div class="podcasts flex flex-col gap-[10px]">
-                            @for (podcast of highlightedPodcasts; track $index) {
+                            @for (podcast of highlightedPodcasts(); track $index) {
                                 <app-podcast-template
                                 [podcast]="podcast"
                                 [templateSize]="'short'"
@@ -96,4 +96,13 @@
             </div>
         </app-hero>
     </div>
+
+    <div class="incoming-podcasts-section">
+        <app-incoming-podcasts [podcasts]="this.incomingPodcasts()" />
+    </div>
+
+    <app-advertisements
+    [advertisementsContents]="this.getAdvertisements()"
+    [level]="'level-0'"
+    />
 </div>

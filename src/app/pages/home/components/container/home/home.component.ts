@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Partner } from '@core/models/partner.model';
 import { Podcast } from '@core/models/podcast.model';
@@ -11,9 +11,6 @@ import { PodcastsComponent } from '@home/components/views/podcasts/podcasts.comp
 import { TeamComponent } from '@home/components/views/team/team.component';
 import { HomeFacade } from '@home/facades/home.facade';
 import { HeroComponent } from '@shared/components/hero/hero.component';
-import { CategoryFacade } from '@shared/facades/category.facade';
-import { PodcastFacade } from '@shared/facades/podcast.facade';
-import { PostFacade } from '@shared/facades/post.facade';
 import { Theme, ThemeService } from '@shared/services/theme.service';
 
 @Component({
@@ -33,17 +30,13 @@ import { Theme, ThemeService } from '@shared/services/theme.service';
 })
 export class HomeComponent implements OnInit {
   private homeFacade = inject(HomeFacade);
-  private podcastFacade = inject(PodcastFacade);
-  private postFacade = inject(PostFacade);
-  private categoryFacade = inject(CategoryFacade);
-
   private themeService = inject(ThemeService).changeTheme(Theme.HOME);
 
-  partners: Partner[] = [];
-  teamMembers: TeamMember[] = [];
-  podcasts: Podcast[] = [];
-  posts: Post[] = [];
-  categories: PostCategory[] = [];
+  partners: Signal<Partner[]> = signal([]);
+  teamMembers: Signal<TeamMember[]> = signal([]);
+  podcasts: Signal<Podcast[]> = signal([]);
+  posts: Signal<Post[]> = signal([]);
+  categories: Signal<PostCategory[]> = signal([]);
 
   ngOnInit(): void {
     this.getPartners();
@@ -53,23 +46,23 @@ export class HomeComponent implements OnInit {
     this.getCategories();
   }
 
-  getPartners(): void{
-    this.partners = this.homeFacade.partners();
+  private getPartners(): void{
+    this.partners = this.homeFacade.partners;
   }
 
-  getTeamMembers(): void{
-    this.teamMembers = this.homeFacade.teamMembers();
+  private getTeamMembers(): void{
+    this.teamMembers = this.homeFacade.teamMembers;
   }
 
-  getPodcasts(): void{
-    this.podcasts = this.homeFacade.highlightedPodcasts();
+  private getPodcasts(): void{
+    this.podcasts = this.homeFacade.highlightedPodcasts;
   }
 
-  getLatestPosts(): void{
-    this.posts = this.homeFacade.latestPosts();
+  private getLatestPosts(): void{
+    this.posts = this.homeFacade.latestPosts;
   }
   
-  getCategories(): void{
-    this.categories = this.homeFacade.categories();
+  private getCategories(): void{
+    this.categories = this.homeFacade.categories;
   }
 }

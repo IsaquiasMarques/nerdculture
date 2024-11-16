@@ -1,0 +1,55 @@
+<div class="section-container">
+    <div class="limited-container flex flex-col gap-10" #limitedContainerElementRef>
+        <div class="section-content flex flex-col gap-5 max-w-[417px] lg:sticky lg:top-[90px]">
+            <h1 class="text-secondary font-bold text-[1.25rem] leading-6 md:text-2xl xl-1230:text-[1.875rem] xl-1230:leading-[36px] text-left max-w-[487px]">
+                Acompanhe os próximos eventos
+            </h1>
+            <p class="text-left text-gray text-base">
+                Participe de gravações ao vivo, sessões de perguntas e respostas com especialistas e lançamentos exclusivos
+            </p>
+        </div>
+    </div>
+
+    <div class="podcasts-container overflow-hidden" #scrollerContainerElementRef>
+        <div class="scroller my-10 flex w-fit gap-[34px] justify-start items-stretch"
+        [style.paddingLeft.px]="this.paddingX()"
+        [style.paddingRight.px]="this.paddingX()"
+        >
+            @for (podcast of podcasts(); track $index) {
+                <app-podcast-template
+                [podcast]="podcast"
+                [templateSize]="'incoming-podcast'"
+                />
+            }
+        </div>
+    </div>
+
+    <div class="limited-container controllers flex justify-between items-center">
+        <div class="dash-controllers flex gap-[5px] p-[5px] justify-start items-center">
+            @for (dash of podcasts(); track $index) {
+                <div class="dash bg-[#CFCFCF] cursor-pointer duration-[.6s] rounded-full w-[10px] h-[5px]"
+                [ngClass]="{
+                    '!w-5 !bg-[#14498C]': this.activeIndex === $index
+                }"
+                (click)="this.slideTo($index)"
+                ></div>
+            }
+        </div>
+        <div class="arrow-controllers flex gap-4 items-center">
+            <button (click)="prev()" class="w-9 h-9 lg:w-[45px] lg:h-[45px]">
+                <svg width="100%" height="100%" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="duration-[.6s]" x="36" y="36" width="36" height="36" rx="18" transform="rotate(-180 36 36)" [attr.fill]="(this.activeIndex > 0) ? '#14498C' : '#B4B1B1'" />
+                    <path d="M23.3801 18H12.6201" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                    <path d="M15.5535 14.8134L12.8135 17.5534C12.6893 17.6783 12.6196 17.8472 12.6196 18.0234C12.6196 18.1995 12.6893 18.3684 12.8135 18.4934L15.4802 21.16" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                </svg>                    
+            </button>
+            <button (click)="next()" class="w-9 h-9 lg:w-[45px] lg:h-[45px]">
+                <svg width="100%" height="100%" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="duration-[.6s]" width="36" height="36" rx="18" [attr.fill]="(this.activeIndex < podcasts().length-1) ? '#14498C' : '#B4B1B1'" />
+                    <path d="M12.6199 18H23.3799" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                    <path d="M20.4465 21.1866L23.1865 18.4466C23.3107 18.3217 23.3804 18.1528 23.3804 17.9766C23.3804 17.8005 23.3107 17.6316 23.1865 17.5066L20.5198 14.84" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

@@ -56,23 +56,21 @@
         </app-hero>
     </div>
     <div class="partners-section">
-        <app-partners [partners]="partners" />
+        <app-partners [partners]="partners()" />
     </div>
     <div class="about-us-section">
         <app-about-us />
     </div>
     <div class="team-section">
-        <app-team
-        [members]="this.teamMembers"
-        />
+        <app-team [members]="this.teamMembers()" />
     </div>
     <div class="podners-section">
-        <app-podcasts [podcasts]="podcasts" />
+        <app-podcasts [podcasts]="podcasts()" />
     </div>
     <div class="latest-posts">
         <app-latest-posts
-        [posts]="posts"
-        [categories]="categories"
+        [posts]="posts()"
+        [categories]="categories()"
         />
     </div>
 </div>

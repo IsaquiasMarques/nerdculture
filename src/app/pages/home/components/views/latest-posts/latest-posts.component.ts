@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Post, PostCategory } from '@core/models/post.model';
-import { PostsContainerComponent } from '@shared/components/posts/posts-container/posts-container.component';
+import { PostsContainerComponent } from '@shared/components/posts/posts-container/with-scroll/posts-container.component';
 
 @Component({
   selector: 'app-latest-posts',

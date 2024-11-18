@@ -1,0 +1,12 @@
+<div class="podcasts-container flex flex-col gap-y-[30px]">
+    <div class="limited-container w-full">
+        <div class="container w-full flex flex-wrap flex-col gap-y-[30px] md:flex-row md:gap-x-5 2xl:gap-x-10 justify-center md:justify-start xl-1230:justify-start 2xl:justify-start items-center md:items-stretch">
+            @for (podcast of podcasts(); track $index) {
+                <app-podcast-template
+                class="w-[18.75rem] md:w-[calc((100%/2)-calc(20px/2))] lg:w-[calc((100%/3)-calc(50px/3))] xl-1230:w-[calc((100%/3)-calc(40px/3))] 2xl:w-[calc((100%/3)-(80px/3))]"
+                [podcast]="podcast"
+                />
+            }
+        </div>
+    </div>
+</div>

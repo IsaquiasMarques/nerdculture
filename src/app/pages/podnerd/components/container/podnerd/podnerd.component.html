@@ -105,4 +105,22 @@
     [advertisementsContents]="this.getAdvertisements()"
     [level]="'level-0'"
     />
+
+    <div class="podcasts-container-before-advertisement">
+        <app-podcasts-container-no-scroll
+        [podcasts]="this.podcastsBeforeLevel1Advertisement()"
+        />
+    </div>
+
+    <app-advertisements
+    [advertisementsContents]="this.getAdvertisements()"
+    [level]="'level-1'"
+    />
+
+    <div class="podcasts-container-after-advertisement">
+        <app-podcasts-container-no-scroll
+        [podcasts]="this.podcastsAfterLevel1Advertisement()"
+        />
+    </div>
+
 </div>

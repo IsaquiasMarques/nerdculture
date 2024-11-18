@@ -8,6 +8,7 @@ import { Podcast } from '@core/models/podcast.model';
 import { Post, PostCategory } from '@core/models/post.model';
 import { PodcastStatus } from '@core/enums/podcast-status.enum';
 import { Advertisement } from '@core/models/advertisement.model';
+import { PaginationService } from './pagination.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ import { Advertisement } from '@core/models/advertisement.model';
 export class ApiService {
 
   private http = inject(HttpClient);
+  private paginationService = inject(PaginationService);
   constructor() { }
 
   getNerdcultureDatas(): Observable<NerdCultureCollection>{
@@ -43,13 +45,17 @@ export class ApiService {
                     );
   }
 
-  getPodcasts(per_page: number = 1, current_page: number = 1): Observable<Podcast[]>{
-    const ppage = (per_page) ? `&per_page=${ per_page }` : ``;
-    const cpage = (current_page) ? `&page=${ current_page }` : ``;
-    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?${ppage + cpage}&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`)
+  getPodcasts(): Observable<Podcast[]>{
+    const ppage = this.paginationService.podcastsCurrentPage$().total_per_page;
+    const cpage = this.paginationService.podcastsCurrentPage$().current_page;
+
+    const perPage = (ppage) ? `&per_page=${ ppage }` : ``;
+    const currentPage = (cpage) ? `&page=${ cpage }` : ``;
+    
+    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?${perPage + currentPage}&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`)
                     .pipe(
                       map((incoming: any[]) => Transformer.podcasts(incoming)),
-                      map((incoming: Podcast[]) => incoming.filter(podcast => (podcast.status === PodcastStatus.PAST) || (podcast.status === PodcastStatus.ON_GOING)))
+                      map((incoming: Podcast[]) => incoming.filter(podcast => (podcast.status === PodcastStatus.PAST) || (podcast.status === PodcastStatus.ON_GOING))),
                     );
   }
 

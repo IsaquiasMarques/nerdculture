@@ -2,12 +2,12 @@
     <div class="section-container flex flex-col gap-[10px]">
         @if (label()) {
             <div class="label">
-                <h5 class="text-gray uppercase text-center text-sm">Publicidades</h5>
+                <h5 class="text-gray uppercase text-center text-sm">Publicidade{{ this.advertisementsByLevel$().length > 1 ? 's' : '' }}</h5>
             </div>
         }
         <div class="images-container relative">
             <div class="slider overflow-x-auto w-full" #sliderElementRef>
-                <div class="images w-fit flex justify-center items-center">
+                <div class="images w-full flex justify-center items-center">
                     @for (advertisement of advertisementsByLevel$(); track $index) {
                         @if (advertisement.visible) {
                             <div
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            @if (dashControllers()) {
+            @if (dashControllers() && advertisementsByLevel$().length > 1) {
                 <div class="dash-controllers bg-white rounded-full w-full lg:w-fit mt-3 lg:mt-0 lg:absolute lg:bottom-4 lg:right-4 flex gap-[5px] p-[5px] justify-center lg:justify-start items-center">
                     @for (dash of advertisementsByLevel$(); track $index) {
                         <div class="dash bg-[#CFCFCF] cursor-pointer duration-[.6s] rounded-full w-[10px] h-[5px]"

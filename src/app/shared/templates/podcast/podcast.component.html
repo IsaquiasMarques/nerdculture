@@ -1,9 +1,9 @@
  @if (podcast()) {
      @switch (this.templateSize()) {
         @case ('long') {
-            <div class="box w-fulls w-[18.75rem] xl-1230:w-[22.625rem] flex flex-col gap-2">
+            <div class="box w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-2">
                 <div class="image">
-                    <img [src]="podcast().image" [alt]="">
+                    <img [src]="podcast().image" class="w-full h-full" [alt]="">
                 </div>
                 <div class="tiny-details flex gap-4 justify-start items-center">
                     <div class="episode">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="main-details flex justify-between items-center">
                     <div class="podcast-title">
-                        <p class="text-secondary font-medium xs:font-semibold text-sm xs:text-lg xs:leading-6 line-clamp-3">
+                        <p class="text-secondary font-medium max-w-[340px] xs:font-semibold text-sm xs:text-lg xs:leading-6 line-clamp-3">
                             {{ podcast().title }}
                         </p>
                     </div>

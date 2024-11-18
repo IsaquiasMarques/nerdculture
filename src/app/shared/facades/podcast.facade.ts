@@ -1,4 +1,4 @@
-import { computed, Injectable, signal, Signal } from "@angular/core";
+import { computed, Injectable, signal, Signal, WritableSignal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { Podcast } from "@core/models/podcast.model";
 import { ApiService } from "@core/services/api.service";

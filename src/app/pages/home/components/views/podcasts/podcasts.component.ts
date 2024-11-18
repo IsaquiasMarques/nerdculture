@@ -1,7 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, input, signal, ViewChild } from '@angular/core';
 import { Podcast } from '@core/models/podcast.model';
-import { PodcastsContainerComponent } from '@shared/components/podcasts/podcasts-container/podcasts-container.component';
+import { PodcastsContainerComponent } from '@shared/components/podcasts/podcasts-container/with-scroll/podcasts-container.component';
 import { DecimalAuxPipe } from '@shared/pipes/decimal-aux.pipe';
 import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
 

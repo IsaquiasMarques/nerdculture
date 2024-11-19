@@ -35,7 +35,7 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
   protected override page: AdvertisementPage = AdvertisementPage.PODNERD;
   private themeService = inject(ThemeService).changeTheme(Theme.PODNERD);
   private podcastFacade = inject(PodcastFacade);
-  private paginationService = inject(PaginationService);
+  public paginationService = inject(PaginationService);
 
   private activatedRoute = inject(ActivatedRoute);
   private totalOfPodcastsPerPagination = 12;

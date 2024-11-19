@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { NerdCultureCollection } from '@core/models/nerdculture-collection.model';
 import { environment } from 'environments/environment';
@@ -9,6 +9,7 @@ import { Post, PostCategory } from '@core/models/post.model';
 import { PodcastStatus } from '@core/enums/podcast-status.enum';
 import { Advertisement } from '@core/models/advertisement.model';
 import { PaginationService } from './pagination.service';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root',
@@ -52,8 +53,14 @@ export class ApiService {
     const perPage = (ppage) ? `&per_page=${ ppage }` : ``;
     const currentPage = (cpage) ? `&page=${ cpage }` : ``;
     
-    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?${perPage + currentPage}&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`)
+    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?${perPage + currentPage}&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`,
+      { observe: 'response' })
                     .pipe(
+                      map((incoming: any) => {
+                        console.log(incoming.headers.get('x-wp-total'));
+                        this.paginationService.podcastsTotalOfPodcasts$.update(val => val = incoming.headers.get('x-wp-total'));
+                        return incoming.body;
+                      }),
                       map((incoming: any[]) => Transformer.podcasts(incoming)),
                       map((incoming: Podcast[]) => incoming.filter(podcast => (podcast.status === PodcastStatus.PAST) || (podcast.status === PodcastStatus.ON_GOING))),
                     );

@@ -1,0 +1,53 @@
+<div class="limited-container">
+    <div class="controllers flex gap-3 justify-center items-center">
+        <div class="prev h-[45px]">
+            <a
+            class="cursor-auto"
+            [ngClass]="{
+                '!cursor-pointer': (this.items().current_page > 1)
+            }"
+            [routerLink]="(this.items().current_page > 1) ? this.pageToRoute() : null"
+            [queryParams]="(this.items().current_page > 1) ? { page: this.items().current_page - 1 } : null"
+            >
+                <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="45" y="45" width="45" height="45" rx="22.5" transform="rotate(-180 45 45)" fill="white"/>
+                    <path d="M30.9062 22.5H14.0937" [attr.stroke]="(this.items().current_page > 1) ? '#14498C' : '#B4B1B1'" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                    <path d="M18.6771 17.5208L14.3958 21.802C14.2018 21.9972 14.0929 22.2612 14.0929 22.5364C14.0929 22.8116 14.2018 23.0756 14.3958 23.2708L18.5625 27.4374" [attr.stroke]="(this.items().current_page > 1) ? '#14498C' : '#B4B1B1'" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                </svg>
+            </a>
+        </div>
+        <div class="pages flex gap-[10px] justify-start items-center">
+            @for (page of pages(); track $index) {
+                <div class="page ">
+                    <a
+                    [routerLink]="this.pageToRoute()"
+                    [queryParams]="{ page: page }"
+                    [queryParamsHandling]="'merge'"
+                    class="min-w-10 max-h-10 duration-[.3s] font-bold p-[10px] flex justify-center items-center rounded-full bg-white text-[#14498C] border border-[#14498C]"    
+                    [ngClass]="{
+                        '!bg-[#14498C] !text-white': page === this.items().current_page
+                    }"
+                    >
+                        {{ page }}
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="next">
+            <a
+            class="cursor-auto"
+            [ngClass]="{
+                '!cursor-pointer': (this.items().current_page < this.pages().length)
+            }"
+            [routerLink]="(this.items().current_page < this.pages().length) ? this.pageToRoute() : null"
+            [queryParams]="(this.items().current_page < this.pages().length) ? { page: this.items().current_page + 1 } : null"
+            >
+                <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="45" height="45" rx="22.5" fill="white"/>
+                    <path d="M14.0938 22.5L30.9062 22.5" [attr.stroke]="(this.items().current_page < this.pages().length) ? '#14498C' : '#B4B1B1'" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                    <path d="M26.3229 27.4792L30.6042 23.198C30.7982 23.0028 30.9071 22.7388 30.9071 22.4636C30.9071 22.1884 30.7982 21.9244 30.6042 21.7292L26.4375 17.5626" [attr.stroke]="(this.items().current_page < this.pages().length) ? '#14498C' : '#B4B1B1'" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="bevel"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>

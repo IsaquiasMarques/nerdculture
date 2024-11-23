@@ -46,19 +46,19 @@ export class ApiService {
                     );
   }
 
-  getPodcasts(): Observable<Podcast[]>{
-    const ppage = this.paginationService.podcastsCurrentPage$().total_per_page;
-    const cpage = this.paginationService.podcastsCurrentPage$().current_page;
-
-    const perPage = (ppage) ? `&per_page=${ ppage }` : ``;
-    const currentPage = (cpage) ? `&page=${ cpage }` : ``;
+  getPodcasts(current_page: number = 1, per_page: number = 12): Observable<Podcast[]>{
+    const perPage = (per_page) ? `&per_page=${ per_page }` : ``;
+    const currentPage = (current_page) ? `&page=${ current_page }` : ``;
     
     return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?${perPage + currentPage}&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`,
-      { observe: 'response' })
+      { observe: 'response', transferCache: { includeHeaders: [ 'x-wp-total' ] } })
                     .pipe(
-                      map((incoming: any) => {
-                        console.log(incoming.headers.get('x-wp-total'));
-                        this.paginationService.podcastsTotalOfPodcasts$.update(val => val = incoming.headers.get('x-wp-total'));
+                      map((incoming: HttpResponse<any>) => {
+                        const xWpTotalHeader = incoming.headers.get('x-wp-total');
+                        this.paginationService.podcastsTotalOfPodcasts$.update(() => {
+                          const parsedValue = xWpTotalHeader !== null ? parseInt(xWpTotalHeader, 10) : 0;
+                          return parsedValue; // ou outra lógica para valores inválidos
+                        });
                         return incoming.body;
                       }),
                       map((incoming: any[]) => Transformer.podcasts(incoming)),

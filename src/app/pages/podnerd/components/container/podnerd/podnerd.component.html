@@ -117,16 +117,23 @@
     [level]="'level-1'"
     />
 
-    <div class="podcasts-container-after-advertisement">
-        <app-podcasts-container-no-scroll
-        [podcasts]="this.podcastsAfterLevel1Advertisement()"
-        />
-    </div>
+    @if (this.podcastsAfterLevel1Advertisement().length > 0) {
+        <div class="podcasts-container-after-advertisement">
+            <app-podcasts-container-no-scroll
+            [podcasts]="this.podcastsAfterLevel1Advertisement()"
+            />
+        </div>
+    }
 
     <div class="pagination-section">
-        <div class="limited-container">
-            {{ paginationService.podcastsTotalOfPodcasts$() }}
-        </div>
+        <app-pagination
+        [pageToRoute]="['/podnerd']"
+        [items]="{
+            total: this.paginationService.podcastsTotalOfPodcasts$() - this.incomingPodcasts().length,
+            current_page: this.current_page,
+            per_page: this.totalOfPodcastsPerPagination
+        }"
+        />
     </div>
 
 </div>

@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdvertisementClass } from '@core/classes/advertisement.class';
 import { AdvertisementPage } from '@core/models/advertisement.model';
@@ -7,6 +7,7 @@ import { PaginationService } from '@core/services/pagination.service';
 import { IncomingPodcastsComponent } from '@podnerd/components/views/incoming-podcasts/incoming-podcasts.component';
 import { AdvertisementsComponent } from '@shared/components/advertisements/advertisements.component';
 import { HeroComponent } from '@shared/components/hero/hero.component';
+import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PodcastsContainerNoScrollComponent } from '@shared/components/podcasts/podcasts-container/no-scroll/podcasts-container-no-scroll.component';
 import { PodcastsContainerComponent } from '@shared/components/podcasts/podcasts-container/with-scroll/podcasts-container.component';
 import { PodcastFacade } from '@shared/facades/podcast.facade';
@@ -21,7 +22,8 @@ import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
     PodcastTemplate,
     IncomingPodcastsComponent,
     AdvertisementsComponent,
-    PodcastsContainerNoScrollComponent
+    PodcastsContainerNoScrollComponent,
+    PaginationComponent
   ],
   templateUrl: './podnerd.component.html',
   styleUrl: './podnerd.component.css'
@@ -38,18 +40,18 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
   public paginationService = inject(PaginationService);
 
   private activatedRoute = inject(ActivatedRoute);
-  private totalOfPodcastsPerPagination = 12;
+  public totalOfPodcastsPerPagination = 12;
+  public current_page: number = 1;
 
   highlightedPodcasts: Signal<Podcast[]> = signal([]);
   incomingPodcasts: Signal<Podcast[]> = signal([]);
-  podcastsBeforeLevel1Advertisement: Signal<Podcast[]> = signal([]);
-  podcastsAfterLevel1Advertisement: Signal<Podcast[]> = signal([]);
+  podcastsBeforeLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
+  podcastsAfterLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
-      const current_page: number = parseInt(queryParams['page']) ?? 1;
-      this.paginationService.podcastsCurrentPage$.update(value => value = { current_page: current_page, total_per_page: this.totalOfPodcastsPerPagination });
-      this.getPodcasts();
+      this.current_page = (queryParams['page']) ? parseInt(queryParams['page']) : 1;
+      this.getPodcasts(this.current_page);
     });
     this.getHighlightedPodcasts();
     this.getIncomingPodcasts();
@@ -63,25 +65,20 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
     this.incomingPodcasts = this.podcastFacade.incomingPodcasts;
   }
 
-  private getPodcasts(): void{
-    // const midpoint = Math.floor(this.totalOfPodcastsPerPagination / 2);
+  private getPodcasts(current_page: number): void{
+    this.podcastFacade.podcasts(current_page, this.totalOfPodcastsPerPagination).subscribe({
+      next: incoming => {
+        const podcasts = incoming;
+        const midpoint = Math.floor(this.totalOfPodcastsPerPagination / 2);
 
-    this.podcastsBeforeLevel1Advertisement = computed(() => {
-      const podcasts = this.podcastFacade.podcasts();
-      const midpoint = Math.floor(this.totalOfPodcastsPerPagination / 2);
-      return podcasts.slice(0, midpoint);
-    });
+        // Cria cópias do array ao invés de modificar o original
+        const podcastsBefore = podcasts.slice(0, midpoint); // Pega os primeiros 'midpoint' itens
+        const podcastsAfter = (podcasts.length <= midpoint) ? [] : podcasts.slice(midpoint); // Pega os itens restantes a partir de 'midpoint'
 
-    this.podcastsAfterLevel1Advertisement = computed(() => {
-      const podcasts = this.podcastFacade.podcasts();
-      const midpoint = Math.floor(this.totalOfPodcastsPerPagination / 2);
-      
-      // Verificar se existem podcasts suficientes para a segunda seção
-      if (podcasts.length <= midpoint) {
-        return []; // Retorna vazio se não houver podcasts suficientes
+        // Atualiza as variáveis com as cópias dos arrays
+        this.podcastsBeforeLevel1Advertisement.set(podcastsBefore);
+        this.podcastsAfterLevel1Advertisement.set(podcastsAfter);
       }
-      
-      return podcasts.slice(midpoint);
     });
   }
 

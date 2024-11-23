@@ -1,0 +1,30 @@
+.modal-bg.appear{
+    animation: appear .7s forwards ease-in-out;
+}
+@keyframes appear {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+        display: block;
+    }
+}
+
+.modal-bg.disappear{
+    animation: disappear .7s forwards ease-in-out;
+}
+@keyframes disappear {
+    /* from{
+        opacity: 0;
+    } */
+    50%{
+        opacity: 0;
+    }
+    to{
+        opacity: 0;
+        display: none;
+        z-index: -1 !important;
+        position: relative;
+    }
+}

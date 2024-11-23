@@ -27,7 +27,10 @@
                         </p>
                     </div>
                     <div class="button">
-                        <button class="">
+                        <button
+                        class=""
+                        (click)="this.openMedia()"
+                        >
                             <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect y="0.120605" width="44" height="44" rx="22" fill="#14498C"/>
                                 <path d="M29.8407 19.9145C31.6089 20.8761 31.6089 23.3653 29.8407 24.3269L19.164 30.1328C17.4455 31.0674 15.3335 29.8509 15.3335 27.9266V16.3148C15.3335 14.3904 17.4455 13.174 19.164 14.1086L29.8407 19.9145Z" fill="white"/>
@@ -35,15 +38,35 @@
                         </button>
                     </div>
                 </div>
+                @if (this.podcast().status === this.podcastStatus.ON_GOING) {
+                <div class="live flex gap-2 justify-center items-center w-fit">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_840_232)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2 8C11.2 9.7672 9.7672 11.2 8 11.2C6.2328 11.2 4.8 9.7672 4.8 8C4.8 6.2328 6.2328 4.8 8 4.8C9.7672 4.8 11.2 6.2328 11.2 8ZM8 14.4C4.4712 14.4 1.6 11.5288 1.6 8C1.6 4.4712 4.4712 1.6 8 1.6C11.5288 1.6 14.4 4.4712 14.4 8C14.4 11.5288 11.5288 14.4 8 14.4ZM8 0C3.5816 0 0 3.5816 0 8C0 12.4184 3.5816 16 8 16C12.4184 16 16 12.4184 16 8C16 3.5816 12.4184 0 8 0Z" fill="#FF2C2C"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_840_232">
+                        <rect width="16" height="16" fill="white"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                    <p class="text-gray text-sm text-center">Acompanhe-nos em LIVE</p>
+                </div>      
+                }
             </div>
         }
         @case ('short') {
             <div class="box w-full h-[100px] bg-transparent border border-white/10 rounded-2xl px-5 py-[10px] flex flex-row gap-[10px] justify-start items-center">
                 <div class="play-icon">
-                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="52" height="52" rx="26" fill="white" fill-opacity="0.31"/>
-                        <path d="M33.8405 23.7938C35.6087 24.7554 35.6087 27.2446 33.8405 28.2062L23.1638 34.0121C21.4453 34.9467 19.3333 33.7302 19.3333 31.8059V20.1941C19.3333 18.2697 21.4453 17.0533 23.1638 17.9879L33.8405 23.7938Z" fill="#12478D" fill-opacity="0.6"/>
-                    </svg>
+                    <button
+                    class=""
+                    (click)="this.openMedia()"
+                    >
+                        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="52" height="52" rx="26" fill="white" fill-opacity="0.31"/>
+                            <path d="M33.8405 23.7938C35.6087 24.7554 35.6087 27.2446 33.8405 28.2062L23.1638 34.0121C21.4453 34.9467 19.3333 33.7302 19.3333 31.8059V20.1941C19.3333 18.2697 21.4453 17.0533 23.1638 17.9879L33.8405 23.7938Z" fill="#12478D" fill-opacity="0.6"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="details flex flex-col gap-[10px]">
                     <div class="main-details flex justify-between items-center">
@@ -137,18 +160,47 @@
                             </div>
                         </div>
                     </div>
-                    <div class="cta hidden md:block">
+                    <div class="cta hidden md:flex md:justify-start md:items-center md:gap-6">
                         <a [href]="podcast().calendar" [download]="true" class="block w-full text-center md:w-fit py-3 px-4 bg-[#0D0D0D] rounded-full text-sm font-semibold text-white">
                             Adicionar ao calendário
                         </a>
+                        <button
+                        class=""
+                        (click)="this.openMedia()"
+                        >
+                            <svg width="40" height="40" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 31.6666C24.824 31.6666 31.1666 25.324 31.1666 17.5C31.1666 9.67595 24.824 3.33331 17 3.33331C9.17595 3.33331 2.83331 9.67595 2.83331 17.5C2.83331 25.324 9.17595 31.6666 17 31.6666Z" fill="#14498C"/>
+                                <path d="M25.2167 16.65C25.075 16.4516 21.5758 11.8333 17 11.8333C12.4242 11.8333 8.925 16.4516 8.78333 16.65C8.59942 16.8952 8.5 17.1935 8.5 17.5C8.5 17.8065 8.59942 18.1048 8.78333 18.35C8.925 18.5483 12.4242 23.1666 17 23.1666C21.5758 23.1666 25.075 18.5483 25.2167 18.35C25.4006 18.1048 25.5 17.8065 25.5 17.5C25.5 17.1935 25.4006 16.8952 25.2167 16.65Z" fill="white"/>
+                                <path d="M17 19.625C18.1736 19.625 19.125 18.6736 19.125 17.5C19.125 16.3264 18.1736 15.375 17 15.375C15.8264 15.375 14.875 16.3264 14.875 17.5C14.875 18.6736 15.8264 19.625 17 19.625Z" fill="#14498C"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-                <div class="cta md:hidden">
+                <div class="cta flex flex-col gap-4 md:hidden">
                     <a [href]="podcast().calendar" [download]="true" class="block w-full text-center md:w-fit py-3 px-4 bg-[#0D0D0D] rounded-full text-sm font-semibold text-white">
                         Adicionar ao calendário
                     </a>
+                    <button
+                    class="w-full flex justify-center items-center gap-4 text-[#14498C] border border-[#14498C] rounded-full py-3 px-4"
+                    (click)="this.openMedia()"
+                    >
+                        Ver mais detalhes
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#14498C"/>
+                            <path d="M17.8 11.4C17.7 11.26 15.23 8 12 8C8.77 8 6.3 11.26 6.2 11.4C6.07018 11.5731 6 11.7836 6 12C6 12.2164 6.07018 12.4269 6.2 12.6C6.3 12.74 8.77 16 12 16C15.23 16 17.7 12.74 17.8 12.6C17.9298 12.4269 18 12.2164 18 12C18 11.7836 17.9298 11.5731 17.8 11.4Z" fill="white"/>
+                            <path d="M12 13.5C12.8284 13.5 13.5 12.8284 13.5 12C13.5 11.1716 12.8284 10.5 12 10.5C11.1716 10.5 10.5 11.1716 10.5 12C10.5 12.8284 11.1716 13.5 12 13.5Z" fill="#14498C"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         }
      }
  }
+
+ <div class="modal">
+    <app-podcast-modal
+    [podcast]="podcast()"
+    [showModalFromParent]="this.showMedia"
+    (hideModalOnParent)="this.hideModalStatusEventHandler($event)"
+    />
+ </div>

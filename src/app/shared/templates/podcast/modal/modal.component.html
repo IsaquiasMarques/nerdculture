@@ -1,0 +1,90 @@
+<div class="modal-bg w-full h-full fixed top-0 left-0 z-[101] bg-black/80"
+[ngClass]="{
+    'hidden': (!this.showModalBackground() && this.firstTimeOpeningModal()),
+    'disappear': (!this.showModalBackground() && !this.firstTimeOpeningModal()),
+    'appear': this.showModalBackground()
+}"
+></div>
+<div
+[ngClass]="{
+    'block': this.showModalBackground(),
+    'hidden': !this.showModalBackground(),
+}"
+#modal
+class="limited-container modal-content appear-softly flex flex-col lg:flex-row gap-2 justify-start lg:justify-between bg-white z-[102] fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] xl:w-[70%] h-[60%] md:h-auto 2xl:h-[60%] 3xl:max-h-[500px]">
+    <div class="media-aside text-white relative h-auto w-full lg:max-w-[65%] flex items-center justify-center bg-black">
+        @if (this.podcast().status === this.podcastStatus.ON_GOING || this.podcast().status === this.podcastStatus.PAST) {
+            @defer(on viewport(modal)) {
+                @if (this.showModalFromParent) {
+                    @if(podcast().embedded_iframe !== undefined){
+                        <div [innerHtml]="podcast().embedded_iframe! | urlSanitizer"></div>
+                    }@else {
+                        <p class=" text-center">
+                            No recording embedded!
+                        </p>
+                    }
+                }
+            } @placeholder {
+                Aqui vem o iframe
+            }
+        } @else {
+            <div class="image w-full h-full relative flex justify-center items-center">
+                <img [src]="this.podcast().image" class="w-full h-full max-w-[60%] object-cove object-center" alt="">
+            </div>
+        }
+    </div>
+    <div class="podcast-description w-full lg:max-w-[35%] max-hs-[340px] flex flex-col gap-4 p-3">
+        <div class="close-button w-full flex justify-end items-center">
+            <button
+            class="w-[30px] h-[30px]"
+            (click)="this.hideMedia()">
+                <svg width="100%" height="100%" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" stroke="#1C274C"/>
+                    <path d="M13.5 8.50002L8.50002 13.5M8.5 8.5L13.5 13.5" stroke="#1C274C" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="podcast-details relative flex flex-col gap-3 max-hs-[80%] overflow-y-auto no-scroller">
+            <div class="title">
+                <h1 class="text-base md:text-2xl md:leading-7 leading-5 text-secondary font-bold text-left">
+                    {{ podcast().title }}
+                </h1>
+            </div>
+            <div class="tiny-details flex gap-4 justify-start items-center">
+                <div class="episode">
+                    <p class="text-xs xs:text-sm font-semibold text-[#0A042A]/80">
+                        Episódio: <span class="font-medium">{{ podcast().episode }}</span>
+                    </p>
+                </div>
+                <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect y="0.620605" width="5" height="5" fill="#BBBBBB"/>
+                </svg>
+                <div class="duration">
+                    <p class="text-xs xs:text-sm font-semibold text-[#0A042A]/80">
+                        Duração: <span class="font-medium">{{ podcast().duration }}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="guests flex flex-row gap-[10px] justify-start items-start">
+                <div class="icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.9414 12.9688C15.762 13.4181 16.2307 14.2188 16.172 15.0194C16.1326 15.5075 16.1132 15.5275 15.4882 15.6056C15.0976 15.6644 12.6364 15.6838 10.0976 15.6838C7.22635 15.6838 4.21885 15.625 4.00385 15.5663C3.14448 15.3513 3.61323 13.7888 4.74635 13.0469C5.6251 12.4806 7.42198 11.6213 7.91073 11.5231C8.5751 11.3863 8.65323 10.9763 7.91073 9.64813C7.7351 9.355 7.53948 8.45688 7.5201 7.51938C7.50073 5.99563 7.79385 4.96063 9.12198 4.45313C9.39573 4.35563 9.66885 4.31625 9.9226 4.31625C10.8014 4.31625 11.622 4.80438 11.9539 5.5275C12.442 6.48438 12.247 9.04313 11.7389 9.96125C11.1526 10.9963 11.2114 11.3288 11.8564 11.5044C12.2864 11.6219 13.6145 12.2469 14.9426 12.9694L14.9414 12.9688ZM4.31635 12.3831C4.00385 12.5981 3.71073 12.8713 3.47635 13.145C2.73385 13.145 2.1676 13.1256 2.10885 13.1056C1.62073 12.9881 1.89385 12.09 2.53885 11.6994C3.02698 11.3869 4.02323 10.8988 4.29698 10.84C4.64885 10.7619 4.72698 10.5469 4.29698 9.805C4.19948 9.64875 4.08198 9.14063 4.08198 8.61375C4.0626 7.75438 4.23823 7.16813 4.98073 6.91438C5.60573 6.68 6.30885 6.97313 6.5626 7.50063C6.81635 8.0475 6.6801 9.45375 6.40635 9.96188C6.09385 10.5675 6.1526 10.7238 6.50385 10.8213C6.58198 10.8406 6.73823 10.9188 6.95323 11.0169C6.09385 11.3688 4.92198 12.0131 4.31635 12.3844V12.3831ZM17.1682 11.6406C17.637 11.8944 17.8907 12.3244 17.852 12.7738C17.8326 13.0475 17.8326 13.0669 17.4807 13.1056C17.3832 13.125 16.9339 13.145 16.3476 13.145C16.0939 12.8131 15.742 12.5006 15.3126 12.2856C14.512 11.8169 13.5351 11.3088 12.8126 10.9963C13.0082 10.9181 13.1839 10.8594 13.262 10.84C13.6332 10.7619 13.692 10.5469 13.262 9.805C13.1839 9.64875 13.047 9.14063 13.047 8.61375C13.0276 7.75438 13.1839 7.16813 13.9257 6.91438C14.5701 6.68 15.2732 6.97313 15.5076 7.50063C15.7614 8.0475 15.6639 9.45375 15.3901 9.96188C15.0776 10.5675 15.1164 10.7238 15.4489 10.8213C15.6832 10.8994 16.4257 11.2513 17.1676 11.6419L17.1682 11.6406Z" fill="#555555"/>
+                    </svg>
+                </div>
+                <div class="guests-name text-gray text-sm line-clamp-2">
+                    Com: 
+                    @for (guest of podcast().guests; track $index) {
+                        {{ guest.name }}@if(!$last){,}
+                    } @empty {
+                        <p class="text-sm text-gray/90">Sem convidados</p>
+                    }
+                </div>
+            </div>
+            <div class="description md:max-h-[200px] 2xl:max-h-[260px] 3xl:max-h-[400px] overflow-y-auto">
+                <p class="text-sm text-[#555555]">
+                    {{ podcast().description }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

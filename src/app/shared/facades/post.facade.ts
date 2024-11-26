@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal, Signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { Post } from "@core/models/post.model";
 import { ApiService } from "@core/services/api.service";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class PostFacade{
         return computed(() => this.latestPosts$());
     }
 
-    getPostsByCategory(id: number, per_page: number, current_page: number): Signal<Post[]>{
-        return toSignal(this.API.getPostsByCategory(id, per_page, current_page), { initialValue: [] });
+    getPostsByCategory(id: number, per_page: number, current_page: number): Observable<Post[]>{
+        return this.API.getPostsByCategory(id, per_page, current_page);
     }
 }

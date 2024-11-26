@@ -8,22 +8,22 @@
                 @if(dropdownMenuOpen()){
                     <!-- CLOSE DROPDOWN ICON -->
                     <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21.6101 4.3958C21.2033 3.989 20.5437 3.989 20.137 4.3958L12.5386 11.9941L4.94035 4.3958C4.53355 3.989 3.874 3.989 3.46721 4.3958C3.06041 4.80259 3.06041 5.46214 3.46721 5.86893L11.0655 13.4672L3.46723 21.0655C3.06043 21.4723 3.06043 22.1318 3.46723 22.5387C3.87402 22.9455 4.53358 22.9455 4.94037 22.5387L12.5386 14.9404L20.137 22.5387C20.5437 22.9455 21.2033 22.9455 21.6101 22.5387C22.0169 22.1318 22.0169 21.4723 21.6101 21.0656L14.0118 13.4672L21.6101 5.86893C22.0169 5.46214 22.0169 4.80259 21.6101 4.3958Z" fill="white"/>
+                        <path d="M21.6101 4.3958C21.2033 3.989 20.5437 3.989 20.137 4.3958L12.5386 11.9941L4.94035 4.3958C4.53355 3.989 3.874 3.989 3.46721 4.3958C3.06041 4.80259 3.06041 5.46214 3.46721 5.86893L11.0655 13.4672L3.46723 21.0655C3.06043 21.4723 3.06043 22.1318 3.46723 22.5387C3.87402 22.9455 4.53358 22.9455 4.94037 22.5387L12.5386 14.9404L20.137 22.5387C20.5437 22.9455 21.2033 22.9455 21.6101 22.5387C22.0169 22.1318 22.0169 21.4723 21.6101 21.0656L14.0118 13.4672L21.6101 5.86893C22.0169 5.46214 22.0169 4.80259 21.6101 4.3958Z" [attr.fill]="(this.currentTheme$() == this.theme.WHITE) ? '#0A042A' : 'white'"/>
                     </svg>
                 } @else {
                     <!-- OPEN DROPDOWN ICON -->
                     <svg width="30" height="30" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 7.92859H25M5 15.4286H25M5 22.9286H25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 7.92859H25M5 15.4286H25M5 22.9286H25" [attr.stroke]="(this.currentTheme$() == this.theme.WHITE) ? '#0A042A' : 'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 }
             </button>
             <div class="nav-desktop hidden md:block">
                 <nav class="">
                     <ul class=" flex gap-6 justify-start items-center">
-                        <li><a [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }"  class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Nerd Culture</a></li>
-                        <li><a [routerLink]="['/podnerd']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Podnerd</a></li>
-                        <li><a [routerLink]="['/contents']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Conteúdos</a></li>
-                        <li><a [routerLink]="['/contact-us']" class="text-white/90 md:text-sm" [routerLinkActive]="'active'">Entre em contacto</a></li>
+                        <li><a [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }"  class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Nerd Culture</a></li>
+                        <li><a [routerLink]="['/podnerd']" class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Podnerd</a></li>
+                        <li><a [routerLink]="['/contents']" class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Conteúdos</a></li>
+                        <li><a [routerLink]="['/contact-us']" class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Entre em contacto</a></li>
                     </ul>
                 </nav>
             </div>

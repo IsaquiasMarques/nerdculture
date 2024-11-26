@@ -1,4 +1,9 @@
-<div class="limited-container" #limitedContainerElementRef>
+<div
+class="limited-containers"
+[ngClass]="{
+    'limited-container': this.limitedContainer()
+}"
+#limitedContainerElementRef>
     <div class="section-container flex flex-col gap-[10px]">
         @if (label()) {
             <div class="label">

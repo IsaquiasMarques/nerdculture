@@ -13,7 +13,7 @@ export const routes: Routes = [
     },
     {
         path: 'contents',
-        loadComponent: () => import('./pages/contents/components/container/contents/contents.component').then(component => component.ContentsComponent),
+        loadComponent: () => import('./pages/contents/components/container/contents.component').then(component => component.ContentsComponent),
         title: 'Conteúdos - Esteja a par dos nossos conteúdos'
     },
     {

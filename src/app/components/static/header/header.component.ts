@@ -1,6 +1,7 @@
 import { isPlatformBrowser, NgClass } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, Renderer2, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, inject, Inject, PLATFORM_ID, Renderer2, signal, Signal, WritableSignal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Theme, ThemeService } from '@shared/services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,8 @@ export class HeaderComponent {
     private renderer2: Renderer2
   ){}
   
+  theme = Theme;
+  currentTheme$ = inject(ThemeService).themePage$;
   dropdownMenuOpen: WritableSignal<boolean> = signal(false);
 
   closeDropdownMenu(): void{

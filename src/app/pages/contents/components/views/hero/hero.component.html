@@ -1,0 +1,48 @@
+<div class="limited-container" #limitedContainerElementRef></div>
+<div
+class="topper flex flex-col lg:flex-row lg:justify-between lg:items-stretch gap-5"
+[style.paddingLeft.px]="this.paddingX()"
+[style.paddingRight.px]="this.paddingX()"
+>
+    <div class="content w-full max-w-[430px] xl-1230:max-w-[563px]">
+        <div class="title mb-[10px]">
+            <h1 class="font-bold text-[1.25rem] lg:!text-2xl leading-6 text-left">
+                Descubra insights inovadores e perspectivas transformadoras
+            </h1>
+        </div>
+        <div class="description">
+            <p class="text-gray text-sm text-left">
+                Compartilhamos análises profundas e pontos de vista únicos, trazendo inspiração e conhecimento para ajudá-lo a explorar novas fronteiras da tecnologia, inovação, cinema e games.
+            </p>
+        </div>
+        <div class="categories-section relative">
+            <div class="scroller px-[12px] mt-4 lg:mt-0 w-full z-[2] overflow-x-auto relative">
+                <div class="categories relative w-max flex justify-start items-center py-[10px] gap-5">
+                    @for (category of this.categories(); track $index) {
+                        <div class="category">
+                            <a
+                            [routerLink]="['/posts/' + category.slug ]"
+                            class="font-bold text-sm"
+                            [style.color]="category.color"
+                            >
+                                {{ category.name }}
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="overlays w-full h-full absolute flex justify-between items-center top-0 left-0">
+                <div class="overlay-left z-[3] relative pointer-events-none w-[20px] h-full bg-[linear-gradient(-90deg,transparent_0%,#ffffff_100%)]"></div>
+                <div class="overlay-right z-[3] relative pointer-events-none w-[20px] h-full bg-[linear-gradient(90deg,transparent_0%,#ffffff_100%)]"></div>
+            </div>
+        </div>
+    </div>
+    <div class="advertisements w-full lg:max-w-[512px]">
+        <app-advertisements
+        [label]="false"
+        [level]="'level-0'"
+        [limitedContainer]="false"
+        [advertisementsContents]="this.advertisements()"
+        />
+    </div>
+</div>

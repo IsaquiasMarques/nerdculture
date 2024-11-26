@@ -27,6 +27,7 @@ export class AdvertisementsComponent extends ScrollerFunctionalities {
   advertisementsContents = input.required<AdvertisementContent[]>();
   level = input.required<AdvertisementLevel>();
   label = input<boolean>(true);
+  limitedContainer = input<boolean>(true);
   dashControllers = input<boolean>(true);
 
   advertisementsByLevel$ = computed(() => this.advertisementsContents().filter(item => item.position === this.level()));

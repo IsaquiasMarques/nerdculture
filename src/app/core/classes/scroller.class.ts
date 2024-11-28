@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, signal, Signal, WritableSignal } from "@angular/core";
+import { Directive, ElementRef, HostListener, input, signal, Signal, WritableSignal } from "@angular/core";
 
 @Directive()
 export class ScrollerFunctionalities{
@@ -13,6 +13,8 @@ export class ScrollerFunctionalities{
     
     withaddingSpacing: boolean = true;
     paddingX: WritableSignal<number> = signal(0);
+
+    touchMove = input<boolean>(true);
 
     constructor() {}
 
@@ -64,12 +66,16 @@ export class ScrollerFunctionalities{
 
     @HostListener('touchstart', ['$event'])
     public captureInitialXOnTouchStart($event: any){
+        if(!this.touchMove()) return;
+        
         this.initialX = $event.touches[0].clientX;
         this.initialY = $event.touches[0].clientY;
     }
 
     @HostListener('touchmove', ['$event'])
     public carouselTouchMoveEventHandler($event: any){
+
+        if(!this.touchMove()) return;
 
         if(this.initialX === null || this.initialY === null) return;
         var currentX = $event.touches[0].clientX;

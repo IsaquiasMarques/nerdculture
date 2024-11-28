@@ -1,4 +1,5 @@
 export interface PostCategory{
+    id: number,
     name: string,
     count: number,
     slug: string,
@@ -8,6 +9,7 @@ export interface PostCategory{
 }
 
 export interface Post{
+    id: number,
     title: string,
     slug: string,
     content: string,

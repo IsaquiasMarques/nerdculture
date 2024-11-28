@@ -75,6 +75,7 @@ export class Transformer{
     static categories(incoming: any[]): PostCategory[]{
         return incoming.flatMap((i: any) => {
             return {
+                id: i.id,
                 name: i.name,
                 slug: i.slug,
                 count: i.count,
@@ -89,6 +90,7 @@ export class Transformer{
         const FIRST_ITEM = 0;
         return incoming.flatMap((i: any) => {
             return {
+                id: i.id,
                 title: i.title.rendered,
                 slug: i.slug,
                 content: i.content.rendered,

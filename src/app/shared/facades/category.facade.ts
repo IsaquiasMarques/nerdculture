@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal, Signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { PostCategory } from "@core/models/post.model";
 import { ApiService } from "@core/services/api.service";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'

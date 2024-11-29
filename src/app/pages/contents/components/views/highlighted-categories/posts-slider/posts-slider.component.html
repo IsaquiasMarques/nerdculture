@@ -7,51 +7,54 @@
     <div class="posts-scroller scroller-container overflow-hidden" #sliderElementRef>
         <div class="posts w-fit flex justify-start items-stretch">
             @for (post of this.posts(); track $index) {
-                <div class="post relative w-full min-w-[300px] md:min-w-[500px] h-full min-h-[300px] flex-[1_1_auto] shrink">
+                <div class="post relative w-full min-w-[300px] md:min-w-[373px] 2xl:w-full h-full min-h-[300px] md:min-h-[373px] 2xl:min-w-[425px] 2xl:min-h-[425px] 3xl:min-w-[453px] 3xl:min-h-[453px] 5xl:min-w-[420px] 5xl:min-h-[420px]">
                     <div class="image-bg absolute z-[1] w-full h-full top-0 left-0">
                         <img [src]="post.image.medium" class="w-full h-full object-cover object-center" alt="">
                     </div>
                     <div class="overlay absolute top-0 left-0 w-full h-full z-[2] bg-[linear-gradient(180deg,transparent_0%,rgba(103,103,103,36%)_36%,rgba(0,0,0,60%)_90%)]"></div>
-                    <div class="details absolute  w-full left-0 z-[2] text-white bottom-0 flex flex-col gap-6 px-5 pt-5 pb-[calc(24px+20px)]">
+                    <div class="details absolute  w-full left-0 z-[2] bottom-0 flex flex-col gap-6 px-5 pt-5 pb-[calc(24px+20px)] md:pb-[calc(24px+30px)]">
                         <div class="title">
-                            <p class=" line-clamp-3 font-medium text-base">
-                                <a [routerLink]="['/post/' + post.slug]"></a>
-                                {{ post.title }}
+                            <p class=" line-clamp-3">
+                                <a class="text-white font-medium text-base md:text-xl 2xl:text-2xl" [routerLink]="['/post/' + post.slug]">
+                                    {{ post.title }}
+                                </a>
                             </p>
                         </div>
                     </div>
                 </div>
-            }
+            } @empty {}
         </div>
     </div>
-    <div class="arrow-controllers absolute z-[3] top-[50%] left-0 -translate-y-[50%] w-full px-5 flex justify-between items-center">
-        <div class="prev h-10">
-            <button class="" (click)="this.prev()">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="duration-[.6s]" width="40" height="40" rx="20" [attr.fill]="(this.activeIndex > 0) ? '#00BAEE' : 'white'"/>
-                    <path d="M22.5 15L17.5 20L22.5 25" [attr.stroke]="(this.activeIndex > 0) ? 'white' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+    @if (this.itemsArray().length > 1) {
+        <div class="arrow-controllers absolute z-[3] top-[50%] left-0 -translate-y-[50%] w-full px-5 flex justify-between items-center">
+            <div class="prev h-10">
+                <button class="" (click)="this.prev()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="duration-[.6s]" width="40" height="40" rx="20" [attr.fill]="(this.activeIndex > 0) ? '#00BAEE' : 'white'"/>
+                        <path d="M22.5 15L17.5 20L22.5 25" [attr.stroke]="(this.activeIndex > 0) ? 'white' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="next h-10">
+                <button class="" (click)="this.next()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="duration-[.6s]" x="40" y="40" width="40" height="40" rx="20" transform="rotate(-180 40 40)" [attr.fill]="(this.activeIndex >= this.itemsArray().length - 1) ? 'white' : '#00BAEE'"/>
+                        <path d="M17.5 25L22.5 20L17.5 15" [attr.stroke]="(this.activeIndex >= this.itemsArray().length - 1) ? '#555555' : 'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
         </div>
-        <div class="next h-10">
-            <button class="" (click)="this.next()">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="duration-[.6s]" x="40" y="40" width="40" height="40" rx="20" transform="rotate(-180 40 40)" [attr.fill]="(this.activeIndex >= this.itemsArray().length - 1) ? 'white' : '#00BAEE'"/>
-                    <path d="M17.5 25L22.5 20L17.5 15" [attr.stroke]="(this.activeIndex >= this.itemsArray().length - 1) ? '#555555' : 'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+        <div class="dash-controllers absolute left-0 z-[3] bottom-5 flex gap-[5px] w-full justify-center items-center">
+            <div class="dashes flex gap-[5px] w-fit bg-white rounded-full p-[5px] justify-center items-center">
+                @for (dash of this.posts(); track $index) {
+                    <div class="dash bg-[#CFCFCF] cursor-pointer duration-[.6s] rounded-full w-[10px] h-[5px]"
+                    [ngClass]="{
+                        '!w-5 !bg-[#14498C]': this.activeIndex === $index
+                    }"
+                    (click)="this.slideTo($index)"
+                    ></div>
+                } @empty {}
+            </div>
         </div>
-    </div>
-    <div class="dash-controllers absolute left-0 z-[3] bottom-5 flex gap-[5px] w-full justify-center items-center">
-        <div class="dashes flex gap-[5px] w-fit bg-white rounded-full p-[5px] justify-center items-center">
-            @for (dash of this.posts(); track $index) {
-                <div class="dash bg-[#CFCFCF] cursor-pointer duration-[.6s] rounded-full w-[10px] h-[5px]"
-                [ngClass]="{
-                    '!w-5 !bg-[#14498C]': this.activeIndex === $index
-                }"
-                (click)="this.slideTo($index)"
-                ></div>
-            }
-        </div>
-    </div>
+    }
 </div>

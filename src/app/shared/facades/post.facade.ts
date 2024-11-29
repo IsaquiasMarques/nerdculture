@@ -12,15 +12,21 @@ export class PostFacade{
     private latestPosts$: Signal<Post[]> = signal([]);
 
     constructor(){
-        const { LIMIT_OF_POSTS, CURRENT_PAGE } = { LIMIT_OF_POSTS: 4, CURRENT_PAGE: 1 };
+        const { LIMIT_OF_POSTS, CURRENT_PAGE } = { LIMIT_OF_POSTS: 8, CURRENT_PAGE: 1 };
         this.latestPosts$ = toSignal(this.API.getLatestPosts(LIMIT_OF_POSTS, CURRENT_PAGE), { initialValue: [] });
     }
     
-    get latestPosts(): Signal<Post[]>{
+    private get latestPosts(): Signal<Post[]>{
         return computed(() => this.latestPosts$());
     }
 
     getPostsByCategory(id: number, per_page: number, current_page: number): Observable<Post[]>{
         return this.API.getPostsByCategory(id, per_page, current_page);
+    }
+
+    getLatestPosts(limit: number): Signal<Post[]>{
+        return computed(() => {
+            return this.latestPosts().slice(0, limit)
+        });
     }
 }

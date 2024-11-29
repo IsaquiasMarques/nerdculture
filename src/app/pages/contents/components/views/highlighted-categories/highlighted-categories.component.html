@@ -1,22 +1,23 @@
 <div class="section-content">
     <div class="limited-container" #limitedContainerElementRef></div>
     <div class="content-scroller scroller-container w-full overflow-hidden" #scollerContainerElementRef>
-        <div class="categories w-fit flex gap-5 justify-start items-stretch"
+        <div class="categories w-fit 2xl:w-full flex gap-5 justify-start items-stretch"
         [style.paddingLeft.px]="this.paddingX()"
         [style.paddingRight.px]="this.paddingX()"
         >
             @for (content of contents(); track $index) {
-                <div class="content relative w-full max-w-[300px] md:max-w-[500px] shrink">
+                <div class="content relative w-full max-w-[300px] md:max-w-[373px] 2xl:min-w-[calc((100%/3)-(calc(40px/3)))] shrink">
+                    <!-- [postCardWidth]="['max-w-[300px]', 'md:max-w-[373px]', '2xl:max-w-[]']" -->
                     <app-posts-slider
                     [touchMove]="false"
                     [category]="content.category"
                     [posts]="content.posts()"
                     />
                 </div>
-            }
+            } @empty {}
         </div>
     </div>
-    <div class="arrow-controllers mt-6 w-full flex justify-center items-center">
+    <div class="arrow-controllers xl-1230:hidden mt-6 w-full flex justify-center items-center">
         <div class="prev h-10">
             <button class="" (click)="this.prev()">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

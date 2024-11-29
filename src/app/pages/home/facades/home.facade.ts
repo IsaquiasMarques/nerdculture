@@ -40,14 +40,14 @@ export class HomeFacade {
   get highlightedPodcasts(): Signal<Podcast[]>{
     return computed(() => this.podcastFacade.highlightedPodcasts());
   }
-
-  get latestPosts(): Signal<Post[]>{
-    return computed(() => this.postFacade.latestPosts());
-  }
-
+  
   get categories(): Signal<PostCategory[]>{
     const LIMIT_OF_CATEGORIES = 9;
     return computed(() => this.categoryFacade.getCategoriesWithImages(LIMIT_OF_CATEGORIES)());
+  }
+
+  getLatestPosts(limit: number): Signal<Post[]>{
+    return this.postFacade.getLatestPosts(limit);
   }
 
 }

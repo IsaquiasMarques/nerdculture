@@ -1,0 +1,17 @@
+.post-template:nth-child(5),
+.post-template:nth-child(6),
+.post-template:nth-child(7),
+.post-template:nth-child(8)
+{
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .post-template:nth-child(5),
+    .post-template:nth-child(6),
+    .post-template:nth-child(7),
+    .post-template:nth-child(8)
+    {
+        display: block;
+    }
+}

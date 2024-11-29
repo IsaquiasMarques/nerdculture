@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Partner } from '@core/models/partner.model';
 import { Podcast } from '@core/models/podcast.model';
@@ -59,7 +59,8 @@ export class HomeComponent implements OnInit {
   }
 
   private getLatestPosts(): void{
-    this.posts = this.homeFacade.latestPosts;
+    const LIMIT_OF_POSTS = 4;
+    this.posts = this.homeFacade.getLatestPosts(LIMIT_OF_POSTS);
   }
   
   private getCategories(): void{

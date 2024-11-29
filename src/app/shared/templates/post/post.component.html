@@ -43,19 +43,21 @@
         </div>
     </div>
 } @else {
-    <div class="box flex gap-[10px] w-full">
-        <div class="image min-w-[85px] h-[85px]">
+    <div class="box w-[278px] xs:w-[300px] flex gap-[10px]">
+        <div class="image w-[85px] h-[85px]">
             <img [src]="post().image.thumbnail" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação'">
             <!-- <img [src]="'assets/images/posts/post-1.png'" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação: ' + post().title"> -->
         </div>
-        <div class="description max-w--[190px] flex flex-col justify-between gap-y-[0px]">
+        <div class="description max-w-[190px] flex flex-col justify-between gap-y-[0px]">
             <div class="title">
-                <h2 class="text-base leading-5 font-semibold text-secondary">
-                    {{ post().title }} 
+                <h2 class="text-sm font-medium text-secondary line-clamp-3">
+                    <a [routerLink]="['/post/' + post().slug]">
+                        {{ post().title }} 
+                    </a>
                 </h2>
             </div>
             <div class="created_at">
-                <p class="text-sm font-semibold text-[#686868]/75 text-left">
+                <p class="text-sm font-semibold text-[#686868]/85 text-left">
                     {{ post().created_at | friendlyFormat }}
                 </p>
             </div>

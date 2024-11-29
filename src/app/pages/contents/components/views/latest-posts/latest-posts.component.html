@@ -1,0 +1,13 @@
+<div class="section-container">
+    <div class="limited-container flex justify-center">
+        <div class="posts w-full flex flex-col md:flex-row flex-wrap gap-3 md:gap-4">
+            @for (post of posts(); track $index) {
+                <app-post-template
+                class="post-template"
+                [templateSize]="'short'"
+                [post]="post"
+                />
+            } @empty {}
+        </div>
+    </div>
+</div>

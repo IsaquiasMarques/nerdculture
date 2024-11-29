@@ -1,13 +1,46 @@
-<div class="page-content-wrapper pt-24 flex flex-col gap-[1.875rem] md:gap-16">
-    <div class="hero-section">
-        <app-hero
-        [categories]="this.categories()"
-        [advertisements]="this.getAdvertisements()"
+<div class="page-content-wrapper pt-32 flex flex-col gap-[1.875rem] md:gap-16">
+    <div class="hero-container flex flex-col gap-6">
+        <div class="hero-section">
+            <app-hero
+            [categories]="this.categories()"
+            [advertisements]="this.getAdvertisements()"
+            />
+        </div>
+        <div class="highlighted-categories">
+            <app-highlighted-categories
+            [contents]="this.highlightedContents"
+            />
+        </div>
+        <div class="latest-posts">
+            <app-latest-posts
+            [posts]="this.latestPosts()"
+            />
+        </div>
+    </div>
+    <div class="advertisement">
+        <app-advertisements
+        [label]="true"
+        [level]="'level-1'"
+        [limitedContainer]="true"
+        [advertisementsContents]="this.getAdvertisements()"
         />
     </div>
-    <div class="highlighted-categories">
-        <app-highlighted-categories
-        [contents]="this.highlightedContents"
+
+    <div class="blocks-content-before-advertisement">
+        {{ this.blocksBeforeAdvertisement().length }}
+    </div>
+
+    <div class="advertisement">
+        <app-advertisements
+        [label]="true"
+        [level]="'level-2'"
+        [limitedContainer]="true"
+        [advertisementsContents]="this.getAdvertisements()"
         />
     </div>
+
+    <div class="blocks-content-after-advertisement">
+        {{ this.blocksAfterAdvertisement().length }}
+    </div>
+    
 </div>

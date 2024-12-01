@@ -98,11 +98,22 @@ export class ApiService {
                     );
   }
 
-  getPostsByCategory(category_id: number, per_page: number, current_page: number): Observable<Post[]>{
+  getPostsByCategory(category_id: number, per_page: number, current_page: number, countTotal: boolean): Observable<Post[]>{
     const per_pageString = (per_page) ? `&per_page=${ per_page }` : '';
     const current_pageString = (current_page) ? `&current_page=${ current_page }` : '';
-    return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?categories=${ category_id }&_embed${ per_pageString + current_pageString }`)
+    return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?categories=${ category_id }&_embed${ per_pageString + current_pageString }`,
+      { observe: 'response', transferCache: { includeHeaders: ['x-wp-total'] } })
                     .pipe(
+                      map((incoming: HttpResponse<any>) => {
+                        const xWpTotalHeader = incoming.headers.get('x-wp-total');
+                        if(countTotal){
+                          this.paginationService.postsByCategoryTotalOfPosts$.update(() => {
+                            const parsedValue = xWpTotalHeader !== null ? parseInt(xWpTotalHeader, 10) : 0;
+                            return parsedValue; // ou outra lógica para valores inválidos
+                          });
+                        }
+                        return incoming.body;
+                      }),
                       map((incoming: any[]) => Transformer.posts(incoming))
                     )
   }

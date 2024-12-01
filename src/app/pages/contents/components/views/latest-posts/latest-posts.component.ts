@@ -11,4 +11,5 @@ import { PostTemplate } from '@shared/templates/post/post.component';
 })
 export class LatestPostsComponent {
   posts = input.required<Post[]>();
+  dimentions = input<string[]>(['w-[278px]', 'xs:w-[300px]'])
 }

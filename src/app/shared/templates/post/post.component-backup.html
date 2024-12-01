@@ -1,0 +1,88 @@
+<div class="box-container w-full"
+appCardDimentions [dimentions]="dimentions()"
+>
+    <div class="box flex gap-2 flex-col">
+        <div class="top-content flex gap-3"
+        [ngClass]="{
+            'flex-row md:flex-col': this.responsive() && this.templateSize() === 'mixed',
+            'flex-row': !this.responsive() && this.templateSize() === 'short',
+            'flex-col': !this.responsive() && this.templateSize() === 'long',
+        }">
+            <div class="image"
+            [ngClass]="{
+                'w-[85px] h-[85px] md:w-full md:h-[235px]': this.responsive() && this.templateSize() === 'mixed',
+                'w-[85px] min-w-[85px] h-[85px] min-h-[85px]': !this.responsive() && this.templateSize() === 'short',
+                'w-full h-[235px]': !this.responsive() && this.templateSize() === 'long',
+            }">
+                <img [src]="post().image.medium" class="w-full h-full object-cover object-center" [alt]="'Imagem da publicação'">
+            </div>
+            <div class="tiny-details justify-between items-center"
+            [ngClass]="{
+                'hidden md:flex': this.responsive() && this.templateSize() === 'mixed', 
+                'hidden': !this.responsive() && this.templateSize() === 'short',
+                'flex': !this.responsive() && this.templateSize() === 'long',
+            }">
+                <div class="created-at">
+                    <p class="text-sm font-semibold text-[#686868]/75 text-left">
+                        {{ post().created_at | friendlyFormat }}
+                    </p>
+                </div>
+                <div class="categories flex justify-start items-center">
+                    @if (post().categories[0]) {
+                        @let firstCategory = post().categories[0];
+                        <div
+                        class="chip p-[10px] z-[1] text-sm font-semibold w-fit border rounded-full"
+                        [style.color]="firstCategory.color"
+                        [style.borderColor]="firstCategory.color"
+                        >
+                            {{ firstCategory.name }}
+                        </div>
+                    }
+                    @if (post().categories.slice(1).length > 0) {
+                        @let remainingCategories = post().categories.slice(1).length;
+                        <div class="chip p-[10px] bg-white min-w-[42px] h-[42px] -ml-[7px] flex justify-center items-center z-[2] text-sm font-semibold text-secondary border border-secondary rounded-full">
+                            +{{ remainingCategories }}
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="title h flex flex-col justify-between"
+            [ngClass]="{
+                'max-w-[190px] min-h-[85px] md:max-w-full md:min-w-auto': this.responsive() && this.templateSize() === 'mixed',
+                'max-w-[190px] min-h-[85px]': !this.responsive() && this.templateSize() === 'short',
+                'max-w-full': !this.responsive() && this.templateSize() === 'long',
+            }">
+                <a [routerLink]="['/']" class="text-secondary"
+                [ngClass]="{
+                    'line-clamp-3 text-sm md:text-base font-medium md:font-semibold md:line-clamp-2': this.responsive() && this.templateSize() === 'mixed',
+                    'line-clamp-3 text-sm font-medium': !this.responsive() && this.templateSize() === 'short',
+                    'line-clamp-2 text-base font-semibold': !this.responsive() && this.templateSize() === 'long',
+                }"
+                >
+                    {{ post().title }}
+                </a>
+                <div class="created_at"
+                [ngClass]="{
+                    'block md:hidden': this.responsive() && this.templateSize() === 'mixed',
+                    'block': !this.responsive() && this.templateSize() === 'short',
+                    'hidden': !this.responsive() && this.templateSize() === 'long',
+                }">
+                    <p class="text-sm font-semibold text-[#686868]/85 text-left">
+                        {{ post().created_at | friendlyFormat }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="bottom"
+        [ngClass]="{
+            'hidden md:block': this.responsive() && this.templateSize() === 'mixed',
+            'hidden': !this.responsive() && this.templateSize() === 'short',
+            'block': !this.responsive() && this.templateSize() === 'long',
+        }"
+        >
+            <div class="author">
+                <p class="text-sm text-gray">Por: {{ post().author }}</p>
+            </div>
+        </div>
+    </div>
+</div>

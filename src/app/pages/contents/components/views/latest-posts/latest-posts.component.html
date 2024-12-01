@@ -1,13 +1,23 @@
-<div class="section-container">
-    <div class="limited-container flex justify-center">
-        <div class="posts w-full flex flex-col md:flex-row flex-wrap gap-3 md:gap-4">
-            @for (post of posts(); track $index) {
-                <app-post-template
-                class="post-template"
-                [templateSize]="'short'"
-                [post]="post"
-                />
-            } @empty {}
+<div class="section-container mt-5 lg:mt-10">
+    <div class="limited-container flex flex-col gap-5">
+        <div class="title">
+            <h1 class="font-medium text-xl lg:!text-2xl leading-6 text-left">
+                Publicações mais recentes
+            </h1>
+        </div>
+
+        <div class="aligner flex justify-center">
+            <div class="posts w-full flex flex-col md:flex-row flex-wrap gap-3 md:gap-4">
+                @for (post of posts(); track $index) {
+                    <app-post-template
+                    class="post-template"
+                    [templateSize]="'short'"
+                    [responsive]="false"
+                    [post]="post"
+                    [dimentions]="dimentions()"
+                    />
+                } @empty {}
+            </div>
         </div>
     </div>
 </div>

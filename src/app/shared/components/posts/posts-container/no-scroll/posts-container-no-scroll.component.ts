@@ -11,4 +11,5 @@ import { PostTemplate } from '@shared/templates/post/post.component';
 })
 export class PostsContainerNoScrollComponent {
   posts = input.required<Post[]>();
+  dimentions = input<string[]>(['w-full', 'max-w-[18.75rem]'])
 }

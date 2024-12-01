@@ -1,21 +1,21 @@
 import { Component, computed, effect, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AdvertisementClass } from '@core/classes/advertisement.class';
 import { AdvertisementPage } from '@core/models/advertisement.model';
 import { Post, PostCategory } from '@core/models/post.model';
 import { CategoryFacade } from '@shared/facades/category.facade';
 import { Theme, ThemeService } from '@shared/services/theme.service';
-import { HeroComponent } from '../views/hero/hero.component';
+import { HeroComponent } from '@shared/components/posts/hero/hero.component';
 import { HighlightedCategoriesComponent } from '../views/highlighted-categories/highlighted-categories.component';
 import { PostFacade } from '@shared/facades/post.facade';
 import { Observable } from 'rxjs';
 import { LatestPostsComponent } from '../views/latest-posts/latest-posts.component';
 import { AdvertisementsComponent } from '@shared/components/advertisements/advertisements.component';
+import { BlockContentComponent } from '../views/block-content/block-content.component';
 
 @Component({
   selector: 'app-contents',
   standalone: true,
-  imports: [ HeroComponent, HighlightedCategoriesComponent, LatestPostsComponent, AdvertisementsComponent ],
+  imports: [ HeroComponent, HighlightedCategoriesComponent, LatestPostsComponent, AdvertisementsComponent, BlockContentComponent ],
   templateUrl: './contents.component.html',
   styleUrl: './contents.component.css'
 })
@@ -48,9 +48,8 @@ export class ContentsComponent extends AdvertisementClass implements OnInit {
     this.getContents();
   }
 
-  // Método para buscar os posts de uma categoria
   private fetchPostsForCategory(category_id: number): Observable<Post[]> {
-    return this.postFacade.getPostsByCategory(category_id, 5, 1); // Substitua pela sua lógica de requisição
+    return this.postFacade.getPostsByCategory(category_id, 5, 1);
   }
 
   private getCategories(): void{

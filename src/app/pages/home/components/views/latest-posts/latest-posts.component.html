@@ -48,9 +48,9 @@
                         [style]="'background: linear-gradient(180deg, transparent, ' + category.color + ')'"
                         ></div>
                         <div class="category-content absolute w-full h-full z-[3] flex justify-center items-end p-[10px]">
-                            <p class="text-white w-full font-bold text-left">
+                            <a [routerLink]="['/contents/' + category.slug]" class="text-white w-full font-bold text-left">
                                 {{ category.name }}
-                            </p>
+                            </a>
                         </div>
                     </div>
                 } @empty {

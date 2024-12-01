@@ -1,0 +1,48 @@
+<div class="page-content-wrapper pt-32 flex flex-col gap-[60px]">
+    <div class="hero-container flex flex-col gap-6">
+        <div class="hero-section">
+            <app-hero
+            [categories]="this.categories()"
+            [advertisements]="this.getAdvertisements()"
+            />
+        </div>
+    </div>
+
+    <div class="main-contents flex flex-col gap-6 lg:gap-[1.875rem]">
+        <div class="limited-container w-full">
+            <div class="category">
+                <h1 class="text-2xl font-bold"
+                [style.color]="theCategory()?.color"
+                >
+                    {{ theCategory()?.name }}
+                    <span class="text-xl font-normal text-[#686868]/75">({{ this.paginationService.postsByCategoryTotalOfPosts$() }})</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="posts-before-advertisement">
+            <app-posts-container-no-scroll
+            [posts]="this.postsBeforeLevel1Advertisement()"
+            />
+        </div>
+
+        <div class="advertisement">
+            <app-advertisements
+            [label]="true"
+            [level]="'level-1'"
+            [limitedContainer]="true"
+            [advertisementsContents]="this.getAdvertisements()"
+            />
+        </div>
+        
+        <div class="advertisement">
+            <app-advertisements
+            [label]="true"
+            [level]="'level-2'"
+            [limitedContainer]="true"
+            [advertisementsContents]="this.getAdvertisements()"
+            />
+        </div>
+    </div>
+    
+</div>

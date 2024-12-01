@@ -17,12 +17,12 @@ export const routes: Routes = [
         title: 'Conteúdos - Esteja a par dos nossos conteúdos'
     },
     {
-        path: 'posts/:category',
-        loadComponent: () => import('./pages/posts/components/container/posts/posts.component').then(component => component.PostsComponent),
+        path: 'contents/:category',
+        loadComponent: () => import('./pages/posts/components/container/posts.component').then(component => component.PostsComponent),
         title: 'Conteúdos - Esteja a par dos nossos conteúdos'
     },
     {
-        path: 'post/:slug',
+        path: 'content/:slug',
         loadComponent: () => import('./pages/post/components/container/post/post.component').then(component => component.PostComponent),
         title: 'Conteúdo - Leitura de publicação'
     }

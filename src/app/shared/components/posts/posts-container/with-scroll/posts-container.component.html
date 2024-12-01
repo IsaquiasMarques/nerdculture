@@ -2,8 +2,9 @@
     <div class="posts-container flex flex-col md:flex-row gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-center">
         @for (post of posts(); track $index) {
             <app-post-template
-            class="w-[18.75rem] xl-1230:w-[calc((100%/4)-calc(40px/4))] 2xl:w-[calc((100%/3)-(80px/3))]"
+            [dimentions]="dimentions()"
             [post]="post"
+            [responsive]="false"
             />
         }
     </div>

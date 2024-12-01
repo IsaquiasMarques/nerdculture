@@ -20,8 +20,8 @@ export class PostFacade{
         return computed(() => this.latestPosts$());
     }
 
-    getPostsByCategory(id: number, per_page: number, current_page: number): Observable<Post[]>{
-        return this.API.getPostsByCategory(id, per_page, current_page);
+    getPostsByCategory(id: number, per_page: number, current_page: number, countTotal: boolean = false): Observable<Post[]>{
+        return this.API.getPostsByCategory(id, per_page, current_page, countTotal);
     }
 
     getLatestPosts(limit: number): Signal<Post[]>{

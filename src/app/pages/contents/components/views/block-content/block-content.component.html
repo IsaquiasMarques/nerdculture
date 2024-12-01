@@ -1,1 +1,9 @@
-<p>block-content works!</p>
+<div class="section-container">
+    <div class="limited-container flex gap-7 xl:gap-y-[3.75rem] flex-col lg:flex-row lg:flex-wrap justify-stretch">
+        @for (blockContent of this.blockContent(); track $index) {
+            <div class="block-content xl-1230:w-[calc(calc(100%/2)-calc(30px/2))] xl:w-[calc(calc(100%/2)-calc(35px/2))]">
+                <app-block [block]="blockContent" />
+            </div>
+        }
+    </div>
+</div>

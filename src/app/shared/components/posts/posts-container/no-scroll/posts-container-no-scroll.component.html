@@ -1,10 +1,28 @@
-<div class="scroller w-full overflow-x-auto">
-    <div class="posts-container flex flex-col md:flex-row md:flex-wrap gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-center">
-        @for (post of posts(); track $index) {
-            <app-post-template
-            class="w-[18.75rem] xl-1230:w-[calc((100%/4)-calc(40px/4))] 2xl:w-[calc((100%/3)-(80px/3))]"
-            [post]="post"
-            />
-        }
+<div class="scroller w-full">
+    <div class="limited-container">
+        <div class="posts-container flex flex-col md:flex-row md:flex-wrap gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-center">
+            @for (post of posts(); track $index) {
+                <!-- <app-post-template
+                [post]="post"
+                [responsive]="true"
+                [dimentions]="dimentions()"
+                [templateSize]="'mixed'"
+                /> -->
+                <app-post-template
+                class="hidden md:block"
+                [post]="post"
+                [responsive]="true"
+                [dimentions]="['md:w-[20.625rem]', 'xl-1230:w-[17rem]', '2xl:w-[18.75rem]', '3xl:w-[20rem]', '4xl:w-[18.75rem]']"
+                />
+
+                <app-post-template
+                class="md:hidden"
+                [post]="post"
+                [templateSize]="'short'"
+                [responsive]="false"
+                [dimentions]="['w-[278px]', 'xs:w-[300px]']"
+                />
+            }
+        </div>
     </div>
 </div>

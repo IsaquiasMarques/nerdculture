@@ -14,18 +14,20 @@
                         </p>
                     </div>
                     <div class="categories flex justify-start items-center">
-                        @if (post().categories[0]) {
-                            @let firstCategory = post().categories[0];
+                        @if (transformedCategory()[0]) {
+                            @let firstCategory = transformedCategory()[0];
                             <div
-                            class="chip p-[10px] z-[1] text-sm font-semibold w-fit border rounded-full"
-                            [style.color]="firstCategory.color"
-                            [style.borderColor]="firstCategory.color"
+                            class="chip p-[10px] z-[1] max-w-[100px] text-sm font-semibold w-fit border rounded-full"
+                            [style.color]="firstCategory!.color"
+                            [style.borderColor]="firstCategory!.color"
                             >
-                                {{ firstCategory.name }}
+                                <p class=" line-clamp-1">
+                                    {{ firstCategory!.name }}
+                                </p>
                             </div>
                         }
-                        @if (post().categories.slice(1).length > 0) {
-                            @let remainingCategories = post().categories.slice(1).length;
+                        @if (transformedCategory().slice(1).length > 0) {
+                            @let remainingCategories = transformedCategory().slice(1).length;
                             <div class="chip p-[10px] bg-white min-w-[42px] h-[42px] -ml-[7px] flex justify-center items-center z-[2] text-sm font-semibold text-secondary border border-secondary rounded-full">
                                 +{{ remainingCategories }}
                             </div>
@@ -33,7 +35,7 @@
                     </div>
                 </div>
                 <div class="title">
-                    <a [routerLink]="['/']" class="font-semibold text-base text-secondary line-clamp-2">
+                    <a [routerLink]="['/content/' + post().slug]" class="font-semibold text-base text-secondary line-clamp-2">
                         {{ post().title }}
                     </a>
                 </div>
@@ -45,6 +47,7 @@
             </div>
         </div>
     </div>
+
 } @else {
     <div class="box-container"
     appCardDimentions [dimentions]="dimentions()"
@@ -70,7 +73,6 @@
         </div>
     </div>
 }
-
 <!-- 
 <div class="box-container w-full"
 appCardDimentions [dimentions]="dimentions()"

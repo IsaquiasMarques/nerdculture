@@ -1,21 +1,33 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Post } from '@core/models/post.model';
+import { Post, PostCategory } from '@core/models/post.model';
 import { FriendlyFormatPipe } from '@shared/pipes/friendly-format.pipe';
 import { CardDimentionsDirective } from './directive/card-dimentions.directive';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-post-template',
   standalone: true,
-  imports: [ RouterLink, FriendlyFormatPipe, CardDimentionsDirective, NgClass ],
+  imports: [ RouterLink, FriendlyFormatPipe, CardDimentionsDirective ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
 export class PostTemplate {
   post = input.required<Post>();
+  theCategory = input<PostCategory>();
   responsive = input.required<boolean>();
   dimentions = input.required<string[]>();
+
+  transformedCategory = computed(() => {
+    const uniqueCategories = new Map<string, PostCategory>();
+    [this.theCategory(), ...this.post().categories].forEach(category => {
+      if(category && !uniqueCategories.has(category.slug)){
+        uniqueCategories.set(category.slug, category)
+      }
+    })
+
+    return Array.from(uniqueCategories.values())
+  });
   
   templateSize = input<'long' | 'short' | 'mixed'>('long');
 }

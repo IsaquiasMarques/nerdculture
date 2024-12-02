@@ -22,6 +22,7 @@
 
         <div class="posts-before-advertisement">
             <app-posts-container-no-scroll
+            [theCategory]="theCategory()"
             [posts]="this.postsBeforeLevel1Advertisement()"
             />
         </div>
@@ -32,6 +33,13 @@
             [level]="'level-1'"
             [limitedContainer]="true"
             [advertisementsContents]="this.getAdvertisements()"
+            />
+        </div>
+
+        <div class="posts-before-advertisement">
+            <app-posts-container-no-scroll
+            [theCategory]="theCategory()"
+            [posts]="this.postsAfterLevel1Advertisement()"
             />
         </div>
         

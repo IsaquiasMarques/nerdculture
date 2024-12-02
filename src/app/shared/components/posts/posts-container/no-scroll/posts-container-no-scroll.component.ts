@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Post } from '@core/models/post.model';
+import { Post, PostCategory } from '@core/models/post.model';
 import { PostTemplate } from '@shared/templates/post/post.component';
 
 @Component({
@@ -11,5 +11,6 @@ import { PostTemplate } from '@shared/templates/post/post.component';
 })
 export class PostsContainerNoScrollComponent {
   posts = input.required<Post[]>();
+  theCategory = input<PostCategory>();
   dimentions = input<string[]>(['w-full', 'max-w-[18.75rem]'])
 }

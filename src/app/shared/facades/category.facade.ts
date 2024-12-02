@@ -16,7 +16,16 @@ export class CategoryFacade{
         const MAX_HIGLIGHTED_CATEGORIES: number = 3;
         this.categories$ = toSignal(this.API.getCategories(), { initialValue: [] });
         this.highlightedCategories$ = computed(() => {
-            return this.categories$().filter((category: PostCategory) => category.highlighted && category.count > 0).slice(0, MAX_HIGLIGHTED_CATEGORIES);
+            return this.categories$().filter((category: PostCategory) => category.highlighted && category.count > 0).sort((a, b) => {
+                if(a.id > b.id){
+                    return -1;
+                } else  if(a.id < b.id) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }).slice(0, MAX_HIGLIGHTED_CATEGORIES)
+            // return this.categories$().filter((category: PostCategory) => category.highlighted && category.count > 0).slice(0, MAX_HIGLIGHTED_CATEGORIES);
         });
     }
 

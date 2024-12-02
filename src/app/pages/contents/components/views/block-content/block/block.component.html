@@ -1,49 +1,54 @@
-<div class="block-content flex flex-col gap-5 max-w-[567px] 2xl:max-w-full h-full">
-    <div class="block-header">
-        <a
-        [routerLink]="['/contents/' + block().category.slug ]"
-        class="flex gap-5 text-2xl font-bold justify-start items-center"
-        [style.color]="block().category.color"
+@if(this.block().posts().length > 0){
+    <div class="block-content flex flex-col gap-5 max-w-[567px] 2xl:max-w-full h-full">
+        <div class="block-header border-b pb-3"
+        [style.borderColor]="block().category.color"
         >
-            {{ block().category.name }}
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="40" y="40" width="40" height="40" rx="20" transform="rotate(-180 40 40)" fill="white"/>
-                <path d="M17.5 25L22.5 20L17.5 15" stroke="#555555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
-    </div>
-    <div class="block-body flex flex-col gap-5 xl-1230:gap-3 2xl:gap-5 md:flex-row md:justify-stretch">
-        <div class="highlighted-post">
-            @if(this.highlightedPost()){
-                <app-post-template
-                class="hidden md:block"
-                [post]="this.highlightedPost()"
-                [responsive]="true"
-                [dimentions]="['md:w-[20.625rem]', 'xl-1230:w-[17rem]', '2xl:w-[18.75rem]']"
-                />
-
-                <app-post-template
-                class="md:hidden"
-                [post]="this.highlightedPost()"
-                [templateSize]="'short'"
-                [responsive]="false"
-                [dimentions]="['w-[278px]', 'xs:w-[300px]']"
-                />
-            }
+            <a
+            [routerLink]="['/contents/' + block().category.slug ]"
+            class="flex gap-5 text-2xl font-bold justify-start items-center"
+            [style.color]="block().category.color"
+            >
+                {{ block().category.name }}
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="40" y="40" width="40" height="40" rx="20" transform="rotate(-180 40 40)" fill="white"/>
+                    <path d="M17.5 25L22.5 20L17.5 15" stroke="#555555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
         </div>
-        <div class="tiny-posts xl-1230:max-w-[285px] min-w-[285px] 2xl:max-w-[300px]">
-            <div class="posts-container flex flex-col gap-5">
-                @if (this.remainingPosts()) {
-                    @for (post of this.remainingPosts(); track $index) {
-                        <app-post-template
-                        [post]="post"
-                        [templateSize]="'short'"
-                        [responsive]="false"
-                        [dimentions]="['w-full']"
-                        />
-                    }
+        <div class="block-body flex flex-col gap-5 xl-1230:gap-3 2xl:gap-5 md:flex-row md:justify-stretch">
+            <div class="highlighted-post">
+                @if(this.highlightedPost()){
+                    <app-post-template
+                    class="hidden md:block"
+                    [post]="this.highlightedPost()"
+                    [theCategory]="block().category"
+                    [responsive]="true"
+                    [dimentions]="['md:w-[20.625rem]', 'xl-1230:w-[17rem]', '2xl:w-[18.75rem]']"
+                    />
+    
+                    <app-post-template
+                    class="md:hidden"
+                    [post]="this.highlightedPost()"
+                    [templateSize]="'short'"
+                    [responsive]="false"
+                    [dimentions]="['w-[278px]', 'xs:w-[300px]']"
+                    />
                 }
+            </div>
+            <div class="tiny-posts xl-1230:max-w-[285px] min-w-[285px] 2xl:max-w-[300px]">
+                <div class="posts-container flex flex-col gap-5">
+                    @if (this.remainingPosts()) {
+                        @for (post of this.remainingPosts(); track $index) {
+                            <app-post-template
+                            [post]="post"
+                            [templateSize]="'short'"
+                            [responsive]="false"
+                            [dimentions]="['w-full']"
+                            />
+                        }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+}

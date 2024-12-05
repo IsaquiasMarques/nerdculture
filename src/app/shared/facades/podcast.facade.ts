@@ -14,7 +14,6 @@ export class PodcastFacade{
     constructor(
         private API: ApiService
     ) {
-        // this.podcasts$ = toSignal(this.API.getPodcasts(), { initialValue: [] });
         this.highlightedPodcasts$ = toSignal(this.API.getHighlightedPodcasts(), { initialValue: [] });
         this.incomingPodcasts$ = toSignal(this.API.getIncomingPodcasts(), { initialValue: [] });
     }
@@ -28,7 +27,6 @@ export class PodcastFacade{
     }
 
     podcasts(current_page: number, per_page: number): Observable<Podcast[]>{
-        // return this.podcasts$;
         return this.API.getPodcasts(current_page, per_page);
     }
 

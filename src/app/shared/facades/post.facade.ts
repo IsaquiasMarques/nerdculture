@@ -29,4 +29,9 @@ export class PostFacade{
             return this.latestPosts().slice(0, limit)
         });
     }
+
+    getThePost(slug: string): Observable<Post[]>{
+        return this.API.getThePost(slug);
+    }
+
 }

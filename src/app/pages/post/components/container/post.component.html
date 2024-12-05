@@ -1,0 +1,43 @@
+<div class="page-content-wrapper pt-32 flex flex-col gap-[1.875rem] md:gap-16">
+    <div class="advertisement">
+        <app-advertisements
+        [label]="false"
+        [level]="'level-0'"
+        [limitedContainer]="true"
+        [advertisementsContents]="this.getAdvertisements()"
+        />
+    </div>
+
+    <div class="limited-container w-full flex flex-col gap-[1.875rem] md:gap-16">
+        @if(thePost().length > 0){
+            @let post = thePost()[0];
+            <div class="hero-content">
+                <app-hero
+                [title]="post.title"
+                [excerpt]="post.excerpt"
+                [categories]="post.categories"
+                [author]="post.author"
+                [createdAt]="post.created_at"
+                [hero]="post.image.full"
+                />
+            </div>
+            <div class="post-content">
+                <app-content
+                [content]="post.content"
+                [latestPosts]="this.latestPost()"
+                [excludePost]="post.id"
+                />
+            </div>
+        }
+    </div>
+
+    <div class="advertisement">
+        <app-advertisements
+        [label]="false"
+        [level]="'level-1'"
+        [limitedContainer]="true"
+        [advertisementsContents]="this.getAdvertisements()"
+        />
+    </div>
+    
+</div>

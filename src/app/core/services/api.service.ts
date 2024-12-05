@@ -84,7 +84,7 @@ export class ApiService {
 
   getLatestPosts(per_page: number, current_page: number): Observable<Post[]>{
     const per_pageString = (per_page) ? `&per_page=${ per_page }` : '';
-    const current_pageString = (current_page) ? `&current_page=${ current_page }` : '';
+    const current_pageString = (current_page) ? `&page=${ current_page }` : '';
     return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?_embed${ per_pageString + current_pageString }`)
                     .pipe(
                       map((incoming: any[]) => Transformer.posts(incoming))
@@ -100,7 +100,7 @@ export class ApiService {
 
   getPostsByCategory(category_id: number, per_page: number, current_page: number, countTotal: boolean): Observable<Post[]>{
     const per_pageString = (per_page) ? `&per_page=${ per_page }` : '';
-    const current_pageString = (current_page) ? `&current_page=${ current_page }` : '';
+    const current_pageString = (current_page) ? `&page=${ current_page }` : '';
     return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?categories=${ category_id }&_embed${ per_pageString + current_pageString }`,
       { observe: 'response', transferCache: { includeHeaders: ['x-wp-total'] } })
                     .pipe(
@@ -116,6 +116,13 @@ export class ApiService {
                       }),
                       map((incoming: any[]) => Transformer.posts(incoming))
                     )
+  }
+
+  getThePost(slug: string): Observable<Post[]>{
+    return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?slug=${ slug }&_embed`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.posts(incoming))
+                    );
   }
 
 }

@@ -25,7 +25,6 @@ export class CategoryFacade{
                     return 0;
                 }
             }).slice(0, MAX_HIGLIGHTED_CATEGORIES)
-            // return this.categories$().filter((category: PostCategory) => category.highlighted && category.count > 0).slice(0, MAX_HIGLIGHTED_CATEGORIES);
         });
     }
 

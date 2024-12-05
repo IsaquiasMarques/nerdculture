@@ -13,17 +13,22 @@ export const routes: Routes = [
     },
     {
         path: 'contents',
-        loadComponent: () => import('./pages/contents/components/container/contents.component').then(component => component.ContentsComponent),
-        title: 'Conteúdos - Esteja a par dos nossos conteúdos'
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./pages/contents/components/container/contents.component').then(component => component.ContentsComponent),
+                title: 'Conteúdos - Esteja a par dos nossos conteúdos'
+            },
+            {
+                path: 'category/:category',
+                loadComponent: () => import('./pages/posts/components/container/posts.component').then(component => component.PostsComponent),
+                title: 'Conteúdos - Esteja a par dos nossos conteúdos'
+            },
+            {
+                path: 'article/:slug',
+                loadComponent: () => import('./pages/post/components/container/post.component').then(component => component.PostComponent),
+                title: 'Conteúdo - Leitura de publicação'
+            }
+        ]
     },
-    {
-        path: 'contents/:category',
-        loadComponent: () => import('./pages/posts/components/container/posts.component').then(component => component.PostsComponent),
-        title: 'Conteúdos - Esteja a par dos nossos conteúdos'
-    },
-    {
-        path: 'content/:slug',
-        loadComponent: () => import('./pages/post/components/container/post/post.component').then(component => component.PostComponent),
-        title: 'Conteúdo - Leitura de publicação'
-    }
 ];

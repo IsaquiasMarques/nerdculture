@@ -1,0 +1,52 @@
+<div class="section-container flex flex-col gap-6">
+    <div class="main flex flex-col gap-5 max-w-[563px]">
+        <div class="title">
+            <h1 class="text-xl md:text-[1.875rem] md:leading-9 font-bold text-left text-secondary">
+                {{ title() }}
+            </h1>
+        </div>
+        <div class="excerpt">
+            <p class="text-sm md:text-base text-left text-gray">
+                {{ excerpt() }}
+            </p>
+        </div>
+        <div class="categories flex justify-start gap-3 flex-wrap">
+            @for (category of categories(); track $index) {
+                <div
+                class="chip p-[10px] z-[1] text-sm font-semibold w-fit border rounded-full"
+                [style.color]="category.color"
+                [style.borderColor]="category.color"
+                >
+                    <p class="">
+                        {{ category.name }}
+                    </p>
+                </div>
+            }
+        </div>
+        <div class="tiny-details flex flex-wrap items-center gap-[10px]">
+            <div class="author">
+                <p class="text-sm text-gray ">
+                    Por: {{ author() }}
+                </p>
+            </div>
+            <div class="vector">
+                <svg width="5" height="5" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="5" height="5" rx="2.5" fill="#9E9E9E"/>
+                </svg>
+            </div>
+            <div class="created-at">
+                <p class="text-sm text-gray">
+                    {{ createdAt() | friendlyFormat }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="hero">
+        <div class="img w-full max-h-[637px] overflow-hidden">
+            <img
+            class="w-full h-full object-cover object-center"
+            [src]="this.hero()"
+            [alt]="'Imagem principal da publicação: ' + title()">
+        </div>
+    </div>
+</div>

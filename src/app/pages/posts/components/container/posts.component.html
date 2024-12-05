@@ -52,5 +52,18 @@
             />
         </div>
     </div>
+
+    <div class="pagination-section">
+        @if (this.theCategory()) {
+            <app-pagination
+            [pageToRoute]="['/contents/category/' + this.theCategory()?.slug]"
+            [items]="{
+                total: this.paginationService.postsByCategoryTotalOfPosts$(),
+                current_page: this.current_page,
+                per_page: this.totalOfPostsPerPagination
+            }"
+            />
+        }
+    </div>
     
 </div>

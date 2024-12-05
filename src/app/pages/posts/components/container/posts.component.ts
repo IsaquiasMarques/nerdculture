@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AdvertisementClass } from '@core/classes/advertisement.class';
 import { AdvertisementPage } from '@core/models/advertisement.model';
 import { Post, PostCategory } from '@core/models/post.model';
 import { PaginationService } from '@core/services/pagination.service';
 import { AdvertisementsComponent } from '@shared/components/advertisements/advertisements.component';
+import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { HeroComponent } from '@shared/components/posts/hero/hero.component';
 import { PostsContainerNoScrollComponent } from '@shared/components/posts/posts-container/no-scroll/posts-container-no-scroll.component';
 import { CategoryFacade } from '@shared/facades/category.facade';
@@ -15,7 +16,7 @@ import { combineLatest } from 'rxjs';
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [ HeroComponent, AdvertisementsComponent, PostsContainerNoScrollComponent ],
+  imports: [ HeroComponent, AdvertisementsComponent, PostsContainerNoScrollComponent, PaginationComponent ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css'
 })
@@ -47,7 +48,9 @@ export class PostsComponent extends AdvertisementClass implements OnInit {
       this.current_page =  (currentPage) ? parseInt(currentPage) : 1;
 
       if(!this.theCategory()){
+        console.log("Categoria não encontrada")
         return;
+        // vem a lógica da categoria não encontrada
       }
 
       this.getPosts(this.theCategory()!.id, this.current_page);
@@ -59,8 +62,7 @@ export class PostsComponent extends AdvertisementClass implements OnInit {
   }
 
   private getPosts(category_id: number, current_page: number): void{
-    const LIMIT_OF_POSTS = 16;
-    this.postFacade.getPostsByCategory(category_id, LIMIT_OF_POSTS, current_page, true).subscribe(incoming => {
+    this.postFacade.getPostsByCategory(category_id, this.totalOfPostsPerPagination, current_page, true).subscribe(incoming => {
 
       const posts = incoming;
       const midpoint = Math.floor(this.totalOfPostsPerPagination / 2);
@@ -69,12 +71,8 @@ export class PostsComponent extends AdvertisementClass implements OnInit {
       const postsBefore = posts.slice(0, midpoint); // Pega os primeiros 'midpoint' itens
       const postsAfter = (posts.length <= midpoint) ? [] : posts.slice(midpoint); // Pega os itens restantes a partir de 'midpoint'
 
-      // Atualiza as variáveis com as cópias dos arrays
       this.postsBeforeLevel1Advertisement.set(postsBefore);
       this.postsAfterLevel1Advertisement.set(postsAfter);
-
-      // console.log(this.postsBeforeLevel1Advertisement(), this.paginationService.postsByCategoryTotalOfPosts$());
-
     });
   }
 

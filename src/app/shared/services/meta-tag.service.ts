@@ -20,7 +20,7 @@ export class MetaTagService {
     }
   }
 
-  addMetaTags(metaTag: MetaTag): boolean{
+  addMetaTags(metaTag: MetaTag): void{
 
     this.meta.addTag({ name: 'og:title', content: metaTag.title });
     this.meta.addTag({ name: 'og:description', content: metaTag.description });
@@ -33,11 +33,9 @@ export class MetaTagService {
     this.meta.addTag({ name: 'twitter:image', content: metaTag.image });
     this.meta.addTag({ name: 'twitter:url', content: metaTag.url });
 
-    return true;
-
   }
 
-  addPostSocialMediaMetaTags(thePost: Post[]): boolean{
+  addPostSocialMediaMetaTags(thePost: Post[]): void{
 
     this.meta.addTag({ name: 'og:title', content: thePost[0].title });
     this.meta.addTag({ name: 'og:description', content: thePost[0].excerpt });
@@ -49,8 +47,6 @@ export class MetaTagService {
     this.meta.addTag({ name: 'twitter:description', content: thePost[0].excerpt });
     this.meta.addTag({ name: 'twitter:image', content: thePost[0].image.medium });
     this.meta.addTag({ name: 'twitter:url', content: this.url });
-
-    return true;
   }
 
 }

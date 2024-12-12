@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdvertisementClass } from '@core/classes/advertisement.class';
 import { AdvertisementPage } from '@core/models/advertisement.model';
@@ -10,11 +10,14 @@ import { PostFacade } from '@shared/facades/post.facade';
 import { ContentComponent } from '../views/content/content.component';
 import { LoaderService } from '@core/services/loader.service';
 import { MetaTagService } from '@shared/services/meta-tag.service';
+import { delay } from 'rxjs';
+import { PostTemplate } from '@shared/templates/post/post.component';
+import { SubscribeComponent } from '../views/subscribe/subscribe.component';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [ AdvertisementsComponent, HeroComponent, ContentComponent ],
+  imports: [ AdvertisementsComponent, HeroComponent, ContentComponent, PostTemplate, SubscribeComponent ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
@@ -30,6 +33,16 @@ export class PostComponent extends AdvertisementClass implements OnInit {
 
   thePost: WritableSignal<Post[]> = signal([]);
   latestPosts: Signal<Post[]> = signal([]);
+  filteredPosts = computed(() => {
+    if(this.thePost().length > 0){
+      return this.latestPosts().filter(p => p.id !== this.thePost()[0].id)
+    } else {
+      return [];
+    }
+  });
+
+  latestPostsPlaceholderLength = signal<number>(4);
+  latestPostsPlaceholderArray = computed(() => Array.from({ length: this.latestPostsPlaceholderLength() }));
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(param => {
@@ -47,10 +60,10 @@ export class PostComponent extends AdvertisementClass implements OnInit {
 
   private getThePost(slug: string): void{
     this.loaderService.updateLoadingStatus('post', true);
-    this.postFacade.getThePost(slug).subscribe({
+    this.postFacade.getThePost(slug).pipe().subscribe({
       next: incoming => {
-        this.thePost.set(incoming)
         if(incoming.length > 0){
+          this.thePost.set(incoming)
           this.metatagService.addPostSocialMediaMetaTags(this.thePost());
           this.loaderService.updateLoadingStatus('post', false);
         } else {

@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { PostCategory } from '@core/models/post.model';
+import { Component, computed, input, Signal } from '@angular/core';
+import { Post, PostCategory } from '@core/models/post.model';
 import { FriendlyFormatPipe } from '@shared/pipes/friendly-format.pipe';
 
 @Component({
@@ -10,12 +10,8 @@ import { FriendlyFormatPipe } from '@shared/pipes/friendly-format.pipe';
   styleUrl: './hero.component.css'
 })
 export class HeroComponent {
-  title = input.required<string>();
-  excerpt = input.required<string>();
-  categories = input.required<PostCategory[]>();
-  author = input.required<string>();
-  createdAt = input.required<string>();
-  hero = input.required<string>();
+  incomingThePost = input.required<Post[]>(); 
+  thePost: Signal<Post> = computed(() => this.incomingThePost()[0]);
 
   isLoading = input<boolean>();
 }

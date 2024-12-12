@@ -3,16 +3,16 @@
         <div class="main appear-softly flex flex-col gap-5 max-w-[563px]">
             <div class="title">
                 <h1 class="text-xl md:text-[1.875rem] md:leading-9 font-bold text-left text-secondary">
-                    {{ title() }}
+                    {{ this.thePost().title }}
                 </h1>
             </div>
             <div class="excerpt">
                 <p class="text-sm md:text-base text-left text-gray">
-                    {{ excerpt() }}
+                    {{ this.thePost().excerpt }}
                 </p>
             </div>
             <div class="categories flex justify-start gap-3 flex-wrap">
-                @for (category of categories(); track $index) {
+                @for (category of this.thePost().categories; track $index) {
                     <div
                     class="chip p-[10px] z-[1] text-sm font-semibold w-fit border rounded-full"
                     [style.color]="category.color"
@@ -27,7 +27,7 @@
             <div class="tiny-details flex flex-wrap items-center gap-[10px]">
                 <div class="author">
                     <p class="text-sm text-gray ">
-                        Por: {{ author() }}
+                        Por: {{ this.thePost().author }}
                     </p>
                 </div>
                 <div class="vector">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="created-at">
                     <p class="text-sm text-gray">
-                        {{ createdAt() | friendlyFormat }}
+                        {{ this.thePost().created_at | friendlyFormat }}
                     </p>
                 </div>
             </div>
@@ -46,12 +46,12 @@
             <div class="img w-full max-h-[637px] overflow-hidden">
                 <img
                 class="w-full h-full object-cover object-center"
-                [src]="this.hero()"
-                [alt]="'Imagem principal da publicação: ' + title()">
+                [src]="this.thePost().image.full"
+                [alt]="'Imagem principal da publicação: ' + this.thePost().title">
             </div>
         </div>
     } @else {
-        <div class="main appear-softly flex flex-col gap-5 max-w-[563px]">
+        <div class="main flex flex-col gap-5 max-w-[563px]">
             <div class="title">
                 <h1 class="placeholder !w-full !h-fit !relative text-transparent rounded text-xl md:text-[1.875rem] md:leading-9 font-bold text-left">
                     First placeholder for title

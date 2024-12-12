@@ -1,0 +1,69 @@
+<div class="top-content pt-36 pb-20 md:pb-28 gap-[1.875rem] flex flex-col justify-center items-center md:gap-16">
+    <div class="container  lg:px-10 lg:bg-white lg:py-[60px] max-w-[95%] lg:max-w-[1024px] flex flex-col gap-y-7 lg:gap-[34px] justify-center items-center">
+        <div class="content w-full md:max-w-[500px] lg:max-w-[523px] flex flex-col gap-6 xlg:gap-[50px]">
+            <div class="upper-content flex flex-col gap-5 justify-center items-center">
+                <div class="title">
+                    <h1 class="text-xl md:text-[1.875rem] md:leading-9 font-bold text-center text-secondary">
+                        Encontre o que aqui o que você procura e muito mais!
+                    </h1>
+                </div>
+                <div class="excerpt">
+                    <p class="text-sm md:text-base text-center text-gray">
+                        Explore conteúdos e podcasts feitos para você! Encontre o que precisa e descubra muito mais em um só lugar.
+                    </p>
+                </div>
+            </div>
+            <div class="options-content flex gap-4 justify-center items-center">
+                <a
+                [routerLink]="['/search/contents']"
+                [routerLinkActive]="'active'"
+                (click)="changeOption('contents')"
+                class="text-sm cursor-pointer bg-white text-[#555555]/90 border border-black/30 py-3 px-4 w-fit rounded-full"
+                >
+                    Conteúdos
+                </a>
+                <a
+                [routerLink]="['/search/podcasts']"
+                [routerLinkActive]="'active'"
+                (click)="changeOption('podcasts')"
+                class="text-sm cursor-pointer bg-white text-[#555555]/90 border border-black/30 py-3 px-4 w-fit rounded-full"
+                >
+                    Podcasts
+                </a>
+            </div>
+        </div>
+        <div class="form-container w-full">
+            <div class="contact lg:p-5 rounded-[10px] max-w- flex flex-col gap-5">
+                <div class="form">
+                    <form
+                    (submit)="submitForm()"
+                    [formGroup]="this.searchFormGroup"
+                    class="flex gap-4 justify-center items-center w-full xl-1230:max-w-full mx-auto"
+                    >
+                        <input
+                        class="px-6 py-4 w-full max-w-[500px] rounded-full duration-[.6s] border border-black/20 text-gray placeholder:text-base placeholder:text-gray/50 outline-none"
+                        [ngClass]="{
+                            'is-invalisd': this.searchFormGroup.get('term')?.invalid && this.searchFormGroup.get('term')?.touched
+                        }"
+                        type="text"
+                        formControlName="term" id="" placeholder="Pesquisar...">
+                        <button
+                        type="submit"
+                        [disabled]="this.searchFormGroup.invalid"
+                        class="bg-primary duration-[.6s] flex justify-center px-4 py-4 items-center font-medium disabled:bg-primary/50 text-white rounded-full text-center"
+                        >
+                            <svg width="30" height="30" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.115 11.5227L14 14.4286M12.6667 7.76192C12.6667 10.7075 10.2789 13.0953 7.33333 13.0953C4.38781 13.0953 2 10.7075 2 7.76192C2 4.8164 4.38781 2.42859 7.33333 2.42859C10.2789 2.42859 12.6667 4.8164 12.6667 7.76192Z" [attr.stroke]="'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="results w-full">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

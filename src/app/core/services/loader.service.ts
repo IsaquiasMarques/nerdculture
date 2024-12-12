@@ -27,7 +27,11 @@ export class LoaderService{
         'highlightedCategories': signal(false),
 
         // advertisements
-        'advertisements': signal(false)
+        'advertisements': signal(false),
+
+        // searching
+        'searchPosts': signal(false),
+        'searchPodcasts': signal(false)
 
     }
 
@@ -52,7 +56,7 @@ export class LoaderService{
     changingLoadStatusAfterResult(itemsArray: any[], key: keyof(LoaderContainer)): void{
         if(itemsArray.length > 0){
             this.updateLoadingStatus(key, false);
-            } else {
+        } else {
             this.updateLoadingStatusOnEmptyResultAfterSeconds(key, false);
         }
     }

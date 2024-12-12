@@ -2,7 +2,7 @@
      @switch (this.templateSize()) {
         @case ('long') {
             @if (!isLoading()) {
-                <div class="box w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-2">
+                <div class="box z-[1] w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-2">
                     <div class="image w-full h-[300px] lg:h-[375px] relative">
                         <div class="image-overlay absolute top-0 left-0 w-full h-full"></div>
                         <img [ngSrc]="podcast().image" fill="" class="w-full z-[1] h-full" [alt]="">
@@ -134,7 +134,7 @@
             </div>
         }
         @case ('incoming-podcast') {
-            <div class="box appear-softly p-4 rounded-[10px] h-full w-[300px] md:w-[723px] md:h-[379px] shadow-[0px_4px_14px_rgba(0,0,0,10%)] flex flex-col justify-between md:flex-row md:justify-start gap-4">
+            <div class="box p-4 rounded-[10px] h-full w-[300px] md:w-[723px] md:h-[379px] shadow-[0px_4px_14px_rgba(0,0,0,10%)] flex flex-col justify-between md:flex-row md:justify-start gap-4">
                 <div class="image relative md:w-[339px] h-[263px] md:h-[347px]">
                     <div class="image-overlay absolute top-0 left-0 w-full h-full"></div>
                     <img [src]="podcast().image" class="w-full h-full object-cover z-[1] object-center" [alt]="">
@@ -208,12 +208,16 @@
                         class=""
                         (click)="this.openMedia()"
                         >
-                            Ver mais detalher
-                            <!-- <svg width="40" height="40" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17 31.6666C24.824 31.6666 31.1666 25.324 31.1666 17.5C31.1666 9.67595 24.824 3.33331 17 3.33331C9.17595 3.33331 2.83331 9.67595 2.83331 17.5C2.83331 25.324 9.17595 31.6666 17 31.6666Z" fill="#14498C"/>
-                                <path d="M25.2167 16.65C25.075 16.4516 21.5758 11.8333 17 11.8333C12.4242 11.8333 8.925 16.4516 8.78333 16.65C8.59942 16.8952 8.5 17.1935 8.5 17.5C8.5 17.8065 8.59942 18.1048 8.78333 18.35C8.925 18.5483 12.4242 23.1666 17 23.1666C21.5758 23.1666 25.075 18.5483 25.2167 18.35C25.4006 18.1048 25.5 17.8065 25.5 17.5C25.5 17.1935 25.4006 16.8952 25.2167 16.65Z" fill="white"/>
-                                <path d="M17 19.625C18.1736 19.625 19.125 18.6736 19.125 17.5C19.125 16.3264 18.1736 15.375 17 15.375C15.8264 15.375 14.875 16.3264 14.875 17.5C14.875 18.6736 15.8264 19.625 17 19.625Z" fill="#14498C"/>
-                            </svg> -->
+                            <svg width="45" height="46" viewBox="0 0 45 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_1012_866)">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.5 0.5C34.9264 0.5 45 10.5736 45 23C45 35.4264 34.9264 45.5 22.5 45.5C10.0736 45.5 0 35.4264 0 23C0 10.5736 10.0736 0.5 22.5 0.5ZM24.3281 29.3281H20.6719V32.9844H24.3281V29.3281ZM22.5 13.1562C19.3934 13.1562 16.875 15.6746 16.875 18.7812H19.6875L19.6952 18.5713C19.8026 17.1161 21.0173 15.9688 22.5 15.9688C24.0533 15.9688 25.3125 17.2279 25.3125 18.7812C25.3125 20.3346 24.0533 21.5938 22.5 21.5938H21.0938V27.2188H23.9062L23.9072 24.2288C26.3328 23.604 28.125 21.4019 28.125 18.7812C28.125 15.6746 25.6066 13.1562 22.5 13.1562Z" fill="#14498C"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_1012_866">
+                                <rect width="45" height="45" fill="white" transform="translate(0 0.5)"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -236,11 +240,11 @@
             </div>
         }
      }
-     <div class="modal">
-        <app-podcast-modal
-        [podcast]="podcast()"
-        [showModalFromParent]="this.showMedia"
-        (hideModalOnParent)="this.hideModalStatusEventHandler($event)"
-        />
-     </div>
- }
+}
+<div class="modal">
+    <app-podcast-modal
+    [podcast]="podcast()"
+    [showModalFromParent]="this.showMedia"
+    (hideModalOnParent)="this.hideModalStatusEventHandler($event)"
+    />
+</div>

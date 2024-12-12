@@ -4,13 +4,13 @@
             @if (!isLoading()) {
                 @for (podcast of podcasts(); track $index) {
                     <app-podcast-template
-                    class="appear-softly w-[18.75rem] md:w-[calc((100%/2)-calc(20px/2))] lg:w-[calc((100%/3)-calc(50px/3))] xl-1230:w-[calc((100%/3)-calc(40px/3))] 2xl:w-[calc((100%/3)-(80px/3))]"
+                    class="w-[18.75rem] md:w-[calc((100%/2)-calc(20px/2))] lg:w-[calc((100%/3)-calc(50px/3))] xl-1230:w-[calc((100%/3)-calc(40px/3))] 2xl:w-[calc((100%/3)-(80px/3))]"
                     [podcast]="podcast"
                     />
                 }
             } @else {
                 @for (placeholder of placeholderArray(); track $index) {
-                    <div class="box-container appear-softly w-[18.75rem] lg:w-[calc((100%/3)-calc(50px/3))] xl-1230:w-[calc((100%/3)-calc(40px/3))] 2xl:w-[calc((100%/3)-(80px/3))]">
+                    <div class="box-container w-[18.75rem] lg:w-[calc((100%/3)-calc(50px/3))] xl-1230:w-[calc((100%/3)-calc(40px/3))] 2xl:w-[calc((100%/3)-(80px/3))]">
                         <div class="box w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-4">
                             <div class="image placeholder !w-full !h-[300px] rounded !lg:h-[370px] !relative">
                             </div>

@@ -13,6 +13,7 @@
       "@contents/*": [ "app/pages/contents/*" ],
       "@posts/*": [ "app/pages/posts/*" ],
       "@post/*": [ "app/pages/post/*" ],
+      "@search/*": [ "app/pages/search/*" ],
       "@contact-us/*": [ "app/pages/contact-us/*" ],
       "@shared/*": [ "app/shared/*" ],
       "@core/*": [ "app/core/*" ],

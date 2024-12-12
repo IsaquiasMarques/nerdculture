@@ -35,5 +35,26 @@ export const routes: Routes = [
         path: 'contact-us',
         loadComponent: () => import('./pages/contact-us/components/container/contact-us/contact-us.component').then(component => component.ContactUsComponent),
         title: 'Entre em contacto - Sua opinião nos ajuda a crescer'
+    },
+    {
+        path: 'search',
+        loadComponent: () => import('./pages/search/components/containers/search.component').then(component => component.SearchComponent),
+        children: [
+            {
+                path: '',
+                redirectTo: '/search/contents',
+                pathMatch: 'full'
+            },
+            {
+                path: 'podcasts',
+                title: 'Pesquise os podcasts do seu interesse',
+                loadComponent: () => import('./pages/search/components/views/podcasts/podcasts.component').then(component => component.PodcastsComponent)
+            },
+            {
+                path: 'contents',
+                title: 'Pesquise os conteúdos do seu interesse',
+                loadComponent: () => import('./pages/search/components/views/contents/contents.component').then(component => component.ContentsComponent)
+            }
+        ]
     }
 ];

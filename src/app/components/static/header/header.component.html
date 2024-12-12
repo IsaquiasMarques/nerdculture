@@ -1,7 +1,9 @@
 <div class="header-container relative">
     <div class="limited-container py-4 flex justify-between items-center">
         <div class="logo">
-            <img src="assets/static/logo-01.png" alt="" class="">
+            <a [routerLink]="['/']">
+                <img src="assets/static/logo-01.png" alt="" class="">
+            </a>
         </div>
         <div class="menu h-[30px]">
             <button class="md:hidden" (click)="toggleDropdownMenu()">
@@ -24,6 +26,13 @@
                         <li><a [routerLink]="['/podnerd']" class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Podnerd</a></li>
                         <li><a [routerLink]="['/contents']" class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Conteúdos</a></li>
                         <li><a [routerLink]="['/contact-us']" class="text-white/90 md:text-sm" [ngClass]="(this.currentTheme$() == this.theme.WHITE) ? '!text-secondary' : ''" [routerLinkActive]="'active'">Entre em contacto</a></li>
+                        <li>
+                            <a [routerLink]="['/search']">
+                                <svg width="20" height="20" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.115 11.5227L14 14.4286M12.6667 7.76192C12.6667 10.7075 10.2789 13.0953 7.33333 13.0953C4.38781 13.0953 2 10.7075 2 7.76192C2 4.8164 4.38781 2.42859 7.33333 2.42859C10.2789 2.42859 12.6667 4.8164 12.6667 7.76192Z" [attr.stroke]="(this.currentTheme$() == this.theme.WHITE) ? '#0A042A' : 'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -43,6 +52,19 @@
                         <li><a [routerLink]="['/podnerd']" (click)="closeDropdownMenu()" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Podnerd</a></li>
                         <li><a [routerLink]="['/contents']" (click)="closeDropdownMenu()" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Conteúdos</a></li>
                         <li><a [routerLink]="['/contact-us']" (click)="closeDropdownMenu()" class="text-secondary/90 text-3xl" [routerLinkActive]="'active'">Entre em contacto</a></li>
+                        <li>
+                            <a
+                            (click)="closeDropdownMenu()"
+                            class="text-secondary/90 text-3xl flex gap-3 justify-start items-center"
+                            [routerLink]="['/search']"
+                            [routerLinkActive]="'active'"
+                            >
+                                Pesquisar
+                                <svg width="30" height="30" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.115 11.5227L14 14.4286M12.6667 7.76192C12.6667 10.7075 10.2789 13.0953 7.33333 13.0953C4.38781 13.0953 2 10.7075 2 7.76192C2 4.8164 4.38781 2.42859 7.33333 2.42859C10.2789 2.42859 12.6667 4.8164 12.6667 7.76192Z" [attr.stroke]="'#0A042A'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

@@ -6,3 +6,7 @@
     font-weight: 700;
     color: var(--primary-color);
 }
+
+.dropdown-menu li a.active svg path{
+    stroke: var(--primary-color);
+}

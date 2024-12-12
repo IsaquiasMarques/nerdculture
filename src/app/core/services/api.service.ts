@@ -139,8 +139,8 @@ export class ApiService {
                     );
   }
 
-  searchPosts(categoryId: number, term: string): Observable<Post[]>{
-    const category = (categoryId) ? `&categories=${ categoryId }` : ``;
+  searchPosts(term: string, categoryId?: number): Observable<Post[]>{
+    const category = (categoryId) ? `&categories=${ categoryId }` : '';
     return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?search=${ term + category }&_embed`)
                     .pipe(
                       map((incoming: any[]) => Transformer.posts(incoming))

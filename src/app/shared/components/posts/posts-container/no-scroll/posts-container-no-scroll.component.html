@@ -4,7 +4,7 @@
             @if (!isLoading()) {
                 @for (post of posts(); track $index) {
                     <app-post-template
-                    class="hidden md:block appear-softly"
+                    class="hidden md:block"
                     [post]="post"
                     [theCategory]="theCategory()"
                     [responsive]="true"
@@ -12,16 +12,20 @@
                     />
 
                     <app-post-template
-                    class="md:hidden appear-softly"
+                    class="md:hidden"
                     [post]="post"
                     [templateSize]="'short'"
                     [responsive]="false"
                     [dimentions]="['w-[278px]', 'xs:w-[300px]']"
                     />
+                } @empty {
+                    <!-- <p class="text-gray text-center w-full">
+                        Sem dados para mostrar
+                    </p> -->
                 }
             } @else {
                 @for (placeholder of placeholderArray(); track $index) {
-                    <div class="box-container w-full appear-softly max-w-[18.75rem] hidden md:block"
+                    <div class="box-container w-full max-w-[18.75rem] hidden md:block"
                     appCardDimentions [dimentions]="dimentions()"
                     >
                         <div class="box flex flex-col gap-2">

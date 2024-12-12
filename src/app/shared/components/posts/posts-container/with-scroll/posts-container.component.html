@@ -3,7 +3,7 @@
         @if (!this.isLoading()) {
             @for (post of posts(); track $index) {
                 <app-post-template
-                class=" appear-softly"
+                class=""
                 [dimentions]="dimentions()"
                 [post]="post"
                 [responsive]="false"
@@ -11,7 +11,7 @@
             }
         } @else {
             @for (placeholder of placeholderArray(); track $index) {
-                <div class="box-container w-full appear-softly max-w-[18.75rem]"
+                <div class="box-container w-full max-w-[18.75rem]"
                 appCardDimentions [dimentions]="dimentions()"
                 >
                     <div class="box flex flex-col gap-2">

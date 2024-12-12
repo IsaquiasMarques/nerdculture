@@ -18,14 +18,13 @@
             @if (!this.loaderService.getLoadingStatus('incomingPodcasts')()) {
                 @for (podcast of podcasts(); track $index) {
                     <app-podcast-template
-                    class=" appear-softly"
                     [podcast]="podcast"
                     [templateSize]="'incoming-podcast'"
                     />
                 }
             } @else {
                 @for (placeholder of placeholderArray(); track $index) {
-                    <div class="box appear-softly p-4 rounded-[10px] h-full w-[300px] md:w-[723px] md:h-[379px] shadow-[0px_4px_14px_rgba(0,0,0,10%)] flex flex-col justify-between md:flex-row md:justify-start gap-4">
+                    <div class="box p-4 rounded-[10px] h-full w-[300px] md:w-[723px] md:h-[379px] shadow-[0px_4px_14px_rgba(0,0,0,10%)] flex flex-col justify-between md:flex-row md:justify-start gap-4">
                         <div class="image placeholder rounded !relative !w-full md:!w-[339px] !h-[263px] md:!h-[347px]"></div>
                         <div class="details md:flex md:flex-col md:justify-between">
                             <div class="super-details flex flex-col gap-4 max-w-[336px]">

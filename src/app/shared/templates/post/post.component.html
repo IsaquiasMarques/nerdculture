@@ -1,6 +1,6 @@
 @if (templateSize() == 'long') {
     @if(!this.isLoading()){
-        <div class="box-container appear-softly w-full"
+        <div class="box-container w-full"
         appCardDimentions [dimentions]="dimentions()"
         >
             <div class="box flex flex-col gap-2">
@@ -49,7 +49,7 @@
             </div>
         </div>
     } @else {
-        <div class="box-container relative appear-softly hidden md:block"
+        <div class="box-container relative hidden md:block"
         appCardDimentions [dimentions]="dimentions()"
         >
             <div class="box relative flex flex-col gap-2">
@@ -88,7 +88,7 @@
 
 } @else {
     @if (!this.isLoading()) {
-        <div class="box-container appear-softly"
+        <div class="box-container"
         appCardDimentions [dimentions]="dimentions()"
         >
             <div class="box relative flex gap-[10px]">
@@ -112,7 +112,7 @@
             </div>
         </div>
     } @else {
-        <div class="box-container appear-softly"
+        <div class="box-container"
         appCardDimentions [dimentions]="dimentions()"
         >
             <div class="box flex gap-[10px]">

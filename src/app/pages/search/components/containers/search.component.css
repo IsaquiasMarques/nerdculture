@@ -1,0 +1,6 @@
+.options-content a.active{
+    background-color: var(--auxiliary);
+    color: white;
+    font-weight: 600;
+    border-color: var(--auxiliary);
+}

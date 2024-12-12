@@ -1,4 +1,5 @@
 import { Advertisement } from "@core/models/advertisement.model";
+import { Contact } from "@core/models/contact.model";
 import { Partner } from "@core/models/partner.model";
 import { Podcast } from "@core/models/podcast.model";
 import { Post, PostCategory } from "@core/models/post.model";
@@ -25,6 +26,17 @@ export class Transformer{
                 facebook: (i.colaborator_facebook_profile.length > 0) ? i.colaborator_facebook_profile : undefined,
                 instagram: (i.colaborator_instagram_profile.length > 0) ? i.colaborator_instagram_profile : undefined,
                 linkedin: (i.colaborator_linkedin_profile.length > 0) ? i.colaborator_linkedin_profile : undefined
+            }
+        })
+    }
+
+    static contacts(incoming: any[]): Contact[]{
+        return incoming.flatMap((i: any) => {
+            return {
+                section: i.secao_do_contacto,
+                description: i.descricao,
+                contact: i.contacto,
+                email: (i.email) ? i.email : null
             }
         })
     }

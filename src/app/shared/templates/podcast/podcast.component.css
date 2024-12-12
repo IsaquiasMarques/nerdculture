@@ -1,7 +1,7 @@
 #on-going{
-    animation: scaleInOut .9s ease-in-out infinite;
+    animation: OnGoingScaleInOut .9s ease-in-out infinite;
 }
-@keyframes scaleInOut {
+@keyframes OnGoingScaleInOut {
     from{
         transform: scale(1);
     }
@@ -10,5 +10,39 @@
     }
     to{
         transform: scale(1);
+    }
+}
+
+.short-template-svg{
+    animation: shortTemplatePlayerSvgScaleInOut 1.2s ease-in-out infinite;
+}
+
+@keyframes shortTemplatePlayerSvgScaleInOut {
+    from{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.05);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+.long-template-button::after{
+    animation: scaleOutFaded 1.2s infinite ease-in-out;
+}
+
+@keyframes scaleOutFaded {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.4);
     }
 }

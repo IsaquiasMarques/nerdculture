@@ -13,7 +13,7 @@ import { Post, PostCategory } from '@core/models/post.model';
 })
 export class PostsSliderComponent extends ScrollerFunctionalities {
   
-  override withaddingSpacing: boolean = false;
+  override withPaddingSpacing: boolean = false;
   sliderElementRef = viewChild<ElementRef<HTMLElement>>('sliderElementRef');
   HostLimitedContainerElementRef = viewChild<ElementRef<HTMLElement>>('limitedContainerElementRef');
 

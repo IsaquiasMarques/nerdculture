@@ -3,6 +3,7 @@
         <div class="hero-section">
             <app-hero
             [categories]="this.categories()"
+            [isLoading]="this.loaderService.getLoadingStatus('categories')()"
             [advertisements]="this.getAdvertisements()"
             />
         </div>
@@ -23,6 +24,7 @@
         <div class="posts-before-advertisement">
             <app-posts-container-no-scroll
             [theCategory]="theCategory()"
+            [isLoading]="this.loaderService.getLoadingStatus('postsByCategory')()"
             [posts]="this.postsBeforeLevel1Advertisement()"
             />
         </div>
@@ -39,6 +41,7 @@
         <div class="posts-before-advertisement">
             <app-posts-container-no-scroll
             [theCategory]="theCategory()"
+            [isLoading]="this.loaderService.getLoadingStatus('postsByCategory')()"
             [posts]="this.postsAfterLevel1Advertisement()"
             />
         </div>
@@ -54,7 +57,7 @@
     </div>
 
     <div class="pagination-section">
-        @if (this.theCategory()) {
+        @if (this.theCategory() && !this.loaderService.getLoadingStatus('posts')()) {
             <app-pagination
             [pageToRoute]="['/contents/category/' + this.theCategory()?.slug]"
             [items]="{

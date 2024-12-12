@@ -1,65 +1,101 @@
  @if (podcast()) {
      @switch (this.templateSize()) {
         @case ('long') {
-            <div class="box w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-2">
-                <div class="image">
-                    <img [src]="podcast().image" class="w-full h-full" [alt]="">
+            @if (!isLoading()) {
+                <div class="box w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-2">
+                    <div class="image w-full h-[300px] lg:h-[375px] relative">
+                        <div class="image-overlay absolute top-0 left-0 w-full h-full"></div>
+                        <img [ngSrc]="podcast().image" fill="" class="w-full z-[1] h-full" [alt]="">
+                    </div>
+                    <div class="tiny-details flex gap-4 justify-start items-center">
+                        <div class="episode">
+                            <p class="text-xs xs:text-sm font-semibold text-[#0A042A]/80">
+                                Episódio: <span class="font-medium">{{ podcast().episode }}</span>
+                            </p>
+                        </div>
+                        <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="0.620605" width="5" height="5" fill="#BBBBBB"/>
+                        </svg>
+                        <div class="duration">
+                            <p class="text-xs xs:text-sm font-semibold text-[#0A042A]/80">
+                                Duração: <span class="font-medium">{{ podcast().duration }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="main-details flex justify-between items-center">
+                        <div class="podcast-title">
+                            <a
+                            [routerLink]="null"
+                            (click)="this.openMedia()"
+                            class="text-secondary cursor-pointer font-medium max-w-[340px] xs:font-semibold text-sm xs:text-lg xs:leading-6 line-clamp-3">
+                                {{ podcast().title }}
+                            </a>
+                        </div>
+                        <div class="button">
+                            <button
+                            class="long-template-button rounded-full relative after:w-full after:h-full after:scale-[1] after:absolute after:top-0 after:left-0 after:rounded-full after:border-[5px] after:border-[#14498C]"
+                            (click)="this.openMedia()"
+                            >
+                                <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="0.120605" width="44" height="44" rx="22" fill="#14498C"/>
+                                    <path d="M29.8407 19.9145C31.6089 20.8761 31.6089 23.3653 29.8407 24.3269L19.164 30.1328C17.4455 31.0674 15.3335 29.8509 15.3335 27.9266V16.3148C15.3335 14.3904 17.4455 13.174 19.164 14.1086L29.8407 19.9145Z" fill="white"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    @if (this.podcast().status === this.podcastStatus.ON_GOING) {
+                    <div class="live flex gap-2 justify-center items-center w-fit">
+                        <svg id="on-going" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_840_232)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2 8C11.2 9.7672 9.7672 11.2 8 11.2C6.2328 11.2 4.8 9.7672 4.8 8C4.8 6.2328 6.2328 4.8 8 4.8C9.7672 4.8 11.2 6.2328 11.2 8ZM8 14.4C4.4712 14.4 1.6 11.5288 1.6 8C1.6 4.4712 4.4712 1.6 8 1.6C11.5288 1.6 14.4 4.4712 14.4 8C14.4 11.5288 11.5288 14.4 8 14.4ZM8 0C3.5816 0 0 3.5816 0 8C0 12.4184 3.5816 16 8 16C12.4184 16 16 12.4184 16 8C16 3.5816 12.4184 0 8 0Z" fill="#FF2C2C"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_840_232">
+                            <rect width="16" height="16" fill="white"/>
+                            </clipPath>
+                            </defs>
+                        </svg>
+                        <p class="text-gray text-sm text-center">Acompanhe-nos em LIVE</p>
+                    </div>      
+                    }
                 </div>
-                <div class="tiny-details flex gap-4 justify-start items-center">
-                    <div class="episode">
-                        <p class="text-xs xs:text-sm font-semibold text-[#0A042A]/80">
-                            Episódio: <span class="font-medium">{{ podcast().episode }}</span>
-                        </p>
+            } @else {
+                <div class="box w-full md:min-w-[18.75rem] lg:min-w-full flex flex-col gap-4">
+                    <div class="image placeholder !w-full !h-[300px] !lg:h-[370px] !relative">
                     </div>
-                    <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect y="0.620605" width="5" height="5" fill="#BBBBBB"/>
-                    </svg>
-                    <div class="duration">
-                        <p class="text-xs xs:text-sm font-semibold text-[#0A042A]/80">
-                            Duração: <span class="font-medium">{{ podcast().duration }}</span>
-                        </p>
+                    <div class="tiny-details flex gap-4 justify-start items-center">
+                        <div class="episode">
+                            <p class="placeholder !w-fit !relative rounded-full text-transparent text-xs xs:text-sm font-semibold">
+                                Placeholder text
+                            </p>
+                        </div>
+                        <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="0.620605" width="5" height="5" fill="#BBBBBB"/>
+                        </svg>
+                        <div class="duration">
+                            <p class="placeholder !w-fit !relative rounded-full text-transparent text-xs xs:text-sm font-semibold">
+                                Placeholder text
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="main-details flex justify-between items-center">
-                    <div class="podcast-title">
-                        <p class="text-secondary font-medium max-w-[340px] xs:font-semibold text-sm xs:text-lg xs:leading-6 line-clamp-3">
-                            {{ podcast().title }}
-                        </p>
-                    </div>
-                    <div class="button">
-                        <button
-                        class=""
-                        (click)="this.openMedia()"
-                        >
-                            <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect y="0.120605" width="44" height="44" rx="22" fill="#14498C"/>
-                                <path d="M29.8407 19.9145C31.6089 20.8761 31.6089 23.3653 29.8407 24.3269L19.164 30.1328C17.4455 31.0674 15.3335 29.8509 15.3335 27.9266V16.3148C15.3335 14.3904 17.4455 13.174 19.164 14.1086L29.8407 19.9145Z" fill="white"/>
-                            </svg>
-                        </button>
+                    <div class="main-details flex justify-between items-center">
+                        <div class="podcast-title placeholder !w-[80%] !relative rounded-full text-transparent">
+                            <a
+                            [routerLink]="null"
+                            class="text-transparent font-medium xs:font-semibold text-sm xs:text-lg xs:leading-6 line-clamp-3">
+                                Placeholder text
+                            </a>
+                        </div>
+                        <div class="button placeholder !relative rounded-full text-transparent !w-[44px] !h-[45px]"></div>
                     </div>
                 </div>
-                @if (this.podcast().status === this.podcastStatus.ON_GOING) {
-                <div class="live flex gap-2 justify-center items-center w-fit">
-                    <svg id="on-going" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_840_232)">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2 8C11.2 9.7672 9.7672 11.2 8 11.2C6.2328 11.2 4.8 9.7672 4.8 8C4.8 6.2328 6.2328 4.8 8 4.8C9.7672 4.8 11.2 6.2328 11.2 8ZM8 14.4C4.4712 14.4 1.6 11.5288 1.6 8C1.6 4.4712 4.4712 1.6 8 1.6C11.5288 1.6 14.4 4.4712 14.4 8C14.4 11.5288 11.5288 14.4 8 14.4ZM8 0C3.5816 0 0 3.5816 0 8C0 12.4184 3.5816 16 8 16C12.4184 16 16 12.4184 16 8C16 3.5816 12.4184 0 8 0Z" fill="#FF2C2C"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_840_232">
-                        <rect width="16" height="16" fill="white"/>
-                        </clipPath>
-                        </defs>
-                    </svg>
-                    <p class="text-gray text-sm text-center">Acompanhe-nos em LIVE</p>
-                </div>      
-                }
-            </div>
+            }
         }
         @case ('short') {
             <div class="box w-full h-[100px] bg-transparent border border-white/10 rounded-2xl px-5 py-[10px] flex flex-row gap-[10px] justify-start items-center">
                 <div class="play-icon">
                     <button
-                    class=""
+                    class="short-template-svg"
                     (click)="this.openMedia()"
                     >
                         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,9 +107,12 @@
                 <div class="details flex flex-col gap-[10px]">
                     <div class="main-details flex justify-between items-center">
                         <div class="podcast-title">
-                            <p class="text-white font-medium xs:font-semibold text-sm xs:text-base xs:leading-5 line-clamp-2">
+                            <a
+                            [routerLink]="null"
+                            (click)="this.openMedia()"
+                            class="text-white cursor-pointer font-medium xs:font-semibold text-sm xs:text-base xs:leading-5 line-clamp-2">
                                 {{ podcast().title }}
-                            </p>
+                            </a>
                         </div>
                     </div>
                     <div class="tiny-details flex gap-4 justify-start items-center">
@@ -95,9 +134,10 @@
             </div>
         }
         @case ('incoming-podcast') {
-            <div class="box p-4 rounded-[10px] h-full w-[300px] md:w-[723px] md:h-[379px] shadow-[0px_4px_14px_rgba(0,0,0,10%)] flex flex-col justify-between md:flex-row md:justify-start gap-4">
+            <div class="box appear-softly p-4 rounded-[10px] h-full w-[300px] md:w-[723px] md:h-[379px] shadow-[0px_4px_14px_rgba(0,0,0,10%)] flex flex-col justify-between md:flex-row md:justify-start gap-4">
                 <div class="image relative md:w-[339px] h-[263px] md:h-[347px]">
-                    <img [src]="podcast().image" class="w-full h-full object-cover object-center" [alt]="">
+                    <div class="image-overlay absolute top-0 left-0 w-full h-full"></div>
+                    <img [src]="podcast().image" class="w-full h-full object-cover z-[1] object-center" [alt]="">
                 </div>
                 <div class="details md:flex md:flex-col md:justify-between">
                     <div class="super-details flex flex-col gap-4 max-w-[336px]">
@@ -168,11 +208,12 @@
                         class=""
                         (click)="this.openMedia()"
                         >
-                            <svg width="40" height="40" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            Ver mais detalher
+                            <!-- <svg width="40" height="40" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17 31.6666C24.824 31.6666 31.1666 25.324 31.1666 17.5C31.1666 9.67595 24.824 3.33331 17 3.33331C9.17595 3.33331 2.83331 9.67595 2.83331 17.5C2.83331 25.324 9.17595 31.6666 17 31.6666Z" fill="#14498C"/>
                                 <path d="M25.2167 16.65C25.075 16.4516 21.5758 11.8333 17 11.8333C12.4242 11.8333 8.925 16.4516 8.78333 16.65C8.59942 16.8952 8.5 17.1935 8.5 17.5C8.5 17.8065 8.59942 18.1048 8.78333 18.35C8.925 18.5483 12.4242 23.1666 17 23.1666C21.5758 23.1666 25.075 18.5483 25.2167 18.35C25.4006 18.1048 25.5 17.8065 25.5 17.5C25.5 17.1935 25.4006 16.8952 25.2167 16.65Z" fill="white"/>
                                 <path d="M17 19.625C18.1736 19.625 19.125 18.6736 19.125 17.5C19.125 16.3264 18.1736 15.375 17 15.375C15.8264 15.375 14.875 16.3264 14.875 17.5C14.875 18.6736 15.8264 19.625 17 19.625Z" fill="#14498C"/>
-                            </svg>
+                            </svg> -->
                         </button>
                     </div>
                 </div>
@@ -185,22 +226,21 @@
                     (click)="this.openMedia()"
                     >
                         Ver mais detalhes
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#14498C"/>
                             <path d="M17.8 11.4C17.7 11.26 15.23 8 12 8C8.77 8 6.3 11.26 6.2 11.4C6.07018 11.5731 6 11.7836 6 12C6 12.2164 6.07018 12.4269 6.2 12.6C6.3 12.74 8.77 16 12 16C15.23 16 17.7 12.74 17.8 12.6C17.9298 12.4269 18 12.2164 18 12C18 11.7836 17.9298 11.5731 17.8 11.4Z" fill="white"/>
                             <path d="M12 13.5C12.8284 13.5 13.5 12.8284 13.5 12C13.5 11.1716 12.8284 10.5 12 10.5C11.1716 10.5 10.5 11.1716 10.5 12C10.5 12.8284 11.1716 13.5 12 13.5Z" fill="#14498C"/>
-                        </svg>
+                        </svg> -->
                     </button>
                 </div>
             </div>
         }
      }
+     <div class="modal">
+        <app-podcast-modal
+        [podcast]="podcast()"
+        [showModalFromParent]="this.showMedia"
+        (hideModalOnParent)="this.hideModalStatusEventHandler($event)"
+        />
+     </div>
  }
-
- <div class="modal">
-    <app-podcast-modal
-    [podcast]="podcast()"
-    [showModalFromParent]="this.showMedia"
-    (hideModalOnParent)="this.hideModalStatusEventHandler($event)"
-    />
- </div>

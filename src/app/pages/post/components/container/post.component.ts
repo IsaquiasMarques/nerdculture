@@ -8,6 +8,7 @@ import { HeroComponent } from '../views/hero/hero.component';
 import { Post } from '@core/models/post.model';
 import { PostFacade } from '@shared/facades/post.facade';
 import { ContentComponent } from '../views/content/content.component';
+import { LoaderService } from '@core/services/loader.service';
 
 @Component({
   selector: 'app-post',
@@ -17,6 +18,8 @@ import { ContentComponent } from '../views/content/content.component';
   styleUrl: './post.component.css'
 })
 export class PostComponent extends AdvertisementClass implements OnInit {
+
+  loaderService = inject(LoaderService);
 
   override page: AdvertisementPage = AdvertisementPage.READING;
   private themeService = inject(ThemeService).changeTheme(Theme.WHITE);
@@ -41,6 +44,7 @@ export class PostComponent extends AdvertisementClass implements OnInit {
   }
 
   private getThePost(slug: string): void{
+    this.loaderService.updateLoadingStatus('post', true);
     this.postFacade.getThePost(slug).subscribe(incoming => this.thePost.set(incoming));
   }
 

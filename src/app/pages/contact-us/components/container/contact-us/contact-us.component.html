@@ -1,1 +1,132 @@
-<p>contact-us works!</p>
+<div class="page-container-wrapper flex flex-col gap-10">
+    <div class="top-content bg-[#F7F8F8] pt-36 pb-20 md:pb-28 gap-[1.875rem] flex justify-center items-center md:gap-16">
+        <div class="container  lg:px-10 lg:bg-white lg:py-[60px] max-w-[95%] lg:max-w-[1024px] rounded-[10px] flex flex-col gap-y-7 lg:flex-row lg:gap-[34px] justify-start items-start">
+            <div class="content w-full lg:sticky lg:top-[90px] md:max-w-[500px] lg:max-w-[425px] flex flex-col gap-6 xlg:gap-[50px]">
+                <div class="upper-content flex flex-col gap-5">
+                    <div class="title">
+                        <h1 class="text-xl md:text-[1.875rem] md:leading-9 font-bold text-left text-secondary">
+                            Precisando de Ajuda? Estamos a um Clique de Distância
+                        </h1>
+                    </div>
+                    <div class="excerpt">
+                        <p class="text-sm md:text-base text-left text-gray">
+                            Não hesite em nos procurar. Envie sua mensagem e receberá o suporte que merece.
+                        </p>
+                    </div>
+                </div>
+                <div class="bottom-content">
+                    <a
+                    target="_blank"
+                    href="https://api.whatsapp.com/send?phone=244927076098"
+                    class="text-base cursor-pointer py-3 px-4 font-semibold roiunded-full w-fit rounded-full border border-[#128C7E] text-[#128C7E] flex gap-[10px] justify-start items-center"
+                    >
+                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.0106 3.40006C16.0937 2.47684 15.0023 1.74503 13.7999 1.24716C12.5974 0.749302 11.3078 0.495352 10.0063 0.500064C8.26629 0.501764 6.5572 0.960314 5.05029 1.82979C3.54339 2.69926 2.29153 3.94915 1.42006 5.45426C0.548593 6.95939 0.0881301 8.66695 0.084753 10.4058C0.0813884 12.1448 0.535247 13.8541 1.40088 15.3626L0 20.5001L5.25328 19.1251C6.70388 19.9316 8.33383 20.3615 9.99375 20.3751C12.6325 20.3752 15.1645 19.3336 17.0384 17.4771C18.9124 15.6207 19.9769 13.0996 20 10.4626C19.9912 9.1467 19.7226 7.8455 19.2096 6.63358C18.6967 5.42164 17.9493 4.32281 17.0106 3.40006ZM10.0063 18.6626C8.52745 18.6636 7.07569 18.2663 5.80363 17.5126L5.50344 17.3251L2.38899 18.1501L3.21451 15.1126L3.01438 14.8001C1.95028 13.0835 1.55315 11.0363 1.89821 9.04658C2.24328 7.05689 3.30658 5.26276 4.88668 4.0041C6.46679 2.74543 8.45391 2.10964 10.4717 2.21718C12.4894 2.3247 14.3977 3.16809 15.8349 4.58756C17.4059 6.1228 18.3052 8.21695 18.3365 10.4126C18.3167 12.6075 17.4303 14.7057 15.8702 16.2508C14.3102 17.7958 12.2026 18.6627 10.0063 18.6626ZM14.5216 12.4876C14.2714 12.3626 13.0582 11.7626 12.833 11.6876C12.6079 11.6126 12.4328 11.5626 12.2702 11.8126C12.0255 12.1477 11.7624 12.469 11.4822 12.7751C11.3446 12.9501 11.1945 12.9626 10.9443 12.7751C9.51807 12.2118 8.32983 11.1743 7.57974 9.83758C7.31707 9.40008 7.82989 9.42508 8.30519 8.48758C8.34034 8.41995 8.3586 8.34495 8.3586 8.26883C8.3586 8.1927 8.34034 8.1177 8.30519 8.05008C8.30519 7.92506 7.74234 6.70006 7.54221 6.21256C7.34209 5.72506 7.14196 5.80006 6.97936 5.78756H6.49156C6.36517 5.7895 6.24065 5.81839 6.12633 5.87228C6.01201 5.92616 5.91052 6.00383 5.82864 6.10006C5.54799 6.37279 5.32909 6.70246 5.18669 7.06686C5.04429 7.43126 4.9817 7.82194 5.00313 8.21258C5.08155 9.1477 5.43393 10.039 6.01626 10.7751C7.08218 12.3698 8.54296 13.6617 10.2564 14.5251C11.1551 15.0493 12.1995 15.2686 13.2333 15.1501C13.5775 15.0818 13.9036 14.942 14.1901 14.7395C14.4768 14.5371 14.7176 14.2766 14.8968 13.9751C15.0629 13.6071 15.1152 13.198 15.0469 12.8001C14.9343 12.6751 14.7717 12.6126 14.5216 12.4876Z" fill="#128C7E"/>
+                        </svg>
+                        Contacte-nos pelo whatsapp
+                    </a>
+                </div>
+            </div>
+            <div class="form-container w-full">
+                <div class="contact lg:p-5 lg:border lg:border-black/10 rounded-[10px] max-w- flex flex-col gap-5">
+                    <div class="form">
+                        <form
+                        (submit)="submitForm()"
+                        [formGroup]="this.contactFormGroup" class="flex flex-col gap-4 w-full xl-1230:max-w-full mx-auto"
+                        >
+                            <input
+                            class="py-[10px] px-4 rounded-[10px] duration-[.6s] border border-black/10 text-gray placeholder:text-sm placeholder:text-gray/60 outline-none"
+                            [ngClass]="{
+                                'is-invalid': this.contactFormGroup.get('fullname')?.invalid && this.contactFormGroup.get('fullname')?.touched
+                            }"
+                            type="text"
+                            formControlName="fullname" id="" placeholder="Nome completo">
+                            <input
+                            class="py-[10px] px-4 rounded-[10px] duration-[.6s] border border-black/10 text-gray placeholder:text-sm placeholder:text-gray/60 outline-none"
+                            [ngClass]="{
+                                'is-invalid': this.contactFormGroup.get('email')?.invalid && this.contactFormGroup.get('email')?.touched
+                            }"
+                            type="email"
+                            formControlName="email" id="" placeholder="Email">
+                            <input
+                            class="py-[10px] px-4 rounded-[10px] duration-[.6s] border border-black/10 text-gray placeholder:text-sm placeholder:text-gray/60 outline-none"
+                            [ngClass]="{
+                                'is-invalid': this.contactFormGroup.get('subject')?.invalid && this.contactFormGroup.get('subject')?.touched
+                            }"
+                            type="text"
+                            formControlName="subject" id="" placeholder="Assunto">
+                            <textarea
+                            class="py-[10px] px-4 rounded-[10px] duration-[.6s] border border-black/10 text-gray resize-none placeholder:text-sm placeholder:text-gray/60 outline-none"
+                            [ngClass]="{
+                                'is-invalid': this.contactFormGroup.get('message')?.invalid && this.contactFormGroup.get('message')?.touched
+                            }"
+                            formControlName="message" id="" placeholder="Mensagem" rows="5"></textarea>
+                            <button
+                            type="submit"
+                            [disabled]="this.contactFormGroup.invalid"
+                            class="bg-primary duration-[.6s] font-medium disabled:bg-primary/50 text-white py-[14px] px-5 rounded-full text-center w-full lg:w-full"
+                            >
+                                @if (gettingInTouch()) {
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="24px" height="24px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                                        <circle cx="50" cy="50" fill="none" stroke="white" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+                                        <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                                        </circle>
+                                        <!-- [ldio] generated by https://loading.io/ -->
+                                    </svg>
+                                } @else {
+                                    Enviar mensagem
+                                }
+                            </button>
+                        </form>
+                        @if (this.getInTouchResponseStatus() !== null) {
+                            @if (this.getInTouchResponseStatus() == 200) {
+                                <div class="messages py-3">
+                                    <p class=" text-center text-sm text-green-700"> A sua mensagem foi enviada </p>
+                                </div>
+                            } @else {
+                                <div class="messages py-3">
+                                    <p class=" text-center text-sm text-red-500"> Não foi possível enviar a sua mensagem </p>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="limited-container pt-20">
+    <div class="boxes flex flex-wrap gap-5 justify-start items-stretch">
+        @for (contact of this.contacts(); track $index) {
+            <div class="box border border-[#DDDDDD] w-full md:w-[calc(calc(100%/2)-calc(20px/2))] xl-1230:w-[calc(calc(100%/3)-calc(20px/1.3))] flex flex-col justify-between gap-6">
+                <div class="top px-6 pt-4 flex flex-col gap-[10px]">
+                    <div class="title border-b border-secondary/10 pb-3">
+                        <h1 class="text-lg font-bold text-secondary">{{ contact.section }}</h1>
+                    </div>
+                    <div class="description">
+                        <p class="description text-base text-gray">
+                            {{ contact.description }}
+                        </p>
+                        @if (contact.email) {
+                            <p class="email mt-2 text-sm text-gray">
+                                Email: {{ contact.email }}
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="bottom">
+                    <a
+                    class="flex justify-between items-stretch cursor-pointer"
+                    href="tel:{{ contact.contact }}">
+                        <div class="contact-label w-full bg-auxiliary px-3 py-4 flex justify-center items-center">
+                            <p class="text-white text-sm">Ligue para</p>
+                        </div>
+                        <div class="contact w-full bg-white px-3 py-4 flex justify-center items-center bg-[]">
+                            <p class="text-auxiliary font-semibold text-sm">{{ contact.contact }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

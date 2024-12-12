@@ -17,6 +17,11 @@ export class HeroComponent {
   limitedContainerElementRef = viewChild<ElementRef<HTMLElement>>('limitedContainerElementRef');
   paddingX: Signal<number> = this.computed();
 
+  
+  isLoading = input<boolean>(false);
+  placeholderLength = input<number>(5);
+  placeholderArray = computed(() => Array.from({ length: this.placeholderLength() }));
+
   @HostListener('window:resize', ['$event']) onResize(){
     this.paddingX = this.computed();
   }

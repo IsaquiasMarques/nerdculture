@@ -108,6 +108,7 @@
 
     <div class="podcasts-container-before-advertisement">
         <app-podcasts-container-no-scroll
+        [isLoading]="this.loaderService.getLoadingStatus('podcasts')()"
         [podcasts]="this.podcastsBeforeLevel1Advertisement()"
         />
     </div>
@@ -120,20 +121,23 @@
     @if (this.podcastsAfterLevel1Advertisement().length > 0) {
         <div class="podcasts-container-after-advertisement">
             <app-podcasts-container-no-scroll
+            [isLoading]="this.loaderService.getLoadingStatus('podcasts')()"
             [podcasts]="this.podcastsAfterLevel1Advertisement()"
             />
         </div>
     }
 
-    <div class="pagination-section">
-        <app-pagination
-        [pageToRoute]="['/podnerd']"
-        [items]="{
-            total: this.paginationService.podcastsTotalOfPodcasts$() - this.incomingPodcasts().length,
-            current_page: this.current_page,
-            per_page: this.totalOfPodcastsPerPagination
-        }"
-        />
-    </div>
+    @if(!this.loaderService.getLoadingStatus('podcasts')()){
+        <div class="pagination-section">
+            <app-pagination
+            [pageToRoute]="['/podnerd']"
+            [items]="{
+                total: this.paginationService.podcastsTotalOfPodcasts$() - this.incomingPodcasts().length,
+                current_page: this.current_page,
+                per_page: this.totalOfPodcastsPerPagination
+            }"
+            />
+        </div>
+    }
 
 </div>

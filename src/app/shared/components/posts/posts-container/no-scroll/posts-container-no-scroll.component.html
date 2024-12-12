@@ -1,28 +1,85 @@
 <div class="scroller w-full">
     <div class="limited-container">
         <div class="posts-container flex flex-col md:flex-row md:flex-wrap gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-center">
-            @for (post of posts(); track $index) {
-                <!-- <app-post-template
-                [post]="post"
-                [responsive]="true"
-                [dimentions]="dimentions()"
-                [templateSize]="'mixed'"
-                /> -->
-                <app-post-template
-                class="hidden md:block"
-                [post]="post"
-                [theCategory]="theCategory()"
-                [responsive]="true"
-                [dimentions]="['md:w-[20.625rem]', 'xl-1230:w-[17rem]', '2xl:w-[18.75rem]', '3xl:w-[20rem]', '4xl:w-[18.75rem]']"
-                />
+            @if (!isLoading()) {
+                @for (post of posts(); track $index) {
+                    <app-post-template
+                    class="hidden md:block appear-softly"
+                    [post]="post"
+                    [theCategory]="theCategory()"
+                    [responsive]="true"
+                    [dimentions]="['md:w-[20.625rem]', 'xl-1230:w-[17rem]', '2xl:w-[18.75rem]', '3xl:w-[20rem]', '4xl:w-[18.75rem]']"
+                    />
 
-                <app-post-template
-                class="md:hidden"
-                [post]="post"
-                [templateSize]="'short'"
-                [responsive]="false"
-                [dimentions]="['w-[278px]', 'xs:w-[300px]']"
-                />
+                    <app-post-template
+                    class="md:hidden appear-softly"
+                    [post]="post"
+                    [templateSize]="'short'"
+                    [responsive]="false"
+                    [dimentions]="['w-[278px]', 'xs:w-[300px]']"
+                    />
+                }
+            } @else {
+                @for (placeholder of placeholderArray(); track $index) {
+                    <div class="box-container w-full appear-softly max-w-[18.75rem] hidden md:block"
+                    appCardDimentions [dimentions]="dimentions()"
+                    >
+                        <div class="box flex flex-col gap-2">
+                            <div class="top-content flex flex-col gap-3">
+                                <div class="image placeholder !relative !w-full !h-[235px] rounded"></div>
+                                <div class="tiny-details flex justify-between items-center">
+                                    <div class="created-at placeholder !w-fit !relative">
+                                        <p class="text-sm font-semibold text-transparent text-left">
+                                            Placeholder text
+                                        </p>
+                                    </div>
+                                    <div class="categories flex justify-start items-center">
+                                        <div
+                                        class="chip p-[10px] z-[1] text-sm font-semibold placeholder !w-fit !relative rounded-full"
+                                        >
+                                            <p class=" line-clamp-1 text-transparent">
+                                                Placeholder
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="title placeholder !w-full !relative rounded">
+                                    <a class="font-semibold text-base text-transparent">
+                                        Placeholder text
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <div class="author placeholder !relative !w-fit !h-fit rounded">
+                                    <p class="text-sm text-transparent">Placeholder text</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-container md:hidden"
+                    appCardDimentions [dimentions]="dimentions()"
+                    >
+                        <div class="box flex gap-[10px]">
+                            <div class="image placeholder !relative !w-[85px] !h-[85px] rounded"></div>
+                            <div class="description max-w-[190px] flex flex-col justify-between gap-y-[0px]">
+                                <div class="title">
+                                    <h2 class="placeholder !relative !w-full !h-fit text-transparent text-sm font-medium">
+                                        Placeholder text for title
+                                    </h2>
+                                    <h2 class="placeholder !relative mt-1 !w-[80%] !h-fit text-transparent text-sm font-medium">
+                                        Placeholder text
+                                    </h2>
+                                </div>
+                                <div class="created_at">
+                                    <p class="placeholder !relative !w-full !h-fit text-transparent text-sm font-semibold text-left">
+                                        Placeholder text
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
         </div>
     </div>

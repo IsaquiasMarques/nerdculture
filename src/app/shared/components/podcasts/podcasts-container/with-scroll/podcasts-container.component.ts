@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Podcast } from '@core/models/podcast.model';
 import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
@@ -12,5 +12,10 @@ import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
 })
 export class PodcastsContainerComponent {
   podcasts = input.required<Podcast[]>();
+
+  isLoading = input<boolean>(false);
+  placeholderLength = input<number>(3);
+  placeholderArray = computed(() => Array.from({ length: this.placeholderLength() }));
+
   showButton = input<boolean>(false)
 }

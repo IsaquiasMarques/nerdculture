@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LoaderExtender } from '@core/classes/loader-extender.class';
 import { Post, PostCategory } from '@core/models/post.model';
 import { PostsContainerComponent } from '@shared/components/posts/posts-container/with-scroll/posts-container.component';
 
@@ -10,7 +11,10 @@ import { PostsContainerComponent } from '@shared/components/posts/posts-containe
   templateUrl: './latest-posts.component.html',
   styleUrl: './latest-posts.component.css'
 })
-export class LatestPostsComponent {
+export class LatestPostsComponent extends LoaderExtender {
   posts = input.required<Post[]>();
   categories = input.required<PostCategory[]>();
+
+  placeholderLength = input<number>(9);
+  placeholderArray = computed(() => Array.from({ length: this.placeholderLength() }));
 }

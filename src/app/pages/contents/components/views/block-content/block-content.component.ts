@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { HighlightedContents } from '@contents/components/container/contents.component';
 import { BlockComponent } from './block/block.component';
 
@@ -11,4 +11,9 @@ import { BlockComponent } from './block/block.component';
 })
 export class BlockContentComponent {
   blockContent = input.required<HighlightedContents[]>();
+  isLoading = input<boolean>();
+
+  placeholderLength = input<number>(4);
+  placeholderArray = computed(() => Array.from({ length: this.placeholderLength() }));
+  placeholderShortPosts = signal(Array.from({ length: 4 }));
 }

@@ -45,6 +45,7 @@
     <div class="podcasts-container pt-[60px] pb-[30px]">
         <app-podcasts-container
         [podcasts]="podcasts()"
+        [isLoading]="this.loaderService.getLoadingStatus('highlightedPodcasts')()"
         [showButton]="true"
         />
     </div>

@@ -13,6 +13,7 @@
         <div class="posts-container">
             <app-posts-container
             [posts]="posts()"
+            [isLoading]="this.loaderService.getLoadingStatus('latestPosts')()"
             />
         </div>
 
@@ -35,28 +36,35 @@
                 </div>
             </div>
             <div class="categories-container flex flex-wrap gap-[5px] lg:max-w-[547px] xl-1230:max-w-[572px]">
-                @for (category of categories(); track $index) {
-                    <div class="category w-[calc((100%/2)-10px)] md:w-[178px] xl-1230:w-[184px] h-[88px] relative xs:[&:nth-child(9)]:hidden">
-                        <div class="image absolute z-[1] w-full h-full">
-                            <img
-                            class="w-full h-full object-cover object-center"
-                            [src]="category.image"
-                            [alt]="'Imagem da categoria: '+ category.name">
+                @if (!this.loaderService.getLoadingStatus('categories')()) {
+                    @for (category of categories(); track $index) {
+                        <div class="category w-[calc((100%/2)-10px)] md:w-[178px] xl-1230:w-[184px] h-[88px] relative [&:nth-child(9)]:hidden md:[&:nth-child(9)]:block">
+                            <div class="image absolute z-[1] w-full h-full">
+                                <img
+                                class="w-full h-full object-cover object-center"
+                                [src]="category.image"
+                                [alt]="'Imagem da categoria: '+ category.name">
+                            </div>
+                            <div
+                            class="overlay absolute z-[2] w-full h-full"
+                            [style]="'background: linear-gradient(180deg, transparent, ' + category.color + ')'"
+                            ></div>
+                            <div class="category-content absolute w-full h-full z-[3] flex justify-center items-end p-[10px]">
+                                <a [routerLink]="['/contents/category/' + category.slug]" class="text-white w-full font-bold text-left">
+                                    {{ category.name }}
+                                </a>
+                            </div>
                         </div>
-                        <div
-                        class="overlay absolute z-[2] w-full h-full"
-                        [style]="'background: linear-gradient(180deg, transparent, ' + category.color + ')'"
-                        ></div>
-                        <div class="category-content absolute w-full h-full z-[3] flex justify-center items-end p-[10px]">
-                            <a [routerLink]="['/contents/category/' + category.slug]" class="text-white w-full font-bold text-left">
-                                {{ category.name }}
-                            </a>
+                    } @empty {
+                        <p class="text-gray text-left">
+                            Sem categorias registradas
+                        </p>
+                    }
+                } @else {
+                    @for (placeholder of placeholderArray(); track $index) {
+                        <div class="category-placeholder placeholder !relative rounded !w-[calc((100%/2)-10px)] md:!w-[178px] xl-1230:!w-[184px] !h-[88px] [&:nth-child(9)]:hidden md:[&:nth-child(9)]:block">
                         </div>
-                    </div>
-                } @empty {
-                    <p class="text-gray text-left">
-                        Sem categorias registradas
-                    </p>
+                    }
                 }
             </div>
         </div>

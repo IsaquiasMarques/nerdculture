@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
+import { LoaderExtender } from '@core/classes/loader-extender.class';
 import { Partner } from '@core/models/partner.model';
 
 @Component({
@@ -8,6 +9,8 @@ import { Partner } from '@core/models/partner.model';
   templateUrl: './partners.component.html',
   styleUrl: './partners.component.css'
 })
-export class PartnersComponent {
+export class PartnersComponent extends LoaderExtender {
   partners = input.required<Partner[]>();
+  placeholdersLength = input<number>(6);
+  placeholderArray = computed(() => Array.from({ length: this.placeholdersLength() }));
 }

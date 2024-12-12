@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { HighlightedContents } from '@contents/components/container/contents.component';
 import { PostsSliderComponent } from './posts-slider/posts-slider.component';
 import { ScrollerFunctionalities } from '@core/classes/scroller.class';
@@ -11,8 +11,13 @@ import { ScrollerFunctionalities } from '@core/classes/scroller.class';
   styleUrl: './highlighted-categories.component.css'
 })
 export class HighlightedCategoriesComponent extends ScrollerFunctionalities {
-  override withaddingSpacing: boolean = true;
+  override withPaddingSpacing: boolean = true;
   contents = input.required<HighlightedContents[]>();
+
+  isLoading = input<boolean>(false);
+  placeholderLength = input<number>(3);
+  placeholderArray = computed(() => Array.from({ length: this.placeholderLength() }));
+
   limitedElementRef = viewChild<ElementRef<HTMLElement>>('limitedContainerElementRef');
   scrollerContainerElementRef = viewChild<ElementRef<HTMLElement>>('scollerContainerElementRef');
 

@@ -8,11 +8,17 @@
         </p>
     </div>
     <div class="partners max-w-[520px] xl-1230:max-w-[651px] 3xl:max-w-[53%]">
-        <div class="logos-container flex flex-wrap justify-start items-center gap-[30px]">
-            @for (partner of partners(); track $index) {
-                <div class="partner">
-                    <img [src]="partner.logo" [alt]="'Logotipo do parceiro ' + partner.name">
-                </div>
+        <div class="logos-container relative flex flex-wrap justify-start items-center gap-[30px]">
+            @if (!this.loaderService.getLoadingStatus('partners')()) {
+                @for (partner of partners(); track $index) {
+                    <div class="partner">
+                        <img [src]="partner.logo" [alt]="'Logotipo do parceiro ' + partner.name">
+                    </div>
+                } @empty {}
+            } @else {
+                @for (placeholder of placeholderArray(); track $index) {
+                    <div class="placeholder !relative !w-[150px] !h-[60px]"></div>
+                }
             }
         </div>
     </div>

@@ -1,7 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, ElementRef, input, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, ViewChild } from '@angular/core';
 import { ScrollerFunctionalities } from '@core/classes/scroller.class';
 import { AdvertisementContent, AdvertisementLevel } from '@core/models/advertisement.model';
+import { LoaderService } from '@core/services/loader.service';
 
 @Component({
   selector: 'app-advertisements',
@@ -14,7 +15,9 @@ export class AdvertisementsComponent extends ScrollerFunctionalities {
 
   constructor(){ super(); }
 
-  override withaddingSpacing: boolean = false;
+  loaderService = inject(LoaderService);
+
+  override withPaddingSpacing: boolean = false;
   @ViewChild('sliderElementRef') sliderElementRef!: ElementRef<HTMLElement>;
   @ViewChild('limitedContainerElementRef') HostLimitedContainerElementRef!: ElementRef<HTMLElement>;
 

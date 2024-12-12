@@ -3,12 +3,14 @@
         <div class="hero-section">
             <app-hero
             [categories]="this.categories()"
+            [isLoading]="this.loaderService.getLoadingStatus('categories')()"
             [advertisements]="this.getAdvertisements()"
             />
         </div>
         <div class="highlighted-categories">
             <app-highlighted-categories
-            [contents]="this.highlightedContents"
+            [isLoading]="this.loaderService.getLoadingStatus('highlightedCategories')()"
+            [contents]="this.highlightedContents()"
             />
         </div>
         <div class="latest-posts">
@@ -29,6 +31,7 @@
     <div class="blocks-content-before-advertisement">
         <app-block-content
         [blockContent]="this.blocksBeforeAdvertisement()"
+        [isLoading]="this.loaderService.getLoadingStatus('posts')()"
         />
     </div>
 
@@ -45,6 +48,7 @@
         <div class="blocks-content-after-advertisement">
             <app-block-content
             [blockContent]="this.blocksAfterAdvertisement()"
+            [isLoading]="this.loaderService.getLoadingStatus('posts')()"
             />
         </div>
     }

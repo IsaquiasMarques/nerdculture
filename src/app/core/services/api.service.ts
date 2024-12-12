@@ -1,15 +1,14 @@
-import { HttpClient, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { NerdCultureCollection } from '@core/models/nerdculture-collection.model';
 import { environment } from 'environments/environment';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, take, tap } from 'rxjs';
 import { Transformer } from './transformer.service';
 import { Podcast } from '@core/models/podcast.model';
 import { Post, PostCategory } from '@core/models/post.model';
 import { PodcastStatus } from '@core/enums/podcast-status.enum';
 import { Advertisement } from '@core/models/advertisement.model';
 import { PaginationService } from './pagination.service';
-import { response } from 'express';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +25,8 @@ export class ApiService {
                       map((incoming: any) => {
                         return {
                             partners: Transformer.partners(incoming.nerdculture.parceiros),
-                            members: Transformer.members(incoming.nerdculture.equipa)
+                            members: Transformer.members(incoming.nerdculture.equipa),
+                            contacts: Transformer.contacts(incoming.nerdculture.contactos)
                         }
                       })
                     );
@@ -46,6 +46,13 @@ export class ApiService {
                     );
   }
 
+  getOnGoingPodcasts(): Observable<Podcast[]>{
+    return this.http.get<Podcast[]>(` ${ environment.apiUrl }/wp-json/wp/v2/podcasts/a-decorrer`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.podcasts(incoming))
+                    )
+  }
+
   getPodcasts(current_page: number = 1, per_page: number = 12): Observable<Podcast[]>{
     const perPage = (per_page) ? `&per_page=${ per_page }` : ``;
     const currentPage = (current_page) ? `&page=${ current_page }` : ``;
@@ -62,7 +69,7 @@ export class ApiService {
                         return incoming.body;
                       }),
                       map((incoming: any[]) => Transformer.podcasts(incoming)),
-                      map((incoming: Podcast[]) => incoming.filter(podcast => (podcast.status === PodcastStatus.PAST) || (podcast.status === PodcastStatus.ON_GOING))),
+                      map((incoming: Podcast[]) => incoming.filter(podcast => (podcast.status === PodcastStatus.PAST))),
                     );
   }
 
@@ -79,6 +86,13 @@ export class ApiService {
                           return 0;
                         }
                       }))
+                    )
+  }
+
+  getHighlightedCategories(): Observable<PostCategory[]>{
+    return this.http.get<PostCategory[]>(`${ environment.apiUrl }/wp-json/wp/v2/categories/destacadas`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.categories(incoming))
                     )
   }
 
@@ -123,6 +137,31 @@ export class ApiService {
                     .pipe(
                       map((incoming: any[]) => Transformer.posts(incoming))
                     );
+  }
+
+  searchPosts(categoryId: number, term: string): Observable<Post[]>{
+    const category = (categoryId) ? `&categories=${ categoryId }` : ``;
+    return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?search=${ term + category }&_embed`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.posts(incoming))
+                    );
+  }
+
+  searchPodcasts(term: string): Observable<Podcast[]>{
+    return this.http.get<Podcast[]>(`${ environment.apiUrl }/wp-json/wp/v2/podcasts?search=${ term }&_fields[]=title&_fields[]=slug&_fields[]=title&_fields[]=acf`)
+                    .pipe(
+                      map((incoming: any[]) => Transformer.podcasts(incoming))
+                    );
+  }
+
+  subscribe(subscriber: any): Observable<any>{
+    const newsletterClientKey = '11242e5393803364b1ebb96da8f1c12615af7227';
+    const newsletterClientSecret = 'cafbca5b4cf133462633872d79b438b56902bfd7';
+    return this.http.post(`${environment.apiUrl}/wp-json/newsletter/v2/subscribers?client_key=${newsletterClientKey}&client_secret=${newsletterClientSecret}`, subscriber);
+  }
+
+  getInTouch(formdata: FormData): Observable<any>{
+    return this.http.post(environment.apiGetInTouchUrl, formdata);
   }
 
 }

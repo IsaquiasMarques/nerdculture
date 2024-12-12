@@ -5,18 +5,16 @@ export class ScrollerFunctionalities{
     private initialX: number | null = null;
     private initialY: number | null = null;
     
-    protected activeIndex = 0;
+    protected activeIndex: WritableSignal<number> = signal(0);
     protected itemsArray: Signal<any[]> = signal([]);
 
     scrollerElementRef!: ElementRef<HTMLElement>;
     limitedContainerElementRef!: ElementRef<HTMLElement>;
     
-    withaddingSpacing: boolean = true;
+    withPaddingSpacing: boolean = true;
     paddingX: WritableSignal<number> = signal(0);
 
     touchMove = input<boolean>(true);
-
-    constructor() {}
 
     ngAfterViewInit(): void {
         this.bootstrap();
@@ -30,31 +28,35 @@ export class ScrollerFunctionalities{
     }
 
     protected valueToPadding(){
-        if(!this.withaddingSpacing) return;
+        if(!this.withPaddingSpacing) return;
         this.paddingX.update(val => val = this.limitedContainerElementRef.nativeElement.offsetLeft);
+    }
+
+    updateActiveIndex(value: number): void{
+        this.activeIndex.update(val => val = value);
     }
     
     next(){
-        if(this.activeIndex === this.itemsArray().length - 1){
-        return;
+        if(this.activeIndex() === this.itemsArray().length - 1){
+            return;
         }else{
-        this.activeIndex++;
+            this.updateActiveIndex(this.activeIndex() + 1);
         }
-        this.scrollToActiveIndex(this.activeIndex);
+        this.scrollToActiveIndex(this.activeIndex());
     }
 
     prev(){
-        if(this.activeIndex === 0){
-        return;
+        if(this.activeIndex() === 0){
+            return;
         }else { 
-        this.activeIndex--;
+            this.updateActiveIndex(this.activeIndex() - 1);
         }
-        this.scrollToActiveIndex(this.activeIndex);
+        this.scrollToActiveIndex(this.activeIndex());
     }
 
     slideTo(index: number){
-        this.activeIndex = index;
-        this.scrollToActiveIndex(this.activeIndex);
+        this.updateActiveIndex(index);
+        this.scrollToActiveIndex(this.activeIndex());
     }
     
     scrollToActiveIndex(activeIndex: number){

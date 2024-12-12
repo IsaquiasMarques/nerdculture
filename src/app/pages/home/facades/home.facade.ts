@@ -1,12 +1,10 @@
-import { Injectable, Signal, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { NerdCultureCollection } from '@core/models/nerdculture-collection.model';
+import { Injectable, Signal, computed, inject } from '@angular/core';
 import { Partner } from '@core/models/partner.model';
 import { Podcast } from '@core/models/podcast.model';
 import { Post, PostCategory } from '@core/models/post.model';
 import { TeamMember } from '@core/models/team-members.model';
-import { ApiService } from '@core/services/api.service';
 import { CategoryFacade } from '@shared/facades/category.facade';
+import { NerdCultureFacadeCollection } from '@shared/facades/nerdculture-collection.facade';
 import { PodcastFacade } from '@shared/facades/podcast.facade';
 import { PostFacade } from '@shared/facades/post.facade';
 
@@ -15,26 +13,19 @@ import { PostFacade } from '@shared/facades/post.facade';
 })
 export class HomeFacade {
 
-  private API = inject(ApiService);
-  private nerdCultureCollection!: Signal<NerdCultureCollection>;
+  private nerdCultureCollectionFacade = inject(NerdCultureFacadeCollection);
   private podcastFacade = inject(PodcastFacade);
   private postFacade = inject(PostFacade);
   private categoryFacade = inject(CategoryFacade);
 
-  constructor() {
-    this.nerdCultureCollection = toSignal(this.API.getNerdcultureDatas(), { initialValue: { partners: [], members: [] } });
-  }
+  constructor() { }
 
   get partners(): Signal<Partner[]>{
-    return computed(() => {
-      return this.nerdCultureCollection().partners
-    });
+    return this.nerdCultureCollectionFacade.partners;
   }
 
   get teamMembers(): Signal<TeamMember[]>{
-    return computed(() => {
-      return this.nerdCultureCollection().members
-    });
+    return this.nerdCultureCollectionFacade.teamMembers;
   }
 
   get highlightedPodcasts(): Signal<Podcast[]>{

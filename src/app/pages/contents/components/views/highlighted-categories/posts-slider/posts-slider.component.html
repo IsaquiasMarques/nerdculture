@@ -25,21 +25,21 @@
             } @empty {}
         </div>
     </div>
-    @if (this.itemsArray().length > 1) {
+    @if (this.posts().length > 1) {
         <div class="arrow-controllers absolute z-[3] top-[50%] left-0 -translate-y-[50%] w-full px-5 flex justify-between items-center">
             <div class="prev h-10">
                 <button class="" (click)="this.prev()">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="duration-[.6s]" width="40" height="40" rx="20" [attr.fill]="(this.activeIndex > 0) ? '#00BAEE' : 'white'"/>
-                        <path d="M22.5 15L17.5 20L22.5 25" [attr.stroke]="(this.activeIndex > 0) ? 'white' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect class="duration-[.6s]" width="40" height="40" rx="20" [attr.fill]="(this.activeIndex() > 0) ? '#00BAEE' : 'white'"/>
+                        <path d="M22.5 15L17.5 20L22.5 25" [attr.stroke]="(this.activeIndex() > 0) ? 'white' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
             </div>
             <div class="next h-10">
                 <button class="" (click)="this.next()">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="duration-[.6s]" x="40" y="40" width="40" height="40" rx="20" transform="rotate(-180 40 40)" [attr.fill]="(this.activeIndex >= this.itemsArray().length - 1) ? 'white' : '#00BAEE'"/>
-                        <path d="M17.5 25L22.5 20L17.5 15" [attr.stroke]="(this.activeIndex >= this.itemsArray().length - 1) ? '#555555' : 'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect class="duration-[.6s]" x="40" y="40" width="40" height="40" rx="20" transform="rotate(-180 40 40)" [attr.fill]="(this.activeIndex() >= this.posts().length - 1) ? 'white' : '#00BAEE'"/>
+                        <path d="M17.5 25L22.5 20L17.5 15" [attr.stroke]="(this.activeIndex() >= this.posts().length - 1) ? '#555555' : 'white'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
             </div>
@@ -49,7 +49,7 @@
                 @for (dash of this.posts(); track $index) {
                     <div class="dash bg-[#CFCFCF] cursor-pointer duration-[.6s] rounded-full w-[10px] h-[5px]"
                     [ngClass]="{
-                        '!w-5 !bg-[#14498C]': this.activeIndex === $index
+                        '!w-5 !bg-[#14498C]': this.activeIndex() === $index
                     }"
                     (click)="this.slideTo($index)"
                     ></div>

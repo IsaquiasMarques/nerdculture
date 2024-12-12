@@ -18,17 +18,25 @@ class="topper flex flex-col lg:flex-row lg:justify-between lg:items-stretch gap-
         <div class="categories-section relative">
             <div class="scroller px-[12px] mt-4 lg:mt-0 w-full z-[2] overflow-x-auto relative">
                 <div class="categories relative w-max flex justify-start items-center py-[10px] gap-5">
-                    @for (category of this.categories(); track $index) {
-                        <div class="category">
-                            <a
-                            [routerLink]="['/contents/category/' + category.slug ]"
-                            class="font-bold text-sm"
-                            [style.color]="category.color"
-                            >
-                                {{ category.name }}
-                            </a>
-                        </div>
-                    } @empty {}
+                    @if (!isLoading()) {
+                        @for (category of this.categories(); track $index) {
+                            <div class="category">
+                                <a
+                                [routerLink]="['/contents/category/' + category.slug ]"
+                                class="font-bold text-sm"
+                                [style.color]="category.color"
+                                >
+                                    {{ category.name }}
+                                </a>
+                            </div>
+                        } @empty {}
+                    } @else {
+                        @for (placeholder of this.placeholderArray(); track $index) {
+                            <div class="category">
+                                <a class="font-bold text-sm placeholder !w-fit !h-fit text-transparent !relative rounded">Placeholder text</a>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             <div class="overlays w-full h-full absolute flex justify-between items-center top-0 left-0">

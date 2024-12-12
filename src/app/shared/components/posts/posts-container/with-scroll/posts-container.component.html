@@ -1,11 +1,52 @@
 <div class="scroller w-full overflow-x-auto">
     <div class="posts-container flex flex-col md:flex-row gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-center">
-        @for (post of posts(); track $index) {
-            <app-post-template
-            [dimentions]="dimentions()"
-            [post]="post"
-            [responsive]="false"
-            />
+        @if (!this.isLoading()) {
+            @for (post of posts(); track $index) {
+                <app-post-template
+                class=" appear-softly"
+                [dimentions]="dimentions()"
+                [post]="post"
+                [responsive]="false"
+                />
+            }
+        } @else {
+            @for (placeholder of placeholderArray(); track $index) {
+                <div class="box-container w-full appear-softly max-w-[18.75rem]"
+                appCardDimentions [dimentions]="dimentions()"
+                >
+                    <div class="box flex flex-col gap-2">
+                        <div class="top-content flex flex-col gap-3">
+                            <div class="image placeholder !relative !w-full !h-[235px] rounded"></div>
+                            <div class="tiny-details flex justify-between items-center">
+                                <div class="created-at placeholder !w-fit !relative">
+                                    <p class="text-sm font-semibold text-transparent text-left">
+                                        Placeholder text
+                                    </p>
+                                </div>
+                                <div class="categories flex justify-start items-center">
+                                    <div
+                                    class="chip p-[10px] z-[1] text-sm font-semibold placeholder !w-fit !relative rounded-full"
+                                    >
+                                        <p class=" line-clamp-1 text-transparent">
+                                            Placeholder
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="title placeholder !w-full !relative rounded">
+                                <a [routerLink]="null" class="font-semibold text-base text-transparent">
+                                    Placeholder text
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <div class="author placeholder !relative !w-fit !h-fit rounded">
+                                <p class="text-sm text-transparent">Placeholder text</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         }
     </div>
 </div>

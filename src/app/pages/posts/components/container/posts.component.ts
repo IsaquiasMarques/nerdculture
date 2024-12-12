@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdvertisementClass } from '@core/classes/advertisement.class';
 import { AdvertisementPage } from '@core/models/advertisement.model';
 import { Post, PostCategory } from '@core/models/post.model';
+import { LoaderService } from '@core/services/loader.service';
 import { PaginationService } from '@core/services/pagination.service';
 import { AdvertisementsComponent } from '@shared/components/advertisements/advertisements.component';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
@@ -22,6 +23,8 @@ import { combineLatest } from 'rxjs';
 })
 export class PostsComponent extends AdvertisementClass implements OnInit {
   
+  loaderService = inject(LoaderService);
+
   private categoryFacade = inject(CategoryFacade);
   private postFacade = inject(PostFacade);
   private themeService = inject(ThemeService).changeTheme(Theme.WHITE);
@@ -58,21 +61,29 @@ export class PostsComponent extends AdvertisementClass implements OnInit {
   }
 
   private getCategories(): void{
+    this.loaderService.updateLoadingStatus('categories', true);
     this.categories = this.categoryFacade.all;
+    this.loaderService.changingLoadStatusAfterResult(this.categories(), 'categories');
   }
 
   private getPosts(category_id: number, current_page: number): void{
+    this.loaderService.updateLoadingStatus('postsByCategory', true);
     this.postFacade.getPostsByCategory(category_id, this.totalOfPostsPerPagination, current_page, true).subscribe(incoming => {
 
       const posts = incoming;
-      const midpoint = Math.floor(this.totalOfPostsPerPagination / 2);
+      this.loaderService.changingLoadStatusAfterResult(posts, 'postsByCategory');
 
-      // Cria cópias do array ao invés de modificar o original
-      const postsBefore = posts.slice(0, midpoint); // Pega os primeiros 'midpoint' itens
-      const postsAfter = (posts.length <= midpoint) ? [] : posts.slice(midpoint); // Pega os itens restantes a partir de 'midpoint'
+      if(posts.length > 0){
+        const midpoint = Math.floor(this.totalOfPostsPerPagination / 2);
+  
+        // Cria cópias do array ao invés de modificar o original
+        const postsBefore = posts.slice(0, midpoint); // Pega os primeiros 'midpoint' itens
+        const postsAfter = (posts.length <= midpoint) ? [] : posts.slice(midpoint); // Pega os itens restantes a partir de 'midpoint'
+  
+        this.postsBeforeLevel1Advertisement.set(postsBefore);
+        this.postsAfterLevel1Advertisement.set(postsAfter);
+      }
 
-      this.postsBeforeLevel1Advertisement.set(postsBefore);
-      this.postsAfterLevel1Advertisement.set(postsAfter);
     });
   }
 

@@ -5,33 +5,45 @@
         [style.paddingLeft.px]="this.paddingX()"
         [style.paddingRight.px]="this.paddingX()"
         >
-            @for (content of contents(); track $index) {
-                <div class="content relative w-full max-w-[300px] md:max-w-[373px] 2xl:min-w-[calc((100%/3)-(calc(40px/3)))] shrink">
-                    <!-- [postCardWidth]="['max-w-[300px]', 'md:max-w-[373px]', '2xl:max-w-[]']" -->
-                    <app-posts-slider
-                    [touchMove]="false"
-                    [category]="content.category"
-                    [posts]="content.posts()"
-                    />
-                </div>
-            } @empty {}
+            @if(!isLoading()){
+                @for (content of contents(); track $index) {
+                    <div class="content relative w-full max-w-[300px] md:max-w-[373px] 2xl:min-w-[calc((100%/3)-(calc(40px/3)))] shrink">
+                        <!-- [postCardWidth]="['max-w-[300px]', 'md:max-w-[373px]', '2xl:max-w-[]']" -->
+                        @if (content.category && content.posts().length > 0) {
+                            <!-- [touchMove]="false" -->
+                            <app-posts-slider
+                            [category]="content.category"
+                            [posts]="content.posts()"
+                            />
+                        }
+                    </div>
+                } @empty {}
+            } @else {
+                @for (placeholder of placeholderArray(); track $index) {
+                    <div class="content relative w-[300px] max-w-[300px] md:max-w-[373px] 2xl:min-w-[calc((100%/3)-(calc(40px/3)))] h-full min-h-[300px] md:min-h-[373px] 2xl:min-h-[425px] 3xl:min-h-[453px] 5xl:min-h-[420px]">
+                        <div class="placeholder w-full h-full rounded"></div>
+                    </div>
+                } @empty {}
+            }
         </div>
     </div>
-    <div class="arrow-controllers xl-1230:hidden mt-6 w-full flex justify-center items-center">
-        <div class="prev h-10">
-            <button class="" (click)="this.prev()">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="40" height="40" rx="20" fill="white"/>
-                    <path d="M22.5 15L17.5 20L22.5 25" [attr.stroke]="(this.activeIndex > 0) ? '#00BAEE' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+    @if (!isLoading()) {
+        <div class="arrow-controllers xl-1230:hidden mt-6 w-full flex justify-center items-center">
+            <div class="prev h-10">
+                <button class="" (click)="this.prev()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="20" fill="white"/>
+                        <path d="M22.5 15L17.5 20L22.5 25" [attr.stroke]="(this.activeIndex() > 0) ? '#00BAEE' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="next h-10">
+                <button class="" (click)="this.next()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5 25L22.5 20L17.5 15" [attr.stroke]="(this.activeIndex() < this.itemsArray().length -1) ? '#00BAEE' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
         </div>
-        <div class="next h-10">
-            <button class="" (click)="this.next()">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.5 25L22.5 20L17.5 15" [attr.stroke]="(this.activeIndex < this.itemsArray().length -1) ? '#00BAEE' : '#555555'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-        </div>
-    </div>
+    }
 </div>

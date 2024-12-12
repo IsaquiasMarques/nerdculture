@@ -13,6 +13,7 @@
                     class="post-template"
                     [templateSize]="'short'"
                     [responsive]="false"
+                    [isLoading]="this.loaderService.getLoadingStatus('latestPosts')()"
                     [post]="post"
                     [dimentions]="dimentions()"
                     />

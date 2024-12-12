@@ -31,4 +31,9 @@ export const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'contact-us',
+        loadComponent: () => import('./pages/contact-us/components/container/contact-us/contact-us.component').then(component => component.ContactUsComponent),
+        title: 'Entre em contacto - Sua opinião nos ajuda a crescer'
+    }
 ];

@@ -1,9 +1,9 @@
 import { DecimalPipe } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, input, signal, ViewChild } from '@angular/core';
+import { LoaderExtender } from '@core/classes/loader-extender.class';
 import { Podcast } from '@core/models/podcast.model';
 import { PodcastsContainerComponent } from '@shared/components/podcasts/podcasts-container/with-scroll/podcasts-container.component';
 import { DecimalAuxPipe } from '@shared/pipes/decimal-aux.pipe';
-import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
 
 @Component({
   selector: 'app-podcasts',
@@ -12,8 +12,9 @@ import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
   templateUrl: './podcasts.component.html',
   styleUrl: './podcasts.component.css'
 })
-export class PodcastsComponent implements AfterViewInit {
+export class PodcastsComponent extends LoaderExtender implements AfterViewInit {
   podcasts = input.required<Podcast[]>();
+
   @ViewChild('limitedContainerElementRef') limitedContainerElementRef!: ElementRef<HTMLElement>;
   originalContentPaddingX = signal(0);
 

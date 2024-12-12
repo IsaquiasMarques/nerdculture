@@ -1,5 +1,6 @@
 import { Component, computed, inject, OnInit, signal, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LoaderExtender } from '@core/classes/loader-extender.class';
 import { Partner } from '@core/models/partner.model';
 import { Podcast } from '@core/models/podcast.model';
 import { Post, PostCategory } from '@core/models/post.model';
@@ -28,7 +29,7 @@ import { Theme, ThemeService } from '@shared/services/theme.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends LoaderExtender implements OnInit {
   private homeFacade = inject(HomeFacade);
   private themeService = inject(ThemeService).changeTheme(Theme.HOME);
 
@@ -47,23 +48,33 @@ export class HomeComponent implements OnInit {
   }
 
   private getPartners(): void{
+    this.loaderService.updateLoadingStatus('partners', true);
     this.partners = this.homeFacade.partners;
+    this.loaderService.changingLoadStatusAfterResult(this.partners(), 'partners');
   }
 
   private getTeamMembers(): void{
+    this.loaderService.updateLoadingStatus('teamMembers', true);
     this.teamMembers = this.homeFacade.teamMembers;
+    this.loaderService.changingLoadStatusAfterResult(this.teamMembers(), 'teamMembers');
   }
 
   private getPodcasts(): void{
+    this.loaderService.updateLoadingStatus('highlightedPodcasts', true);
     this.podcasts = this.homeFacade.highlightedPodcasts;
+    this.loaderService.changingLoadStatusAfterResult(this.podcasts(), 'highlightedPodcasts');
   }
 
   private getLatestPosts(): void{
     const LIMIT_OF_POSTS = 4;
+    this.loaderService.updateLoadingStatus('latestPosts', true);
     this.posts = this.homeFacade.getLatestPosts(LIMIT_OF_POSTS);
+    this.loaderService.changingLoadStatusAfterResult(this.posts(), 'latestPosts');
   }
   
   private getCategories(): void{
+    this.loaderService.updateLoadingStatus('categories', true);
     this.categories = this.homeFacade.categories;
+    this.loaderService.changingLoadStatusAfterResult(this.categories(), 'categories');
   }
 }

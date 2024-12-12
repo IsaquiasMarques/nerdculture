@@ -1,7 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, ElementRef, input, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, ViewChild } from '@angular/core';
 import { ScrollerFunctionalities } from '@core/classes/scroller.class';
 import { Podcast } from '@core/models/podcast.model';
+import { LoaderService } from '@core/services/loader.service';
 import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
 
 @Component({
@@ -13,6 +14,11 @@ import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
 })
 export class IncomingPodcastsComponent extends ScrollerFunctionalities implements OnInit {
   podcasts = input.required<Podcast[]>();
+
+  loaderService = inject(LoaderService);
+
+  placeholdersLength = input<number>(3);
+  placeholderArray = computed(() => Array.from({ length: this.placeholdersLength() }));
 
   @ViewChild('scrollerContainerElementRef') sContainerElementRef!: ElementRef<HTMLElement>;
   @ViewChild('limitedContainerElementRef') lContainerElementRef!: ElementRef<HTMLElement>;

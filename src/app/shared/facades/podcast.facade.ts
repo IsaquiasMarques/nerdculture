@@ -7,15 +7,16 @@ import { Observable } from "rxjs";
 @Injectable({ providedIn: 'root' })
 export class PodcastFacade{
 
-    private podcasts$: Signal<Podcast[]> = signal([]);
     private highlightedPodcasts$: Signal<Podcast[]> = signal([]);
     private incomingPodcasts$: Signal<Podcast[]> = signal([]);
+    private ongoingPodcasts$: Signal<Podcast[]> = signal([]);
 
     constructor(
         private API: ApiService
     ) {
         this.highlightedPodcasts$ = toSignal(this.API.getHighlightedPodcasts(), { initialValue: [] });
         this.incomingPodcasts$ = toSignal(this.API.getIncomingPodcasts(), { initialValue: [] });
+        this.ongoingPodcasts$ = toSignal(this.API.getOnGoingPodcasts(), { initialValue: [] })
     }
 
     get highlightedPodcasts(): Signal<Podcast[]>{
@@ -24,6 +25,10 @@ export class PodcastFacade{
 
     get incomingPodcasts(): Signal<Podcast[]>{
         return this.incomingPodcasts$;
+    }
+
+    get ongoingPodcasts(): Signal<Podcast[]>{
+        return this.ongoingPodcasts$;
     }
 
     podcasts(current_page: number, per_page: number): Observable<Podcast[]>{

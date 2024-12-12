@@ -1,8 +1,10 @@
 import { Component, computed, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdvertisementClass } from '@core/classes/advertisement.class';
+import { LoaderExtender } from '@core/classes/loader-extender.class';
 import { AdvertisementPage } from '@core/models/advertisement.model';
 import { Podcast } from '@core/models/podcast.model';
+import { LoaderService } from '@core/services/loader.service';
 import { PaginationService } from '@core/services/pagination.service';
 import { IncomingPodcastsComponent } from '@podnerd/components/views/incoming-podcasts/incoming-podcasts.component';
 import { AdvertisementsComponent } from '@shared/components/advertisements/advertisements.component';
@@ -13,6 +15,7 @@ import { PodcastsContainerComponent } from '@shared/components/podcasts/podcasts
 import { PodcastFacade } from '@shared/facades/podcast.facade';
 import { Theme, ThemeService } from '@shared/services/theme.service';
 import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-podnerd',
@@ -34,6 +37,8 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
     super();
   }
 
+  loaderService = inject(LoaderService);
+
   protected override page: AdvertisementPage = AdvertisementPage.PODNERD;
   private themeService = inject(ThemeService).changeTheme(Theme.PODNERD);
   private podcastFacade = inject(PodcastFacade);
@@ -45,6 +50,8 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
 
   highlightedPodcasts: Signal<Podcast[]> = signal([]);
   incomingPodcasts: Signal<Podcast[]> = signal([]);
+  ongoingPodcasts: Signal<Podcast[]> = signal([]);
+
   podcastsBeforeLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
   podcastsAfterLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
 
@@ -62,13 +69,32 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
   }
 
   private getIncomingPodcasts(): void{
+    this.loaderService.updateLoadingStatus('incomingPodcasts', true);
     this.incomingPodcasts = this.podcastFacade.incomingPodcasts;
+    this.loaderService.changingLoadStatusAfterResult(this.incomingPodcasts(), 'incomingPodcasts');
+  }
+
+  private getOnGoingPodcasts(): void{
+    this.ongoingPodcasts = this.podcastFacade.ongoingPodcasts;
   }
 
   private getPodcasts(current_page: number): void{
-    this.podcastFacade.podcasts(current_page, this.totalOfPodcastsPerPagination).subscribe({
+    this.loaderService.updateLoadingStatus('podcasts', true);
+    
+    this.getOnGoingPodcasts();
+    this.loaderService.updateLoadingStatus('podcasts', true);
+    this.podcastFacade.podcasts(current_page, this.totalOfPodcastsPerPagination - this.ongoingPodcasts().length)
+    .pipe(
+      map(incoming => {
+        return (current_page == 1) ? [...this.ongoingPodcasts(), ...incoming] : incoming
+      })
+    )
+    .subscribe({
       next: incoming => {
+
         const podcasts = incoming;
+        this.loaderService.changingLoadStatusAfterResult(podcasts, 'podcasts');
+
         const midpoint = Math.floor(this.totalOfPodcastsPerPagination / 2);
 
         // Cria cópias do array ao invés de modificar o original
@@ -78,6 +104,7 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
         // Atualiza as variáveis com as cópias dos arrays
         this.podcastsBeforeLevel1Advertisement.set(podcastsBefore);
         this.podcastsAfterLevel1Advertisement.set(podcastsAfter);
+        
       }
     });
   }

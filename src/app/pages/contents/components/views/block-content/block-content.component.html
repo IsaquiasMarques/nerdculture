@@ -1,9 +1,113 @@
 <div class="section-container">
     <div class="limited-container flex gap-7 xl:gap-y-[3.75rem] flex-col lg:flex-row lg:flex-wrap justify-stretch">
-        @for (blockContent of this.blockContent(); track $index) {
-            <div class="block-content xl-1230:w-[calc(calc(100%/2)-calc(30px/2))] xl:w-[calc(calc(100%/2)-calc(35px/2))]">
-                <app-block [block]="blockContent" />
-            </div>
+        @if (!isLoading()) {
+            @for (blockContent of this.blockContent(); track $index) {
+                <div class="block-content xl-1230:w-[calc(calc(100%/2)-calc(30px/2))] xl:w-[calc(calc(100%/2)-calc(35px/2))]">
+                    <app-block [block]="blockContent" />
+                </div>
+            }
+        } @else {
+            @for (placeholder of placeholderArray(); track $index) {
+                <div class="block-content xl-1230:w-[calc(calc(100%/2)-calc(30px/2))] xl:w-[calc(calc(100%/2)-calc(35px/2))]">
+                    <div class="block-content flex flex-col gap-5 max-w-[567px] 2xl:max-w-full h-full">
+                        <div class="block-header border-b pb-3"
+                        [style.borderColor]="'#e0e0e0'"
+                        >
+                            <a
+                            class="placeholder !relative !w-fit !h-fit rounded text-transparent flex gap-5 text-2xl font-bold"
+                            >
+                            Placeholder
+                            </a>
+                        </div>
+                        <div class="block-body flex flex-col gap-5 xl-1230:gap-3 2xl:gap-5 md:flex-row md:justify-stretch">
+                            <div class="highlighted-post">
+                                <div class="box-container w-full appear-softly hidden md:block"
+                                >
+                                    <div class="box flex flex-col gap-2 md:w-[20.625rem] xl-1230:w-[17rem] 2xl:w-[18.75rem]">
+                                        <div class="top-content flex flex-col gap-3">
+                                            <div class="image placeholder !relative !w-full !h-[235px] rounded"></div>
+                                            <div class="tiny-details flex justify-between items-center">
+                                                <div class="created-at placeholder !w-fit !relative">
+                                                    <p class="text-sm font-semibold text-transparent text-left">
+                                                        Placeholder text
+                                                    </p>
+                                                </div>
+                                                <div class="categories flex justify-start items-center">
+                                                    <div
+                                                    class="chip p-[10px] z-[1] text-sm font-semibold placeholder !w-fit !relative rounded-full"
+                                                    >
+                                                        <p class=" line-clamp-1 text-transparent">
+                                                            Placeholder
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="title placeholder !w-full !relative rounded">
+                                                <a class="font-semibold text-base text-transparent">
+                                                    Placeholder text
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="bottom">
+                                            <div class="author placeholder !relative !w-fit !h-fit rounded">
+                                                <p class="text-sm text-transparent">Placeholder text</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-container md:hidden">
+                                    <div class="box flex gap-[10px]">
+                                        <div class="image placeholder !relative !w-[85px] !h-[85px] rounded"></div>
+                                        <div class="description max-w-[190px] flex flex-col justify-between gap-y-[0px]">
+                                            <div class="title">
+                                                <h2 class="placeholder !relative !w-full !h-fit text-transparent text-sm font-medium">
+                                                    Placeholder text for title
+                                                </h2>
+                                                <h2 class="placeholder !relative mt-1 !w-[80%] !h-fit text-transparent text-sm font-medium">
+                                                    Placeholder text
+                                                </h2>
+                                            </div>
+                                            <div class="created_at">
+                                                <p class="placeholder !relative !w-full !h-fit text-transparent text-sm font-semibold text-left">
+                                                    Placeholder text
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tiny-posts xl-1230:max-w-[285px] min-w-[285px] 2xl:max-w-[300px]">
+                                <div class="posts-container flex flex-col gap-5">
+                                    @for (post of this.placeholderShortPosts(); track $index) {
+                                        <div class="box-container">
+                                            <div class="box flex gap-[10px]">
+                                                <div class="image placeholder !relative !w-[85px] !h-[85px] rounded"></div>
+                                                <div class="description max-w-[190px] flex flex-col justify-between gap-y-[0px]">
+                                                    <div class="title">
+                                                        <h2 class="placeholder !relative !w-full !h-fit text-transparent text-sm font-medium">
+                                                            Placeholder text for title
+                                                        </h2>
+                                                        <h2 class="placeholder !relative mt-1 !w-[80%] !h-fit text-transparent text-sm font-medium">
+                                                            Placeholder text
+                                                        </h2>
+                                                    </div>
+                                                    <div class="created_at">
+                                                        <p class="placeholder !relative !w-full !h-fit text-transparent text-sm font-semibold text-left">
+                                                            Placeholder text
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         }
     </div>
 </div>

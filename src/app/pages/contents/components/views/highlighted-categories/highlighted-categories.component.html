@@ -12,6 +12,7 @@
                         @if (content.category && content.posts().length > 0) {
                             <!-- [touchMove]="false" -->
                             <app-posts-slider
+                            [touchMove]="false"
                             [category]="content.category"
                             [posts]="content.posts()"
                             />

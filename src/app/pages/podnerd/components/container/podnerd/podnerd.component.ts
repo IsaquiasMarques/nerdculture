@@ -58,6 +58,8 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
   podcastsBeforeLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
   podcastsAfterLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
 
+  getPodcastsError?: { status: number, message: string };
+
   ngOnInit(): void {
 
     this.metatagService.addMetaTags({
@@ -68,6 +70,7 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
+      this.getPodcastsError = undefined;
       this.current_page = (queryParams['page']) ? parseInt(queryParams['page']) : 1;
       this.getPodcasts(this.current_page);
     });
@@ -116,6 +119,11 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
         this.podcastsBeforeLevel1Advertisement.set(podcastsBefore);
         this.podcastsAfterLevel1Advertisement.set(podcastsAfter);
         
+      },
+      error: error => {
+        this.getPodcastsError = { status: error.error.data.status, message: error.error.message }
+        this.loaderService.updateLoadingStatus('podcasts', false);
+        console.error(error.error.message)
       }
     });
   }

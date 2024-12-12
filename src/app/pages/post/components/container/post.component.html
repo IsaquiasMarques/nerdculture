@@ -9,6 +9,7 @@
     </div>
 
     <div class="limited-container w-full flex flex-col gap-[1.875rem] md:gap-16">
+        @if(!this.getPostError){
             <div class="hero-content">
                 <app-hero
                 [incomingThePost]="thePost()"
@@ -77,6 +78,68 @@
                     </div>
                 </div>
             </div>
+        } @else {
+            <div class="section-container flex flex-col xl-1230:flex-row xl-1230:justify-between gap-20">
+
+                <div class="w-full h-[100px]">
+                    <h1 class="text-xl w-full text-left font-medium"> {{ this.getPostError.message }} </h1>
+                </div>
+                
+                <div class="aside flex h-fit flex-col gap-16 xl-1230:sticky xl-1230:top-[70px] xl-1230:max-w-[356px]">
+                    <div class="latest-posts flex flex-col gap-6">
+                        <div class="title xl-1230:py-4">
+                            <h1 class="font-medium text-xl text-secondary lg:!text-2xl leading-6 text-left">
+                                Publicações mais recentes
+                            </h1>
+                        </div>
+                
+                        <div class="aligner flex justify-center">
+                            <div class="posts w-full flex flex-col md:flex-row flex-wrap gap-3 md:gap-4">
+                                @if (!this.loaderService.getLoadingStatus('latestPosts')()) {
+                                    @for (post of filteredPosts(); track $index) {
+                                        <app-post-template
+                                        class="post-template"
+                                        [templateSize]="'short'"
+                                        [responsive]="false"
+                                        [post]="post"
+                                        [dimentions]="['w-[278px]', 'xs:w-[300px]']"
+                                        />
+                                    } @empty {
+                                        <p class="text-sm text-gray">
+                                            Sem publicações para mostrar.
+                                        </p>
+                                    }
+                                } @else {
+                                    @for (placeholder of latestPostsPlaceholderArray(); track $index) {
+                                        <div class="box flex gap-[10px]">
+                                            <div class="image placeholder !relative !w-[85px] !h-[85px] rounded"></div>
+                                            <div class="description max-w-[190px] flex flex-col justify-between gap-y-[0px]">
+                                                <div class="title">
+                                                    <h2 class="placeholder !relative !w-full !h-fit text-transparent text-sm font-medium">
+                                                        Placeholder text for title
+                                                    </h2>
+                                                    <h2 class="placeholder !relative mt-1 !w-[80%] !h-fit text-transparent text-sm font-medium">
+                                                        Placeholder text
+                                                    </h2>
+                                                </div>
+                                                <div class="created_at">
+                                                    <p class="placeholder !relative !w-full !h-fit text-transparent text-sm font-semibold text-left">
+                                                        Placeholder text
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subscribing">
+                        <app-subscribe />
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 
     <div class="advertisement">

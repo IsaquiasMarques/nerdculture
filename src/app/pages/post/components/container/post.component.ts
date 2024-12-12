@@ -34,19 +34,24 @@ export class PostComponent extends AdvertisementClass implements OnInit {
   thePost: WritableSignal<Post[]> = signal([]);
   latestPosts: Signal<Post[]> = signal([]);
   filteredPosts = computed(() => {
-    if(this.thePost().length > 0){
-      return this.latestPosts().filter(p => p.id !== this.thePost()[0].id)
-    } else {
-      return [];
-    }
+    // if(this.thePost().length > 0){
+      // return this.latestPosts().filter(p => p.id !== this.thePost()[0].id)
+      return this.latestPosts();
+    // } else {
+    //   return [];
+    // }
   });
 
   latestPostsPlaceholderLength = signal<number>(4);
   latestPostsPlaceholderArray = computed(() => Array.from({ length: this.latestPostsPlaceholderLength() }));
+  
+  getPostError?: { status: number, message: string };
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(param => {
       const post_slug = param.get('slug');
+
+      this.getPostError = undefined;
 
       if(post_slug === null){
         return;
@@ -68,6 +73,8 @@ export class PostComponent extends AdvertisementClass implements OnInit {
           this.loaderService.updateLoadingStatus('post', false);
         } else {
           this.loaderService.updateLoadingStatusOnEmptyResultAfterSeconds('post', false);
+          this.getPostError = { status: 404, message: 'Publicação não encontrada' }
+          console.error(this.getPostError.message)
         }
       },
       error: error => {}

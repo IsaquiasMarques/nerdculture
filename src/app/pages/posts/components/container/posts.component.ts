@@ -12,6 +12,7 @@ import { PostsContainerNoScrollComponent } from '@shared/components/posts/posts-
 import { CategoryFacade } from '@shared/facades/category.facade';
 import { PostFacade } from '@shared/facades/post.facade';
 import { Theme, ThemeService } from '@shared/services/theme.service';
+import { error } from 'console';
 import { combineLatest } from 'rxjs';
 
 @Component({
@@ -41,19 +42,27 @@ export class PostsComponent extends AdvertisementClass implements OnInit {
 
   postsBeforeLevel1Advertisement: WritableSignal<Post[]> = signal([]);
   postsAfterLevel1Advertisement: WritableSignal<Post[]> = signal([]);
+  
+  getPostsError?: { status: number, message: string };
 
   ngOnInit(): void {
     this.getCategories();
     combineLatest([ this.activatedRoute.paramMap, this.activatedRoute.queryParamMap ]).subscribe(([paramMap, queryParams]) => {
+      
+      this.getPostsError = undefined;
+      
       const category = paramMap.get('category');
       const currentPage = queryParams.get('page');
       this.theCategory = signal(this.categories().find(cat => cat.slug === category));
       this.current_page =  (currentPage) ? parseInt(currentPage) : 1;
 
       if(!this.theCategory()){
-        console.log("Categoria não encontrada")
+        this.getPostsError = {
+          status: 404,
+          message: 'Categoria não encontrada. Explore as categorias disponíveis acima para mais conteúdos.'
+        }
+        console.error(this.getPostsError.message);
         return;
-        // vem a lógica da categoria não encontrada
       }
 
       this.getPosts(this.theCategory()!.id, this.current_page);
@@ -68,22 +77,28 @@ export class PostsComponent extends AdvertisementClass implements OnInit {
 
   private getPosts(category_id: number, current_page: number): void{
     this.loaderService.updateLoadingStatus('postsByCategory', true);
-    this.postFacade.getPostsByCategory(category_id, this.totalOfPostsPerPagination, current_page, true).subscribe(incoming => {
+    this.postFacade.getPostsByCategory(category_id, this.totalOfPostsPerPagination, current_page, true)
+    .subscribe({
+        next: incoming => {
+          const posts = incoming;
+          this.loaderService.changingLoadStatusAfterResult(posts, 'postsByCategory');
 
-      const posts = incoming;
-      this.loaderService.changingLoadStatusAfterResult(posts, 'postsByCategory');
-
-      if(posts.length > 0){
-        const midpoint = Math.floor(this.totalOfPostsPerPagination / 2);
-  
-        // Cria cópias do array ao invés de modificar o original
-        const postsBefore = posts.slice(0, midpoint); // Pega os primeiros 'midpoint' itens
-        const postsAfter = (posts.length <= midpoint) ? [] : posts.slice(midpoint); // Pega os itens restantes a partir de 'midpoint'
-  
-        this.postsBeforeLevel1Advertisement.set(postsBefore);
-        this.postsAfterLevel1Advertisement.set(postsAfter);
+          if(posts.length > 0){
+            const midpoint = Math.floor(this.totalOfPostsPerPagination / 2);
+      
+            // Cria cópias do array ao invés de modificar o original
+            const postsBefore = posts.slice(0, midpoint); // Pega os primeiros 'midpoint' itens
+            const postsAfter = (posts.length <= midpoint) ? [] : posts.slice(midpoint); // Pega os itens restantes a partir de 'midpoint'
+      
+            this.postsBeforeLevel1Advertisement.set(postsBefore);
+            this.postsAfterLevel1Advertisement.set(postsAfter);
+          }
+      },
+      error: error => {
+        this.getPostsError = { status: error.error.data.status, message: error.error.message }
+        this.loaderService.updateLoadingStatus('postsByCategory', false);
+        console.error(error.error.message)
       }
-
     });
   }
 

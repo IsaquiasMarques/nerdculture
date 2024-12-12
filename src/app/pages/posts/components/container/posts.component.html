@@ -10,63 +10,86 @@
     </div>
 
     <div class="main-contents flex flex-col gap-6 lg:gap-[1.875rem]">
+
         <div class="limited-container w-full">
             <div class="category">
-                <h1 class="text-2xl font-bold"
-                [style.color]="theCategory()?.color"
-                >
-                    {{ theCategory()?.name }}
-                    <span class="text-xl font-normal text-[#686868]/75">({{ this.paginationService.postsByCategoryTotalOfPosts$() }})</span>
-                </h1>
+                @if (!this.getPostsError) {
+                    <h1 class="text-2xl font-bold"
+                    [style.color]="theCategory()?.color"
+                    >
+                        {{ theCategory()?.name }}
+                        <span class="text-xl font-normal text-[#686868]/75">({{ this.paginationService.postsByCategoryTotalOfPosts$() }})</span>
+                    </h1>
+                }
             </div>
         </div>
 
-        <div class="posts-before-advertisement">
-            <app-posts-container-no-scroll
-            [theCategory]="theCategory()"
-            [isLoading]="this.loaderService.getLoadingStatus('postsByCategory')()"
-            [posts]="this.postsBeforeLevel1Advertisement()"
-            />
-        </div>
 
-        <div class="advertisement">
-            <app-advertisements
-            [label]="true"
-            [level]="'level-1'"
-            [limitedContainer]="true"
-            [advertisementsContents]="this.getAdvertisements()"
-            />
-        </div>
+        @if (this.getPostsError) {
 
-        <div class="posts-before-advertisement">
-            <app-posts-container-no-scroll
-            [theCategory]="theCategory()"
-            [isLoading]="this.loaderService.getLoadingStatus('postsByCategory')()"
-            [posts]="this.postsAfterLevel1Advertisement()"
-            />
-        </div>
-        
-        <div class="advertisement">
-            <app-advertisements
-            [label]="true"
-            [level]="'level-2'"
-            [limitedContainer]="true"
-            [advertisementsContents]="this.getAdvertisements()"
-            />
-        </div>
-    </div>
-
-    <div class="pagination-section">
-        @if (this.theCategory() && !this.loaderService.getLoadingStatus('posts')()) {
-            <app-pagination
-            [pageToRoute]="['/contents/category/' + this.theCategory()?.slug]"
-            [items]="{
-                total: this.paginationService.postsByCategoryTotalOfPosts$(),
-                current_page: this.current_page,
-                per_page: this.totalOfPostsPerPagination
-            }"
-            />
+            <div class="limited-container w-full h-[100px]">
+                <h1 class="text-xl w-full text-left font-medium"> {{ this.getPostsError.message }} </h1>
+            </div>
+            
+            <div class="advertisement">
+                <app-advertisements
+                [label]="true"
+                [level]="'level-1'"
+                [limitedContainer]="true"
+                [advertisementsContents]="this.getAdvertisements()"
+                />
+            </div>
+    
+        } @else {
+            <div class="posts-before-advertisement">
+                <app-posts-container-no-scroll
+                [theCategory]="theCategory()"
+                [isLoading]="this.loaderService.getLoadingStatus('postsByCategory')()"
+                [posts]="this.postsBeforeLevel1Advertisement()"
+                />
+            </div>
+    
+            <div class="advertisement">
+                <app-advertisements
+                [label]="true"
+                [level]="'level-1'"
+                [limitedContainer]="true"
+                [advertisementsContents]="this.getAdvertisements()"
+                />
+            </div>
+    
+            <div class="posts-before-advertisement">
+                <app-posts-container-no-scroll
+                [theCategory]="theCategory()"
+                [isLoading]="this.loaderService.getLoadingStatus('postsByCategory')()"
+                [posts]="this.postsAfterLevel1Advertisement()"
+                />
+            </div>
+            
+            <div class="advertisement">
+                <app-advertisements
+                [label]="true"
+                [level]="'level-2'"
+                [limitedContainer]="true"
+                [advertisementsContents]="this.getAdvertisements()"
+                />
+            </div>
         }
     </div>
+
+    @if (!this.getPostsError) {
+        <div class="pagination-section">
+            @if (this.theCategory() && !this.loaderService.getLoadingStatus('posts')()) {
+                <app-pagination
+                [pageToRoute]="['/contents/category/' + this.theCategory()?.slug]"
+                [items]="{
+                    total: this.paginationService.postsByCategoryTotalOfPosts$(),
+                    current_page: this.current_page,
+                    per_page: this.totalOfPostsPerPagination
+                }"
+                />
+            }
+        </div>
+    }
     
 </div>

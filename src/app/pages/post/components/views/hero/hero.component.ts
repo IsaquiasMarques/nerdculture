@@ -16,4 +16,6 @@ export class HeroComponent {
   author = input.required<string>();
   createdAt = input.required<string>();
   hero = input.required<string>();
+
+  isLoading = input<boolean>();
 }

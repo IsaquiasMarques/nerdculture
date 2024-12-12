@@ -13,6 +13,7 @@ import { PaginationComponent } from '@shared/components/pagination/pagination.co
 import { PodcastsContainerNoScrollComponent } from '@shared/components/podcasts/podcasts-container/no-scroll/podcasts-container-no-scroll.component';
 import { PodcastsContainerComponent } from '@shared/components/podcasts/podcasts-container/with-scroll/podcasts-container.component';
 import { PodcastFacade } from '@shared/facades/podcast.facade';
+import { MetaTagService } from '@shared/services/meta-tag.service';
 import { Theme, ThemeService } from '@shared/services/theme.service';
 import { PodcastTemplate } from '@shared/templates/podcast/podcast.component';
 import { map, tap } from 'rxjs';
@@ -48,6 +49,8 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
   public totalOfPodcastsPerPagination = 12;
   public current_page: number = 1;
 
+  private metatagService = inject(MetaTagService);
+
   highlightedPodcasts: Signal<Podcast[]> = signal([]);
   incomingPodcasts: Signal<Podcast[]> = signal([]);
   ongoingPodcasts: Signal<Podcast[]> = signal([]);
@@ -56,6 +59,14 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
   podcastsAfterLevel1Advertisement: WritableSignal<Podcast[]> = signal([]);
 
   ngOnInit(): void {
+
+    this.metatagService.addMetaTags({
+      title: 'Pod Nerd - Explorando Novas Fronteiras',
+      description: 'De entrevistas com especialistas a discussões profundas sobre as últimas tendências, nossos podcasts são a chave para desbloquear novas ideias e expandir seus horizontes',
+      image: 'assets/static/profile/podnerd-2.png',
+      url: 'https://nerdculture.ao/podnerd'
+    });
+
     this.activatedRoute.queryParams.subscribe((queryParams: Params) => {
       this.current_page = (queryParams['page']) ? parseInt(queryParams['page']) : 1;
       this.getPodcasts(this.current_page);

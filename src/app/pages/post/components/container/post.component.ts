@@ -9,6 +9,7 @@ import { Post } from '@core/models/post.model';
 import { PostFacade } from '@shared/facades/post.facade';
 import { ContentComponent } from '../views/content/content.component';
 import { LoaderService } from '@core/services/loader.service';
+import { MetaTagService } from '@shared/services/meta-tag.service';
 
 @Component({
   selector: 'app-post',
@@ -20,6 +21,7 @@ import { LoaderService } from '@core/services/loader.service';
 export class PostComponent extends AdvertisementClass implements OnInit {
 
   loaderService = inject(LoaderService);
+  private metatagService = inject(MetaTagService);
 
   override page: AdvertisementPage = AdvertisementPage.READING;
   private themeService = inject(ThemeService).changeTheme(Theme.WHITE);
@@ -27,7 +29,7 @@ export class PostComponent extends AdvertisementClass implements OnInit {
   private postFacade = inject(PostFacade);
 
   thePost: WritableSignal<Post[]> = signal([]);
-  latestPost: Signal<Post[]> = signal([]);
+  latestPosts: Signal<Post[]> = signal([]);
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(param => {
@@ -45,12 +47,25 @@ export class PostComponent extends AdvertisementClass implements OnInit {
 
   private getThePost(slug: string): void{
     this.loaderService.updateLoadingStatus('post', true);
-    this.postFacade.getThePost(slug).subscribe(incoming => this.thePost.set(incoming));
+    this.postFacade.getThePost(slug).subscribe({
+      next: incoming => {
+        this.thePost.set(incoming)
+        if(incoming.length > 0){
+          this.metatagService.addPostSocialMediaMetaTags(this.thePost());
+          this.loaderService.updateLoadingStatus('post', false);
+        } else {
+          this.loaderService.updateLoadingStatusOnEmptyResultAfterSeconds('post', false);
+        }
+      },
+      error: error => {}
+    });
   }
 
   private getLatestPosts(): void{
     const LIMIT_OF_POSTS = 4;
-    this.latestPost = this.postFacade.getLatestPosts(LIMIT_OF_POSTS);
+    this.loaderService.updateLoadingStatus('latestPosts', true);
+    this.latestPosts = this.postFacade.getLatestPosts(LIMIT_OF_POSTS);
+    this.loaderService.changingLoadStatusAfterResult(this.latestPosts(), 'latestPosts');
   }
 
 }

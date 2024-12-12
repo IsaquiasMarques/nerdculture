@@ -12,6 +12,7 @@ import { PodcastsComponent } from '@home/components/views/podcasts/podcasts.comp
 import { TeamComponent } from '@home/components/views/team/team.component';
 import { HomeFacade } from '@home/facades/home.facade';
 import { HeroComponent } from '@shared/components/hero/hero.component';
+import { MetaTagService } from '@shared/services/meta-tag.service';
 import { Theme, ThemeService } from '@shared/services/theme.service';
 
 @Component({
@@ -33,6 +34,8 @@ export class HomeComponent extends LoaderExtender implements OnInit {
   private homeFacade = inject(HomeFacade);
   private themeService = inject(ThemeService).changeTheme(Theme.HOME);
 
+  private metatagService = inject(MetaTagService);
+
   partners: Signal<Partner[]> = signal([]);
   teamMembers: Signal<TeamMember[]> = signal([]);
   podcasts: Signal<Podcast[]> = signal([]);
@@ -40,6 +43,14 @@ export class HomeComponent extends LoaderExtender implements OnInit {
   categories: Signal<PostCategory[]> = signal([]);
 
   ngOnInit(): void {
+
+    this.metatagService.addMetaTags({
+      title: 'Nerd Culture - O Portal do Nerd Moderno',
+      description: 'Na Nerd Culture, exploramos tecnologia, celebramos a inovação e mergulhamos nos mundos do cinema e dos games. Prepare-se para descobertas emocionantes',
+      image: 'assets/static/profile/profile.png',
+      url: 'https://nerdculture.ao'
+    });
+
     this.getPartners();
     this.getTeamMembers();
     this.getPodcasts();

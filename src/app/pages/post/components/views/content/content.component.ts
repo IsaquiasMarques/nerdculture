@@ -22,6 +22,13 @@ export class ContentComponent implements OnInit {
   dimentions = input<string[]>(['w-[278px]', 'xs:w-[300px]'])
   filteredPosts = computed(() => this.latestPosts().filter(p => p.id !== this.excludePost()));
 
+  isLoading = input<boolean>(false);
+  latestPostsPlaceholderLength = input<number>(4);
+  latestPostsPlaceholderArray = computed(() => Array.from({ length: this.latestPostsPlaceholderLength() }));
+
+  contentPlaceholderGroupLength = input<number>(8);
+  contentPlaceholderGroupArray = computed(() => Array.from({ length: this.contentPlaceholderGroupLength() }));
+
   subscribingFormGroup!: FormGroup;
 
   subscribing: WritableSignal<boolean> = signal(false);

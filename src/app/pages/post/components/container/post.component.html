@@ -19,12 +19,14 @@
                 [author]="post.author"
                 [createdAt]="post.created_at"
                 [hero]="post.image.full"
+                [isLoading]="this.loaderService.getLoadingStatus('post')()"
                 />
             </div>
             <div class="post-content">
                 <app-content
                 [content]="post.content"
-                [latestPosts]="this.latestPost()"
+                [isLoading]="this.loaderService.getLoadingStatus('latestPosts')()"
+                [latestPosts]="this.latestPosts()"
                 [excludePost]="post.id"
                 />
             </div>

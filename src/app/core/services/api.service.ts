@@ -135,7 +135,11 @@ export class ApiService {
   getThePost(slug: string): Observable<Post[]>{
     return this.http.get<Post[]>(`${ environment.apiUrl }/wp-json/wp/v2/posts?slug=${ slug }&_embed`)
                     .pipe(
-                      map((incoming: any[]) => Transformer.posts(incoming))
+                      map((incoming: any[]) => Transformer.posts(incoming)),
+                      map(incoming => {
+                        this.http.post(`${ environment.apiUrl }/wp-json/post-views-counter/view-post/${ incoming[0].id }/view-post`, {}).pipe(take(1)).subscribe();
+                        return incoming;
+                      })
                     );
   }
 

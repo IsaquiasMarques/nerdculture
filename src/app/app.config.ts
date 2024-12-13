@@ -1,9 +1,11 @@
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideExperimentalZonelessChangeDetection, provideZoneChangeDetection } from '@angular/core';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
+import { environment } from 'environments/environment';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -16,6 +18,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch()),
     provideExperimentalZonelessChangeDetection(),
-    provideRouter(routes, inMemoryScrollingFeature), provideClientHydration()
+    provideRouter(routes, inMemoryScrollingFeature), provideClientHydration(),
+    importProvidersFrom(NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId))
   ]
 };

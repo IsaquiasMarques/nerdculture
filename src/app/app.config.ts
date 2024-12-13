@@ -4,7 +4,7 @@ import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, with
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { environment } from 'environments/environment';
 
 const scrollConfig: InMemoryScrollingOptions = {
@@ -19,6 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes, inMemoryScrollingFeature), provideClientHydration(),
-    importProvidersFrom(NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId))
+    importProvidersFrom(
+      NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId),
+      NgxGoogleAnalyticsRouterModule
+    )
   ]
 };

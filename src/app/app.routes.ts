@@ -56,5 +56,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/search/components/views/contents/contents.component').then(component => component.ContentsComponent)
             }
         ]
+    },
+    {
+        path: '**',
+        loadComponent: () => import('./pages/404/components/containers/not-found.component').then(components => components.NotFoundComponent),
+        title: 'Página não encontrada'
     }
 ];

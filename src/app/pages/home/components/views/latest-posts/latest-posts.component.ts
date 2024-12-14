@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LoaderExtender } from '@core/classes/loader-extender.class';
@@ -7,7 +8,7 @@ import { PostsContainerComponent } from '@shared/components/posts/posts-containe
 @Component({
   selector: 'app-latest-posts',
   standalone: true,
-  imports: [ PostsContainerComponent, RouterLink ],
+  imports: [ PostsContainerComponent, RouterLink, NgOptimizedImage ],
   templateUrl: './latest-posts.component.html',
   styleUrl: './latest-posts.component.css'
 })

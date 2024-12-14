@@ -1,7 +1,7 @@
 <div class="hero-container relative" appHeroHeight>
     <div class="backdrop-blured-image relative z-[1] w-full h-full">
         <div class="img w-full h-full">
-            <img [src]="this.backgroundImage()" class="w-full h-full object-fit object-center" alt="">
+            <img [ngSrc]="this.backgroundImage()" fill="" class="w-full h-full object-fit object-center" alt="">
         </div>
         <div
         [class]="this.backgroundColor()"

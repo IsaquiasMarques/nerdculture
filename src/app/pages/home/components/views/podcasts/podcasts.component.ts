@@ -1,4 +1,4 @@
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgOptimizedImage } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, input, signal, ViewChild } from '@angular/core';
 import { LoaderExtender } from '@core/classes/loader-extender.class';
 import { Podcast } from '@core/models/podcast.model';
@@ -8,7 +8,7 @@ import { DecimalAuxPipe } from '@shared/pipes/decimal-aux.pipe';
 @Component({
   selector: 'app-podcasts',
   standalone: true,
-  imports: [ DecimalPipe, DecimalAuxPipe, PodcastsContainerComponent ],
+  imports: [ DecimalPipe, NgOptimizedImage, DecimalAuxPipe, PodcastsContainerComponent ],
   templateUrl: './podcasts.component.html',
   styleUrl: './podcasts.component.css'
 })

@@ -42,7 +42,8 @@
                             <div class="image absolute z-[1] w-full h-full">
                                 <img
                                 class="w-full h-full object-cover object-center"
-                                [src]="category.image"
+                                [ngSrc]="category.image!"
+                                fill=""
                                 [alt]="'Imagem da categoria: '+ category.name">
                             </div>
                             <div

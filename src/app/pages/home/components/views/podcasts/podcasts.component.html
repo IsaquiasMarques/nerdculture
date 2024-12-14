@@ -30,10 +30,11 @@
                      </div>
                  </div>
              </div>
-             <div class="section-image h-[350px] md:h-[429px] lg:h-[501px] xl-1230:h-[512px] md:w-full lg:w-[50%] xl:w-[531px]">
+             <div class="section-image relative h-[350px] md:h-[429px] lg:h-[501px] xl-1230:h-[512px] md:w-full lg:w-[50%] xl:w-[531px]">
                  <img
                  class="w-full h-full object-cover object-center"
-                 src="assets/static/images/home/podnerd-image.png"
+                 [ngSrc]="'assets/static/images/home/podnerd-image.png'"
+                 fill=""
                  alt="Imagem da moderadora da Podnerd">
              </div>
 

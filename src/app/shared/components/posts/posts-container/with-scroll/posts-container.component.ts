@@ -13,7 +13,7 @@ import { PostTemplate } from '@shared/templates/post/post.component';
 })
 export class PostsContainerComponent {
   posts = input.required<Post[]>();
-  dimentions = input<string[]>(['w-full', 'max-w-[18.75rem]']);
+  dimentions = input<string[]>(['w-[18.75rem]']);
   
   isLoading = input<boolean>(false);
   placeholderLength = input<number>(4);

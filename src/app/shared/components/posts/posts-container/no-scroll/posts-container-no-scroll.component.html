@@ -1,6 +1,6 @@
 <div class="scroller w-full">
     <div class="limited-container">
-        <div class="posts-container flex flex-col md:flex-row md:flex-wrap gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-center">
+        <div class="posts-container flex flex-col md:flex-row md:flex-wrap gap-y-[30px] md:gap-x-6 xl-1230:gap-x-4 2xl:gap-x-6 justify-center md:justify-start items-start">
             @if (!isLoading()) {
                 @for (post of posts(); track $index) {
                     <app-post-template

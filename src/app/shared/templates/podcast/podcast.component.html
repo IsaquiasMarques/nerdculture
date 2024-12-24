@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     @if (this.podcast().status === this.podcastStatus.ON_GOING) {
-                    <div class="live flex gap-2 justify-center items-center w-fit">
+                    <div class="live flex gap-2 justify-center items-center w-fit" (click)="this.openMedia()">
                         <svg id="on-going" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_840_232)">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2 8C11.2 9.7672 9.7672 11.2 8 11.2C6.2328 11.2 4.8 9.7672 4.8 8C4.8 6.2328 6.2328 4.8 8 4.8C9.7672 4.8 11.2 6.2328 11.2 8ZM8 14.4C4.4712 14.4 1.6 11.5288 1.6 8C1.6 4.4712 4.4712 1.6 8 1.6C11.5288 1.6 14.4 4.4712 14.4 8C14.4 11.5288 11.5288 14.4 8 14.4ZM8 0C3.5816 0 0 3.5816 0 8C0 12.4184 3.5816 16 8 16C12.4184 16 16 12.4184 16 8C16 3.5816 12.4184 0 8 0Z" fill="#FF2C2C"/>

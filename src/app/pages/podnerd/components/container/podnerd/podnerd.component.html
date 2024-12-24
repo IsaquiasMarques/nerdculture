@@ -125,9 +125,11 @@
         </app-hero>
     </div>
 
-    <div class="incoming-podcasts-section">
-        <app-incoming-podcasts [podcasts]="this.incomingPodcasts()" />
-    </div>
+    <!-- @if ((this.loaderService.getLoadingStatus('incomingPodcasts')()) || (this.incomingPodcasts().length > 0)) { -->
+        <div class="incoming-podcasts-section">
+            <app-incoming-podcasts [podcasts]="this.incomingPodcasts()" />
+        </div>
+    <!-- } -->
 
     <app-advertisements
     [advertisementsContents]="this.getAdvertisements()"

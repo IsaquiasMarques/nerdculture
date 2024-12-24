@@ -21,6 +21,8 @@
                     [podcast]="podcast"
                     [templateSize]="'incoming-podcast'"
                     />
+                } @empty {
+                    <p class=" text-gray text-base">Sem podcasts agendados</p>
                 }
             } @else {
                 @for (placeholder of placeholderArray(); track $index) {

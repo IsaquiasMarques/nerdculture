@@ -99,11 +99,9 @@ export class PodnerdComponent extends AdvertisementClass implements OnInit {
     this.loaderService.updateLoadingStatus('podcasts', true);
     this.podcastFacade.podcasts(current_page, this.totalOfPodcastsPerPagination - this.ongoingPodcasts().length)
     .pipe(
-      tap(console.log),
       map(incoming => {
         return (current_page == 1) ? [...this.ongoingPodcasts(), ...incoming] : incoming
       }),
-      tap(console.log)
     )
     .subscribe({
       next: incoming => {

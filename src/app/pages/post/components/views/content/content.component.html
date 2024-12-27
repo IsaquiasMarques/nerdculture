@@ -5,13 +5,13 @@
                 Compratilhar
             </h3>
             <div class="social-medias flex gap-4 justify-start items-center">
-                <button class="facebook h-10">
+                <button class="facebook h-10" (click)="this.shareOnFacebook()">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="40" height="40" rx="20" fill="#0A042A"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M21.8213 30V21H24.5537L25 17H21.8213V15.0518C21.8213 14.0218 21.8476 13 23.2869 13H24.7447V10.1401C24.7447 10.0971 23.4925 10 22.2257 10C19.58 10 17.9234 11.6572 17.9234 14.7002V17H15V21H17.9234V30H21.8213Z" fill="white"/>
                     </svg>
                 </button>
-                <button class="linkedin h-10">
+                <button class="linkedin h-10" (click)="this.shareOnLinkedin()">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="40" height="40" rx="20" fill="#0A042A"/>
                         <g clip-path="url(#clip0_543_5716)">
@@ -24,13 +24,13 @@
                         </defs>
                     </svg>
                 </button>
-                <button class="twitter h-10">
+                <button class="twitter h-10" (click)="this.shareOnTwitter()">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="40" height="40" rx="20" fill="#0A042A"/>
                         <path d="M25.2721 11.5869H28.0833L21.9416 18.6065L29.1668 28.1585H23.5096L19.0785 22.3653L14.0084 28.1585H11.1955L17.7647 20.6503L10.8335 11.5869H16.6344L20.6397 16.8822L25.2721 11.5869ZM24.2854 26.4759H25.8432L15.788 13.1812H14.1164L24.2854 26.4759Z" fill="white"/>
                     </svg>
                 </button>
-                <button class="whatsapp h-10">
+                <button class="whatsapp h-10" (click)="this.shareOnWhatsapp()">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="40" height="40" rx="20" fill="#0A042A"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9166 20C12.9166 16.088 16.0879 12.9167 19.9999 12.9167C23.9119 12.9167 27.0833 16.088 27.0833 20C27.0833 23.912 23.9119 27.0833 19.9999 27.0833C18.6064 27.0833 17.3093 26.6818 16.2149 25.9884C16.0112 25.8594 15.7617 25.8249 15.5306 25.8938L13.1313 26.6099L14.0347 24.4961C14.1415 24.2462 14.1197 23.9601 13.9765 23.7292C13.3047 22.6467 12.9166 21.3699 12.9166 20ZM19.9999 11.25C15.1674 11.25 11.2499 15.1675 11.2499 20C11.2499 21.5317 11.6442 22.9736 12.3371 24.2273L10.9003 27.5892C10.7733 27.8864 10.8296 28.2302 11.0448 28.4714C11.2599 28.7127 11.5952 28.8077 11.9049 28.7152L15.6544 27.5962C16.9353 28.3304 18.4197 28.75 19.9999 28.75C24.8324 28.75 28.7499 24.8325 28.7499 20C28.7499 15.1675 24.8324 11.25 19.9999 11.25ZM21.9103 21.8187L20.8152 22.5901C20.3023 22.2979 19.7352 21.8901 19.1663 21.3212C18.575 20.7299 18.1366 20.1194 17.8134 19.5594L18.5093 18.9687C18.808 18.7152 18.8898 18.2878 18.7058 17.9419L17.819 16.2752C17.6995 16.0508 17.4842 15.8932 17.2342 15.8471C16.9842 15.8011 16.7268 15.8717 16.5353 16.0388L16.2724 16.2683C15.6401 16.8201 15.2662 17.7269 15.5761 18.6451C15.8974 19.5969 16.5831 21.095 17.9879 22.4997C19.4992 24.0111 21.0343 24.6062 21.9321 24.8374C22.6554 25.0236 23.3399 24.774 23.8223 24.381L24.3152 23.9793C24.526 23.8076 24.6398 23.5437 24.6199 23.2724C24.6 23.0012 24.449 22.7567 24.2153 22.6174L22.8168 21.7841C22.5343 21.6158 22.1793 21.6293 21.9103 21.8187Z" fill="white"/>
@@ -38,7 +38,7 @@
                 </button>
             </div>
         </div>
-        <article class="content appear-softly text-gray text-base text-left" [innerHTML]="this.thePost().content">
+        <article class="content appear-softly text-gray text-base text-left" [innerHTML]="this.thePost().content | safeArticleContent">
         </article>
     } @else {
         <div class="share py-4 left-0 w-full flex flex-col bg-white gap-4">

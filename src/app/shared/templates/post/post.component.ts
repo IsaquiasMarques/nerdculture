@@ -4,11 +4,12 @@ import { Post, PostCategory } from '@core/models/post.model';
 import { FriendlyFormatPipe } from '@shared/pipes/friendly-format.pipe';
 import { CardDimentionsDirective } from './directive/card-dimentions.directive';
 import { JsonPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import { SafeArticleContentPipe } from '@shared/pipes/safe-article-content.pipe';
 
 @Component({
   selector: 'app-post-template',
   standalone: true,
-  imports: [ RouterLink, FriendlyFormatPipe, CardDimentionsDirective, NgOptimizedImage ],
+  imports: [ RouterLink, FriendlyFormatPipe, SafeArticleContentPipe, CardDimentionsDirective, NgOptimizedImage ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })

@@ -2,8 +2,8 @@
     @if (!isLoading()) {
         <div class="main appear-softly flex flex-col gap-5 max-w-[563px]">
             <div class="title">
-                <h1 class="text-xl md:text-[1.875rem] md:leading-9 font-bold text-left text-secondary">
-                    {{ this.thePost().title }}
+                <h1 class="text-xl md:text-[1.875rem] md:leading-9 font-bold text-left text-secondary" [innerHTML]="this.thePost().title | safeArticleContent">
+                    <!-- {{ this.thePost().title }} -->
                 </h1>
             </div>
             <div class="excerpt">

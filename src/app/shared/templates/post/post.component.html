@@ -36,8 +36,8 @@
                         </div>
                     </div>
                     <div class="title">
-                        <a [routerLink]="['/contents/article/' + post().slug]" class="font-semibold text-base text-secondary line-clamp-2">
-                            {{ post().title }}
+                        <a [routerLink]="['/contents/article/' + post().slug]" class="font-semibold text-base text-secondary line-clamp-2" [innerHTML]="post().title | safeArticleContent">
+                            <!-- {{ post().title }} -->
                         </a>
                     </div>
                 </div>
@@ -98,8 +98,8 @@
                 <div class="description max-w-[190px] flex flex-col justify-between gap-y-[0px]">
                     <div class="title">
                         <h2 class="text-sm font-medium text-secondary line-clamp-3">
-                            <a [routerLink]="['/contents/article/' + post().slug]">
-                                {{ post().title }} 
+                            <a [routerLink]="['/contents/article/' + post().slug]" [innerHTML]="post().title | safeArticleContent">
+                                <!-- {{ post().title }}  -->
                             </a>
                         </h2>
                     </div>

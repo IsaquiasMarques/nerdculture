@@ -134,6 +134,7 @@ export class ContentsComponent extends AdvertisementClass implements OnInit {
       next: () => {
         if(this.contentBlocks.length > 0){
           // Após todas as requisições, divide os blocos
+          
           const blocksBefore = this.contentBlocks.slice(0, midpoint);
           const blocksAfter = this.contentBlocks.slice(midpoint);
   

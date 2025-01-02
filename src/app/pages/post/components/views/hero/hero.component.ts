@@ -1,11 +1,12 @@
 import { Component, computed, input, Signal } from '@angular/core';
 import { Post, PostCategory } from '@core/models/post.model';
 import { FriendlyFormatPipe } from '@shared/pipes/friendly-format.pipe';
+import { SafeArticleContentPipe } from '@shared/pipes/safe-article-content.pipe';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [ FriendlyFormatPipe ],
+  imports: [ FriendlyFormatPipe, SafeArticleContentPipe ],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })

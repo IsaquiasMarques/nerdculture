@@ -1,4 +1,4 @@
-@if(this.block().posts().length > 0){
+@if(this.block() && this.block().category.count > 0){
     <div class="block-content flex flex-col gap-5 max-w-[567px] 2xl:max-w-full h-full">
         <div class="block-header border-b pb-3"
         [style.borderColor]="block().category.color"
@@ -37,7 +37,7 @@
             </div>
             <div class="tiny-posts xl-1230:max-w-[285px] min-w-[285px] 2xl:max-w-[300px]">
                 <div class="posts-container flex flex-col gap-5">
-                    @if (this.remainingPosts()) {
+                    @if (this.remainingPosts().length > 0) {
                         @for (post of this.remainingPosts(); track $index) {
                             <app-post-template
                             [post]="post"

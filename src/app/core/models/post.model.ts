@@ -16,6 +16,8 @@ export interface Post{
     excerpt: string,
     image: {
         full: string,
+        large: string,
+        medium_large: string,
         medium: string,
         thumbnail: string
     },

@@ -43,10 +43,12 @@
             </div>
         </div>
         <div class="hero appear-softly">
-            <div class="img w-full max-h-[637px] overflow-hidden">
+            <!-- max-h-[637px] -->
+            <div class="img w-full flex justify-center overflow-hidden">
+                <!-- w-full h-full object-cover object-center -->
                 <img
-                class="w-full h-full object-cover object-center"
-                [src]="this.thePost().image.full"
+                class="h-full box-border"
+                [src]="this.thePost().image.large"
                 [alt]="'Imagem principal da publicação: ' + this.thePost().title">
             </div>
         </div>

@@ -109,7 +109,9 @@ export class Transformer{
                 excerpt: i.excerpt.rendered,
                 image: {
                     full: i.images_size_custom.fullImageSize ? i.images_size_custom.fullImageSize : 'assets/static/images/posts/no-image.jpg',
+                    large: i.images_size_custom.largeImageSize ? i.images_size_custom.largeImageSize : 'assets/static/images/posts/no-image.jpg',
                     medium: i.images_size_custom.mediumImageSize ? i.images_size_custom.mediumImageSize : 'assets/static/images/posts/no-image.jpg',
+                    medium_large: i.images_size_custom.mediumLargeImageSize ? i.images_size_custom.mediumLargeImageSize : 'assets/static/images/posts/no-image.jpg',
                     thumbnail: i.images_size_custom.thumbnailImageSize ? i.images_size_custom.thumbnailImageSize : 'assets/static/images/posts/no-image.jpg'
                 },
                 created_at: i.date,
